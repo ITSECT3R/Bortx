@@ -1,0 +1,43 @@
+{
+  "name": "knocking-borders",
+  "version": "0.0.1",
+  "description": "Open-source CSS border and text animation library",
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./borders": "./src/borders/index.ts",
+    "./borders/styles": "./src/borders/base.css",
+    "./text": "./src/text/index.ts",
+    "./text/styles": "./src/text/base.css",
+    "./react": "./src/react/hooks/index.ts"
+  },
+  "files": [
+    "src"
+  ],
+  "sideEffects": true,
+  "scripts": {
+    "lint": "eslint src/",
+    "lint:fix": "eslint src/ --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "typecheck": "tsc --noEmit",
+    "build": "echo 'Build step not configured yet — see plan.md'"
+  },
+  "peerDependencies": {
+    "react": ">=17.0.0"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@types/react": "^19.2.16",
+    "eslint": "^10.4.1",
+    "prettier": "^3.8.3",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.60.1"
+  }
+}
