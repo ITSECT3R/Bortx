@@ -22,6 +22,9 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "typecheck": "tsc --noEmit",
+    "dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:preview": "vitepress preview docs",
     "build": "echo 'Build step not configured yet — see plan.md'"
   },
   "peerDependencies": {
@@ -38,6 +41,7 @@
     "eslint": "^10.4.1",
     "prettier": "^3.8.3",
     "typescript": "^6.0.3",
-    "typescript-eslint": "^8.60.1"
+    "typescript-eslint": "^8.60.1",
+    "vitepress": "^1.6.4"
   }
 }

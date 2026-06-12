@@ -1,0 +1,11 @@
+/* Custom styles for the docs site */
+
+/* Feature cards — remove default border so our effects show through */
+.VPFeature {
+  border: none !important;
+}
+
+/* Give feature cards a slightly darker background for better contrast */
+.VPFeature {
+  background-color: var(--vp-c-bg-soft-up) !important;
+}

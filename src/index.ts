@@ -6,3 +6,6 @@ import './text';
 
 // React hooks
 export { useAnimateOnScroll, useAnimateOnScrollMany } from './react/hooks';
+
+// Vanilla JS trigger
+export { initTextAnimations } from './text/auto-animate';

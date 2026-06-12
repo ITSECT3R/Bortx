@@ -7,7 +7,7 @@ The border effects system provides reusable CSS-based animated border effects th
 ## Directory Structure
 
 ```
-src/styles/borders/
+src/borders/
 ├── base.css          # Core border effect system and CSS variables
 ├── effects/          # Individual effect implementations
 │   ├── index.css     # Imports all effects and defines animations
@@ -272,14 +272,14 @@ Override the accent color for theme consistency:
 Import the styles in your main CSS file:
 
 ```css
-@import './styles/borders/base.css';
-@import './styles/borders/effects/index.css';
-@import './styles/borders/modifiers/index.css';
+@import 'knocking-borders/borders/stylesbase.css';
+@import 'knocking-borders/borders/styleseffects/index.css';
+@import 'knocking-borders/borders/stylesmodifiers/index.css';
 ```
 
 Or import via TypeScript for bundler optimization:
 
 ```typescript
-import './styles/borders/effects/index';
-import './styles/borders/modifiers/index';
+import 'knocking-borders/borders/styleseffects/index';
+import 'knocking-borders/borders/stylesmodifiers/index';
 ```

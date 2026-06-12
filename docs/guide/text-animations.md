@@ -5,7 +5,7 @@
 The text animation system in this portfolio consists of three main components:
 
 1. **React Hooks** (`src/hooks/useAnimateOnScroll.ts`) - Handle viewport detection and animation triggering
-2. **CSS Effects** (`src/styles/text/`) - Define the actual animation styles
+2. **CSS Effects** (`src/text/`) - Define the actual animation styles
 3. **Component Integration** - How components use the hooks and styles together
 
 ## How It Works

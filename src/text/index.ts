@@ -5,3 +5,5 @@
 import './base.css';
 import './effects';
 import './modifiers';
+
+export { initTextAnimations } from './auto-animate';

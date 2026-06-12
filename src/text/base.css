@@ -230,6 +230,40 @@
    Add .is-animated to trigger them.
    ============================================ */
 /* .text-effect:not(.is-animated) { 
-  Default state - ready but not running 
+   Default state - ready but not running 
 }
 */
+
+/* ============================================
+   prefers-reduced-motion
+   ============================================ */
+@media (prefers-reduced-motion: reduce) {
+  .text-effect,
+  .text-effect::before,
+  .text-effect::after {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .text-effect.is-animated {
+    opacity: 1;
+    transform: none;
+  }
+
+  .text-glow,
+  .text-glow-pulse,
+  .text-glow-intense {
+    text-shadow: none;
+  }
+
+  .text-glitch {
+    text-shadow: none;
+    transform: none;
+  }
+
+  .text-glitch-intense::before,
+  .text-glitch-intense::after {
+    opacity: 0 !important;
+    animation: none !important;
+  }
+}
