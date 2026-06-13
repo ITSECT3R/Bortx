@@ -1,0 +1,32 @@
+/* ============================================
+   EFFECT: Glow Ring
+
+   A soft glowing ring around the element
+   using box-shadow (outer + inner).
+   No pseudo-elements or masks required.
+
+   Modifier support:
+   - alt-hover-only  → pauses until hover
+   - border-thick    → uses --border-effect-thickness
+   - border-glow     → composable shared glow
+   - alt-slow/alt-fast → transition speed
+   ============================================ */
+
+.alt-glow-ring {
+  box-shadow:
+    0 0 calc(var(--border-effect-intensity, 6px) * 1.5) var(--border-effect-accent, #8b52fd),
+    inset 0 0 calc(var(--border-effect-intensity, 6px) * 1.5) var(--border-effect-accent, #8b52fd);
+  border-radius: var(--border-effect-radius, 12px);
+  transition: box-shadow 0.5s ease;
+}
+
+/* Hover-only: hide glow until hover */
+.alt-glow-ring.alt-hover-only {
+  box-shadow: none;
+}
+
+.alt-glow-ring.alt-hover-only:hover {
+  box-shadow:
+    0 0 calc(var(--border-effect-intensity, 6px) * 1.5) var(--border-effect-accent, #8b52fd),
+    inset 0 0 calc(var(--border-effect-intensity, 6px) * 1.5) var(--border-effect-accent, #8b52fd);
+}

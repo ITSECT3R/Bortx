@@ -263,9 +263,7 @@
     filter: none !important;
   }
 
-  .border-glow::before {
-    animation: none !important;
-    opacity: 0 !important;
-    filter: none !important;
+  .border-glow {
+    box-shadow: none !important;
   }
 }

@@ -1,0 +1,49 @@
+/* ============================================
+   Shared Border Modifiers
+
+   These work with both .border-effect (pro)
+   and .border-alt (cool) border effects.
+   ============================================ */
+
+/* ============================================
+   MODIFIER: Glow Effect
+
+   Adds a soft colored glow around the element
+   using box-shadow. Does NOT use ::before or
+   ::after, so it composes cleanly with any
+   border effect or rendering technique.
+   ============================================ */
+.border-glow {
+  box-shadow: 0 0 calc(var(--border-effect-intensity, 6px) * 1.5) var(--border-effect-accent, #8b52fd);
+  transition: box-shadow 0.5s ease;
+}
+
+/* Hover-only: hide glow until hover (pro effects) */
+.border-glow.border-hover-only {
+  box-shadow: 0 0 0 transparent;
+}
+
+.border-glow.border-hover-only:hover {
+  box-shadow: 0 0 calc(var(--border-effect-intensity, 6px) * 1.5) var(--border-effect-accent, #8b52fd);
+}
+
+/* Hover-only: hide glow until hover (alt effects) */
+.border-glow.alt-hover-only {
+  box-shadow: 0 0 0 transparent;
+}
+
+.border-glow.alt-hover-only:hover {
+  box-shadow: 0 0 calc(var(--border-effect-intensity, 6px) * 1.5) var(--border-effect-accent, #8b52fd);
+}
+
+/* ============================================
+   MODIFIER: Thick Border
+
+   Increases border thickness via CSS variable.
+   Consumed by .border-effect's mask calculations
+   and respected by .border-alt effects through
+   the same variable.
+   ============================================ */
+.border-thick {
+  --border-effect-thickness: 4px;
+}

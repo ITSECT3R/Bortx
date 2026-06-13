@@ -1,0 +1,42 @@
+/**
+ * Alt Border Effects — Base
+ *
+ * Alternative border effects that do NOT depend on the
+ * -webkit-mask / mask-composite pattern used by the
+ * pro (.border-effect) effects. Each alt effect owns
+ * its own rendering technique.
+ *
+ * USAGE:
+ * ======
+ * Base class (required): .border-alt
+ *
+ * CSS variables (shared with pro effects, defined in src/borders/base.css):
+ *   --border-effect-speed      → Animation/transition duration
+ *   --border-effect-thickness  → Border thickness
+ *   --border-effect-radius     → Border radius
+ *   --border-effect-accent     → Primary effect color
+ *   --border-effect-accent-secondary → Secondary effect color
+ *   --border-effect-intensity  → Effect intensity / glow spread
+ *
+ * Example:
+ *   <div class="border-alt alt-glow-ring alt-hover-only border-thick"
+ *        style="--border-effect-accent: #ff00ff">
+ */
+
+.border-alt {
+  position: relative;
+  isolation: isolate;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .border-alt,
+  .border-alt::before,
+  .border-alt::after {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .border-alt {
+    box-shadow: none !important;
+  }
+}

@@ -8,6 +8,7 @@
     ".": "./src/index.ts",
     "./borders": "./src/borders/index.ts",
     "./borders/styles": "./src/borders/base.css",
+    "./borders/alt": "./src/borders/alt/index.ts",
     "./text": "./src/text/index.ts",
     "./text/styles": "./src/text/base.css",
     "./react": "./src/react/hooks/index.ts"

@@ -1,0 +1,40 @@
+/* ============================================
+   Alt Border Effect Modifiers
+
+   Modifiers for .border-alt effects.
+   ============================================ */
+
+/* ============================================
+   MODIFIER: Hover Only
+
+   Pauses effect until hover. Individual alt
+   effects handle their own paused/active states
+   by checking for .alt-hover-only in their
+   selectors.
+   ============================================ */
+
+/* ============================================
+   MODIFIER: Speed Variants
+
+   Override the shared --border-effect-speed
+   variable. Alt effects consume this variable
+   for their transitions/animations.
+   ============================================ */
+.alt-slow {
+  --border-effect-speed: var(--border-effect-speed-slow, 5s);
+}
+
+.alt-fast {
+  --border-effect-speed: var(--border-effect-speed-fast, 1.5s);
+}
+
+/* ============================================
+   MODIFIER: Reverse
+
+   Sets a direction signal variable. Alt effects
+   consume --border-effect-direction where
+   applicable (e.g., gradient sweep direction).
+   ============================================ */
+.alt-reverse {
+  --border-effect-direction: reverse;
+}

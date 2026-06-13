@@ -1,7 +1,9 @@
 /**
  * Border Effects Library - Master Barrel
- * Imports base, effects, and modifiers
+ * Imports base, pro effects, pro modifiers, shared modifiers, and alt effects
  */
 import './base.css';
 import './effects';
 import './modifiers';
+import './shared';
+import './alt';

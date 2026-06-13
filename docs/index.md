@@ -10,7 +10,7 @@ hero:
       link: /guide/getting-started
     - theme: alt
       text: View Demos
-      link: /demo/borders
+      link: /demo/pro-borders
 features:
   - icon: 🎨
     title: 11 Border Effects

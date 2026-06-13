@@ -83,14 +83,18 @@ This prevents collisions when both libraries are used on the same page.
 ### Phase 1 — Foundation (current)
 
 - [x] Border effects (11 effects + modifiers)
+- [x] Alt border effects (`.border-alt` — no webkit-mask dependency)
+- [x] Shared modifiers (`.border-glow`, `.border-thick` — work with both systems)
 - [x] Text effects (3 effects + modifiers)
 - [x] React scroll-trigger hooks
 - [x] Project structure under `src/`
 - [x] Lint, format, typecheck scripts
 - [x] MIT License
 - [x] AGENTS.md for AI tooling
-- [ ] `.is-animated` trigger for text effects (built-in JS, not just hook)
-- [ ] `prefers-reduced-motion` support
+- [x] `.is-animated` trigger for text effects (built-in JS)
+- [x] `prefers-reduced-motion` support
+- [x] VitePress docs site (guide + demo pages)
+- [x] Interactive sandbox page
 - [ ] First git commit
 
 ### Phase 2 — Package & Publish
@@ -110,8 +114,8 @@ This prevents collisions when both libraries are used on the same page.
 
 ### Phase 4 — Docs & Ecosystem
 
-- [ ] GitHub Pages documentation site (Vitepress)
-- [ ] Interactive demo/playground
+- [x] VitePress documentation site (live at `/docs/`)
+- [x] Interactive sandbox / playground
 - [ ] Tailwind CSS plugin
 - [ ] Changesets for versioning
 

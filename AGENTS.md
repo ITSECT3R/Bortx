@@ -16,10 +16,16 @@ Code is raw `.css` + TypeScript barrel files consumed via bundler imports.
 Each library has identical internal structure:
 
 ```
-src/borders/ or src/text/
-├── base.css             # CSS vars, @property defs, keyframes, base class
-├── effects/             # Individual effect .css + barrel (.ts and .css)
-├── modifiers/           # Modifier .css (speed, glow, hover-only) + barrel
+src/borders/
+├── base.css             # CSS vars, @property defs, keyframes, .border-effect base
+├── effects/             # 11 mask-based effects (rainbow, pulse, etc.)
+├── modifiers/           # Pro modifiers (hover-only, slow, fast, reverse)
+├── alt/                 # Alternative effects without webkit-mask dependency
+│   ├── base.css         # .border-alt base class (minimal, no mask)
+│   ├── effects/         # Alt effects (glow-ring, etc.)
+│   └── modifiers/       # Alt modifiers (alt-hover-only, alt-slow, alt-fast, alt-reverse)
+├── shared/              # Modifiers that work with both .border-effect and .border-alt
+│   └── modifiers.css    # .border-glow, .border-thick
 └── index.ts             # Master barrel — imports everything
 ```
 
@@ -43,8 +49,9 @@ There is no `build` yet — the library ships source CSS directly.
 ### Import Paths
 
 ```ts
-import 'knocking-borders/borders'; // All border effects + modifiers
+import 'knocking-borders/borders'; // All border effects + modifiers (pro + alt + shared)
 import 'knocking-borders/borders/styles'; // CSS base only (no TS)
+import 'knocking-borders/borders/alt'; // Alt border effects only (no webkit-mask)
 import 'knocking-borders/text'; // All text effects + modifiers
 import 'knocking-borders/text/styles'; // CSS base only (no TS)
 import {
@@ -55,23 +62,34 @@ import {
 
 ### Border Effects
 
-Base class: `.border-effect` (required)
+**Pro** (base class: `.border-effect`, uses webkit-mask pattern):
 
-| Effects                    | Modifiers                       |
-| -------------------------- | ------------------------------- |
-| `.border-rainbow`          | `.border-hover-only`            |
-| `.border-light-trail`      | `.border-glow`                  |
-| `.border-pulse`            | `.border-slow` / `.border-fast` |
-| `.border-gradient`         | `.border-thick`                 |
-| `.border-shimmer`          | `.border-reverse`               |
-| `.border-dots`             |                                 |
-| `.border-dual-spin`        |                                 |
-| `.border-neon`             |                                 |
-| `.border-ripple`           |                                 |
-| `.border-corner-highlight` |                                 |
-| `.border-dash-chase`       |                                 |
+| Effects                    | Modifiers                           |
+| -------------------------- | ----------------------------------- |
+| `.border-rainbow`          | `.border-hover-only`                |
+| `.border-light-trail`      | `.border-slow` / `.border-fast`     |
+| `.border-pulse`            | `.border-reverse`                   |
+| `.border-gradient`         |                                     |
+| `.border-shimmer`          |                                     |
+| `.border-dots`             |                                     |
+| `.border-dual-spin`        |                                     |
+| `.border-neon`             |                                     |
+| `.border-ripple`           |                                     |
+| `.border-corner-highlight` |                                     |
+| `.border-dash-chase`       |                                     |
 
-Border effects animate **by default**. Use `.border-hover-only` to pause until hover.
+**Alt** (base class: `.border-alt`, no webkit-mask dependency, import `knocking-borders/borders/alt`):
+
+| Effects         | Modifiers                                |
+| --------------- | ---------------------------------------- |
+| `.alt-glow-ring` | `.alt-hover-only` / `.alt-slow` / `.alt-fast` / `.alt-reverse` |
+
+**Shared modifiers** (work with both `.border-effect` and `.border-alt`):
+
+`.border-glow` — adds box-shadow glow  
+`.border-thick` — sets `--border-effect-thickness` to 4px
+
+Border effects animate **by default**. Use `.border-hover-only` (pro) or `.alt-hover-only` (alt) to pause until hover.
 
 CSS variables: `--border-effect-speed`, `--border-effect-thickness`, `--border-effect-radius`, `--border-effect-color`, `--border-effect-accent`, `--border-effect-accent-secondary`, `--border-effect-intensity`
 
@@ -98,12 +116,13 @@ CSS `@property` is used for animatable custom properties.
 
 ## Gotchas
 
-- No `prefers-reduced-motion` support yet (planned, not implemented)
-- Framework wrappers (React/Vue/Angular components) are planned but not built — only the hook exists
+- `prefers-reduced-motion` is implemented in both border and text `base.css` files
+- Framework wrappers (React/Vue/Angular components) are planned but not built — only the React hook exists
 - No build step configured — `src/` is shipped directly
 
 ## Docs
 
-- `docs/border-animations.md` — full border effects reference
-- `docs/text-animations.md` — full text effects reference + hook integration
+- `docs/guide/border-animations.md` — full border effects reference
+- `docs/guide/text-animations.md` — full text effects reference + hook integration
+- `docs/sandbox.md` — interactive sandbox for testing effect + modifier combos
 - `plan.md` — roadmap and architectural decisions

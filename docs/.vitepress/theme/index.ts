@@ -1,6 +1,7 @@
 import { h } from 'vue';
 import DefaultTheme from 'vitepress/theme';
 import 'knocking-borders/borders';
+import 'knocking-borders/text';
 import './custom.css';
 import FeatureBorders from './FeatureBorders.vue';
 

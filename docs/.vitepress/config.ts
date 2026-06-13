@@ -9,7 +9,8 @@ export default defineConfig({
   themeConfig: {
     nav: [
       { text: 'Guide', link: '/guide/getting-started' },
-      { text: 'Demo', link: '/demo/borders' },
+      { text: 'Demo', link: '/demo/pro-borders' },
+      { text: 'Sandbox', link: '/sandbox' },
     ],
 
     sidebar: {
@@ -27,7 +28,8 @@ export default defineConfig({
         {
           text: 'Live Demos',
           items: [
-            { text: 'Border Effects', link: '/demo/borders' },
+            { text: 'Pro Borders', link: '/demo/pro-borders' },
+            { text: 'Alt Borders', link: '/demo/alt-borders' },
             { text: 'Text Effects', link: '/demo/text' },
           ],
         },
@@ -53,6 +55,7 @@ export default defineConfig({
       alias: {
         'knocking-borders/borders': resolve(__dirname, '../../src/borders/index.ts'),
         'knocking-borders/borders/styles': resolve(__dirname, '../../src/borders/base.css'),
+        'knocking-borders/borders/alt': resolve(__dirname, '../../src/borders/alt/index.ts'),
         'knocking-borders/text': resolve(__dirname, '../../src/text/index.ts'),
         'knocking-borders/text/styles': resolve(__dirname, '../../src/text/base.css'),
         'knocking-borders/react': resolve(__dirname, '../../src/react/hooks/index.ts'),
@@ -60,7 +63,6 @@ export default defineConfig({
       },
     },
     css: {
-      // Ensure CSS @import in the library works in dev mode
       devSourcemap: true,
     },
   },
