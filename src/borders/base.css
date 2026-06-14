@@ -66,8 +66,10 @@
   --border-effect-accent: #8b52fd;
   --border-effect-accent-secondary: #00ffff;
 
-  /* Intensity */
+  /* Glow */
   --border-effect-intensity: 6px;
+  --border-effect-glow-spread: 1.5;
+  --border-effect-glow-speed: 0.5s;
 }
 
 /* ============================================
@@ -76,12 +78,6 @@
 @property --effect-angle {
   syntax: '<angle>';
   initial-value: 0deg;
-  inherits: false;
-}
-
-@property --effect-opacity {
-  syntax: '<number>';
-  initial-value: 0;
   inherits: false;
 }
 

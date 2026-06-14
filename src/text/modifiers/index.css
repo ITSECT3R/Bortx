@@ -20,9 +20,14 @@
       var(--text-effect-glow-color, currentColor);
 }
 
-/* Pulsing glow variant */
-.text-glow-pulse.is-animated {
-  animation: text-glow-pulse 2s ease-in-out infinite;
+/* Pulsing glow variant — animation configured via custom properties
+   so it composes with any effect class without cascade conflicts. */
+.text-glow-pulse {
+  --text-effect-modifier-name: text-glow-pulse;
+  --text-effect-modifier-animation-duration: var(--text-effect-speed, 2s);
+  --text-effect-modifier-animation-timing: ease-in-out;
+  --text-effect-modifier-animation-fill: none;
+  --text-effect-modifier-animation-iteration: infinite;
 }
 
 /* Intense glow */
@@ -73,10 +78,13 @@
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-}
 
-.text-gradient-animated.is-animated {
-  animation: text-gradient-shift var(--text-effect-speed, 3s) linear infinite;
+  /* Animation via custom properties for composition */
+  --text-effect-modifier-name: text-gradient-shift;
+  --text-effect-modifier-animation-duration: var(--text-effect-speed, 3s);
+  --text-effect-modifier-animation-timing: linear;
+  --text-effect-modifier-animation-fill: none;
+  --text-effect-modifier-animation-iteration: infinite;
 }
 
 @keyframes text-gradient-shift {
@@ -105,10 +113,13 @@
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-}
 
-.text-gradient-rainbow.is-animated {
-  animation: text-gradient-shift var(--text-effect-speed, 5s) linear infinite;
+  /* Animation via custom properties for composition */
+  --text-effect-modifier-name: text-gradient-shift;
+  --text-effect-modifier-animation-duration: var(--text-effect-speed, 5s);
+  --text-effect-modifier-animation-timing: linear;
+  --text-effect-modifier-animation-fill: none;
+  --text-effect-modifier-animation-iteration: infinite;
 }
 
 /* ============================================
@@ -143,12 +154,29 @@
 
 /* ============================================
    MODIFIER: Text Shadow Depth
-   
-   Adds a subtle 3D shadow effect.
-   ============================================ */
+    
+    Adds a subtle 3D shadow effect.
+    ============================================ */
 .text-shadow-depth {
   text-shadow:
     1px 1px 0 rgba(0, 0, 0, 0.2),
     2px 2px 0 rgba(0, 0, 0, 0.15),
     3px 3px 0 rgba(0, 0, 0, 0.1);
+}
+
+/* ============================================
+   Forced Colors (Windows High Contrast) fallback
+   Gradient text fill becomes invisible when
+   background-clip is stripped. Restore visible
+   text color and remove transparent fill.
+   ============================================ */
+@media (forced-colors: active) {
+  .text-gradient,
+  .text-gradient-animated,
+  .text-gradient-rainbow {
+    background: none;
+    -webkit-text-fill-color: CanvasText;
+    color: CanvasText;
+    forced-color-adjust: none;
+  }
 }

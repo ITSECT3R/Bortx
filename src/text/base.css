@@ -79,6 +79,20 @@
   --text-effect-glitch-color-1: #ff0000;
   --text-effect-glitch-color-2: #00ffff;
   --text-effect-glitch-intensity: 2px;
+
+  /* Animation composition (effects and modifiers contribute to these) */
+  --text-effect-animation-name: none;
+  --text-effect-animation-duration: 0s;
+  --text-effect-animation-timing: ease;
+  --text-effect-animation-fill: none;
+  --text-effect-animation-iteration: 1;
+  --text-effect-animation-direction: normal;
+  --text-effect-modifier-name: none;
+  --text-effect-modifier-animation-duration: 0s;
+  --text-effect-modifier-animation-timing: ease;
+  --text-effect-modifier-animation-fill: none;
+  --text-effect-modifier-animation-iteration: 1;
+  --text-effect-modifier-animation-direction: normal;
 }
 
 /* ============================================
@@ -235,6 +249,32 @@
 */
 
 /* ============================================
+   Animation Composition Bridge
+
+   Effects and modifiers set their animation
+   configuration into separate custom properties.
+   This single rule reads both and combines them
+   into one animation-* declaration, enabling
+   effect + modifier composition without cascade
+   conflicts.
+   ============================================ */
+.text-effect.is-animated {
+  animation-name: var(--text-effect-animation-name, none),
+    var(--text-effect-modifier-name, none);
+  animation-duration: var(--text-effect-animation-duration, 0s),
+    var(--text-effect-modifier-animation-duration, 0s);
+  animation-timing-function: var(--text-effect-animation-timing, ease),
+    var(--text-effect-modifier-animation-timing, ease);
+  animation-fill-mode: var(--text-effect-animation-fill, none),
+    var(--text-effect-modifier-animation-fill, none);
+  animation-iteration-count: var(--text-effect-animation-iteration, 1),
+    var(--text-effect-modifier-animation-iteration, 1);
+  animation-direction: var(--text-effect-animation-direction, normal),
+    var(--text-effect-modifier-animation-direction, normal);
+  animation-delay: var(--text-effect-delay, 0s), 0s;
+}
+
+/* ============================================
    prefers-reduced-motion
    ============================================ */
 @media (prefers-reduced-motion: reduce) {
@@ -248,6 +288,13 @@
   .text-effect.is-animated {
     opacity: 1;
     transform: none;
+  }
+
+  .text-reveal-up-word.is-animated,
+  .text-reveal-up-letter.is-animated {
+    opacity: 1;
+    transform: none;
+    translate: none;
   }
 
   .text-glow,

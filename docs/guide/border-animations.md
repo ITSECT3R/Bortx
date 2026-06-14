@@ -216,7 +216,9 @@ The system uses CSS custom properties for easy customization:
   --border-effect-accent-secondary: #00ffff; /* Secondary effect color */
 
   /* Intensity */
-  --border-effect-intensity: 6px; /* Glow blur radius */
+  --border-effect-intensity: 6px; /* Base glow radius */
+  --border-effect-glow-spread: 1.5; /* Glow spread multiplier */
+  --border-effect-glow-speed: 0.5s; /* Glow transition speed */
 }
 ```
 
@@ -258,8 +260,8 @@ Override the accent color for theme consistency:
 
 ### Browser Support
 
-- Modern browsers with CSS `mask` and `@property` support
-- Chrome 78+, Firefox 72+, Safari 13.1+
+- Modern Chromium-based browsers (Chrome 85+, Edge 85+, Opera 71+) with full `@property` support
+- Firefox and Safari degrade gracefully — `@property`-driven animations (rotation, shimmer) will jump instead of interpolate, but the effects still render
 
 ### Performance Notes
 
@@ -272,14 +274,12 @@ Override the accent color for theme consistency:
 Import the styles in your main CSS file:
 
 ```css
-@import 'knocking-borders/borders/stylesbase.css';
-@import 'knocking-borders/borders/styleseffects/index.css';
-@import 'knocking-borders/borders/stylesmodifiers/index.css';
+/* All borders (pro + alt + shared + modifiers) */
+@import 'knocking-borders/borders/styles';
 ```
 
 Or import via TypeScript for bundler optimization:
 
 ```typescript
-import 'knocking-borders/borders/styleseffects/index';
-import 'knocking-borders/borders/stylesmodifiers/index';
+import 'knocking-borders/borders';
 ```

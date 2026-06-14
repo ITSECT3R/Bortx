@@ -28,13 +28,4 @@
   --border-effect-speed: var(--border-effect-speed-fast, 1.5s);
 }
 
-/* ============================================
-   MODIFIER: Reverse
 
-   Sets a direction signal variable. Alt effects
-   consume --border-effect-direction where
-   applicable (e.g., gradient sweep direction).
-   ============================================ */
-.alt-reverse {
-  --border-effect-direction: reverse;
-}

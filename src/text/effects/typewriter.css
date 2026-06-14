@@ -21,10 +21,16 @@
   white-space: nowrap;
   width: 0;
   border-right: var(--text-effect-cursor-width) solid transparent;
-  font-family: monospace; /* Required for accurate ch units */
+  font-family: monospace;
 
-  /* Fallback: If no chars specified, use max-content with animation */
   max-width: calc(var(--text-effect-chars, 20) * 1ch);
+
+  /* Effect animation config via custom properties */
+  --text-effect-animation-name: text-typing, text-cursor-blink;
+  --text-effect-animation-duration: var(--text-effect-speed, 2s), 0.75s;
+  --text-effect-animation-timing: steps(var(--text-effect-chars, 20)), step-end;
+  --text-effect-animation-fill: forwards, none;
+  --text-effect-animation-iteration: 1, infinite;
 }
 
 /* Animation paused until .is-animated */
@@ -35,24 +41,24 @@
 
 /* Trigger animation */
 .text-typewriter.is-animated {
-  animation:
-    text-typing var(--text-effect-speed, 2s) steps(var(--text-effect-chars, 20))
-      var(--text-effect-delay, 0s) forwards,
-    text-cursor-blink 0.75s step-end infinite;
   border-right-color: var(--text-effect-cursor-color);
 }
 
-/* Hide cursor after typing (optional - add .text-typewriter-no-cursor) */
+/* Hide cursor after typing */
+.text-typewriter.text-typewriter-no-cursor {
+  --text-effect-animation-name: text-typing;
+  --text-effect-animation-duration: var(--text-effect-speed, 2s);
+  --text-effect-animation-timing: steps(var(--text-effect-chars, 20));
+  --text-effect-animation-fill: forwards;
+  --text-effect-animation-iteration: 1;
+}
+
 .text-typewriter.text-typewriter-no-cursor.is-animated {
-  animation: text-typing var(--text-effect-speed, 2s)
-    steps(var(--text-effect-chars, 20)) var(--text-effect-delay, 0s) forwards;
   border-right: none;
 }
 
 /* Loop modifier - keeps typing infinitely */
-.text-typewriter.text-typewriter-loop.is-animated {
-  animation:
-    text-typing var(--text-effect-speed, 2s) steps(var(--text-effect-chars, 20))
-      var(--text-effect-delay, 0s) infinite alternate,
-    text-cursor-blink 0.75s step-end infinite;
+.text-typewriter.text-typewriter-loop {
+  --text-effect-animation-direction: alternate, normal;
+  --text-effect-animation-iteration: infinite, infinite;
 }

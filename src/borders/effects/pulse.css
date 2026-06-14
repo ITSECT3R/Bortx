@@ -13,22 +13,14 @@
 /* Always animate (default behavior) */
 .border-pulse:not(.border-hover-only)::after {
   opacity: 1;
-  animation: pulse-glow 2s ease-in-out infinite;
+  animation: pulse-glow var(--border-effect-speed, 3s) ease-in-out infinite;
 }
 
 /* Hover-only animation */
 .border-pulse.border-hover-only:hover::after {
   opacity: 1;
-  animation: pulse-glow 2s ease-in-out infinite;
+  animation: pulse-glow var(--border-effect-speed, 3s) ease-in-out infinite;
 }
 
-/* Speed modifiers */
-.border-pulse.border-slow:not(.border-hover-only)::after,
-.border-pulse.border-slow.border-hover-only:hover::after {
-  animation-duration: 3s;
-}
-
-.border-pulse.border-fast:not(.border-hover-only)::after,
-.border-pulse.border-fast.border-hover-only:hover::after {
-  animation-duration: 1s;
-}
+/* Speed modifiers use the generic .border-slow / .border-fast from modifiers/index.css
+   which override animation-duration via !important */

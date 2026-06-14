@@ -34,12 +34,6 @@ features:
 
 ## Quick Start
 
-```bash
-npm install knocking-borders
-# or
-bun add knocking-borders
-```
-
 ```ts
 // Import everything
 import 'knocking-borders';

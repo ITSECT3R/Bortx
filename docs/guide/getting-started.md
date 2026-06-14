@@ -3,9 +3,13 @@
 ## Installation
 
 ```bash
-npm install knocking-borders
-# or
-bun add knocking-borders
+# Coming soon — not yet published to npm
+# npm install knocking-borders
+# bun add knocking-borders
+
+# For now, clone and import locally
+import 'knocking-borders/borders';
+import 'knocking-borders/text';
 ```
 
 ## Import

@@ -14,26 +14,26 @@
    border effect or rendering technique.
    ============================================ */
 .border-glow {
-  box-shadow: 0 0 calc(var(--border-effect-intensity, 6px) * 1.5) var(--border-effect-accent, #8b52fd);
-  transition: box-shadow 0.5s ease;
+  box-shadow: 0 0 calc(var(--border-effect-intensity, 6px) * var(--border-effect-glow-spread, 1.5)) var(--border-effect-accent, #8b52fd);
+  transition: box-shadow var(--border-effect-glow-speed, 0.5s) ease;
 }
 
 /* Hover-only: hide glow until hover (pro effects) */
 .border-glow.border-hover-only {
-  box-shadow: 0 0 0 transparent;
+  box-shadow: none;
 }
 
 .border-glow.border-hover-only:hover {
-  box-shadow: 0 0 calc(var(--border-effect-intensity, 6px) * 1.5) var(--border-effect-accent, #8b52fd);
+  box-shadow: 0 0 calc(var(--border-effect-intensity, 6px) * var(--border-effect-glow-spread, 1.5)) var(--border-effect-accent, #8b52fd);
 }
 
 /* Hover-only: hide glow until hover (alt effects) */
 .border-glow.alt-hover-only {
-  box-shadow: 0 0 0 transparent;
+  box-shadow: none;
 }
 
 .border-glow.alt-hover-only:hover {
-  box-shadow: 0 0 calc(var(--border-effect-intensity, 6px) * 1.5) var(--border-effect-accent, #8b52fd);
+  box-shadow: 0 0 calc(var(--border-effect-intensity, 6px) * var(--border-effect-glow-spread, 1.5)) var(--border-effect-accent, #8b52fd);
 }
 
 /* ============================================

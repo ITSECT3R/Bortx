@@ -10,19 +10,41 @@
  * ======
  * Base class (required): .border-alt
  *
- * CSS variables (shared with pro effects, defined in src/borders/base.css):
- *   --border-effect-speed      → Animation/transition duration
- *   --border-effect-thickness  → Border thickness
- *   --border-effect-radius     → Border radius
- *   --border-effect-accent     → Primary effect color
- *   --border-effect-accent-secondary → Secondary effect color
- *   --border-effect-intensity  → Effect intensity / glow spread
+ * CSS variables (self-contained; no dependency on pro base.css):
+ *   --border-effect-speed      → Animation/transition duration (default: 3s)
+ *   --border-effect-thickness  → Border thickness (default: 2px)
+ *   --border-effect-radius     → Border radius (default: 12px)
+ *   --border-effect-accent     → Primary effect color (default: #8b52fd)
+ *   --border-effect-accent-secondary → Secondary effect color (default: #00ffff)
+ *   --border-effect-intensity  → Effect intensity / glow spread (default: 6px)
+ *   --border-effect-glow-spread → Glow spread multiplier (default: 1.5)
+ *   --border-effect-glow-speed → Glow transition speed (default: 0.5s)
  *
  * Example:
  *   <div class="border-alt alt-glow-ring alt-hover-only border-thick"
  *        style="--border-effect-accent: #ff00ff">
  */
 
+/* ============================================
+   CSS Custom Properties
+   Defined here so alt effects work standalone
+   without importing the pro base.css.
+   ============================================ */
+:root {
+  --border-effect-speed: 3s;
+  --border-effect-thickness: 2px;
+  --border-effect-radius: 12px;
+  --border-effect-color: rgba(255, 255, 255, 0.5);
+  --border-effect-accent: #8b52fd;
+  --border-effect-accent-secondary: #00ffff;
+  --border-effect-intensity: 6px;
+  --border-effect-glow-spread: 1.5;
+  --border-effect-glow-speed: 0.5s;
+}
+
+/* ============================================
+   Base Class
+   ============================================ */
 .border-alt {
   position: relative;
   isolation: isolate;

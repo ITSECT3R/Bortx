@@ -22,6 +22,13 @@
 .text-glitch {
   position: relative;
   display: inline-block;
+
+  /* Effect animation config via custom properties */
+  --text-effect-animation-name: text-glitch;
+  --text-effect-animation-duration: 3s;
+  --text-effect-animation-timing: ease-in-out;
+  --text-effect-animation-fill: none;
+  --text-effect-animation-iteration: infinite;
 }
 
 /* Hidden state */
@@ -31,8 +38,7 @@
 
 /* Animated state */
 .text-glitch.is-animated {
-  animation: text-glitch 3s ease-in-out infinite;
-  animation-delay: var(--text-effect-delay, 0s);
+  /* Animation runs via the composition bridge in base.css */
 }
 
 /* ============================================
@@ -119,7 +125,10 @@
    More subtle effect suitable for body text
    or less dramatic headings.
    ============================================ */
+.text-glitch-subtle {
+  --text-effect-animation-duration: 5s;
+}
+
 .text-glitch-subtle.is-animated {
-  animation: text-glitch 5s ease-in-out infinite;
   --text-effect-glitch-intensity: 1px;
 }

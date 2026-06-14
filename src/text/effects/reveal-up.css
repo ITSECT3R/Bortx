@@ -23,6 +23,13 @@
 .text-reveal-up {
   display: inline-block;
   overflow: hidden;
+
+  /* Effect animation config via custom properties */
+  --text-effect-animation-name: text-reveal-up;
+  --text-effect-animation-duration: var(--text-effect-speed, 0.8s);
+  --text-effect-animation-timing: cubic-bezier(0.16, 1, 0.3, 1);
+  --text-effect-animation-fill: forwards;
+  --text-effect-animation-iteration: 1;
 }
 
 .text-reveal-up > * {
@@ -37,8 +44,7 @@
 
 /* Animated state */
 .text-reveal-up.is-animated {
-  animation: text-reveal-up var(--text-effect-speed, 0.8s)
-    cubic-bezier(0.16, 1, 0.3, 1) var(--text-effect-delay, 0s) forwards;
+  /* Animation runs via the composition bridge in base.css */
 }
 
 /* ============================================

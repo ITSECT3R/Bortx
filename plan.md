@@ -95,7 +95,7 @@ This prevents collisions when both libraries are used on the same page.
 - [x] `prefers-reduced-motion` support
 - [x] VitePress docs site (guide + demo pages)
 - [x] Interactive sandbox page
-- [ ] First git commit
+- [x] First git commit
 
 ### Phase 2 — Package & Publish
 

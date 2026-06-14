@@ -67,8 +67,15 @@ export function useAnimateOnScroll<T extends HTMLElement = HTMLElement>(
 
   const ref = useRef<T>(null);
   const [isAnimated, setIsAnimated] = useState(false);
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const optionsRef = useRef({ delay, triggerOnce });
+  optionsRef.current = { delay, triggerOnce };
 
   const reset = useCallback(() => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+      timeoutRef.current = null;
+    }
     setIsAnimated(false);
     if (ref.current) {
       ref.current.classList.remove('is-animated');
@@ -82,38 +89,45 @@ export function useAnimateOnScroll<T extends HTMLElement = HTMLElement>(
     const observer = new IntersectionObserver(
       entries => {
         entries.forEach(entry => {
+          const { delay: d, triggerOnce: once } = optionsRef.current;
+
           if (entry.isIntersecting) {
-            if (delay > 0) {
-              setTimeout(() => {
+            if (d > 0) {
+              timeoutRef.current = setTimeout(() => {
                 setIsAnimated(true);
                 element.classList.add('is-animated');
-              }, delay);
+              }, d);
             } else {
               setIsAnimated(true);
               element.classList.add('is-animated');
             }
 
-            if (triggerOnce) {
+            if (once) {
               observer.unobserve(element);
             }
-          } else if (!triggerOnce) {
+          } else if (!once) {
+            if (timeoutRef.current) {
+              clearTimeout(timeoutRef.current);
+              timeoutRef.current = null;
+            }
             setIsAnimated(false);
             element.classList.remove('is-animated');
           }
         });
       },
-      {
-        threshold,
-        rootMargin,
-      }
+      { threshold, rootMargin }
     );
 
     observer.observe(element);
 
     return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+        timeoutRef.current = null;
+      }
       observer.disconnect();
     };
-  }, [threshold, rootMargin, triggerOnce, delay]);
+  }, [threshold, rootMargin]);
 
   return { ref, isAnimated, reset };
 }
@@ -161,9 +175,11 @@ export function useAnimateOnScrollMany<T extends HTMLElement = HTMLElement>(
   const [areAnimated, setAreAnimated] = useState<boolean[]>(
     new Array(count).fill(false)
   );
-  const containerRef = useRef<HTMLElement>(null);
+  const timeoutsRef = useRef<ReturnType<typeof setTimeout>[]>([]);
 
   const reset = useCallback(() => {
+    timeoutsRef.current.forEach(clearTimeout);
+    timeoutsRef.current = [];
     setAreAnimated(new Array(count).fill(false));
     refs.current.forEach(el => {
       if (el) el.classList.remove('is-animated');
@@ -174,13 +190,12 @@ export function useAnimateOnScrollMany<T extends HTMLElement = HTMLElement>(
     const elements = refs.current.filter(Boolean) as T[];
     if (elements.length === 0) return;
 
-    // Observe the first element to trigger all
     const observer = new IntersectionObserver(
       entries => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
             elements.forEach((el, index) => {
-              setTimeout(() => {
+              const id = setTimeout(() => {
                 el.classList.add('is-animated');
                 setAreAnimated(prev => {
                   const next = [...prev];
@@ -188,12 +203,15 @@ export function useAnimateOnScrollMany<T extends HTMLElement = HTMLElement>(
                   return next;
                 });
               }, index * staggerDelay);
+              timeoutsRef.current.push(id);
             });
 
             if (triggerOnce) {
               observer.disconnect();
             }
           } else if (!triggerOnce) {
+            timeoutsRef.current.forEach(clearTimeout);
+            timeoutsRef.current = [];
             elements.forEach((el, index) => {
               el.classList.remove('is-animated');
               setAreAnimated(prev => {
@@ -205,18 +223,16 @@ export function useAnimateOnScrollMany<T extends HTMLElement = HTMLElement>(
           }
         });
       },
-      {
-        threshold,
-        rootMargin,
-      }
+      { threshold, rootMargin }
     );
 
-    // Observe the first element
     if (elements[0]) {
       observer.observe(elements[0]);
     }
 
     return () => {
+      timeoutsRef.current.forEach(clearTimeout);
+      timeoutsRef.current = [];
       observer.disconnect();
     };
   }, [count, threshold, rootMargin, triggerOnce, staggerDelay]);
@@ -232,7 +248,6 @@ export function useAnimateOnScrollMany<T extends HTMLElement = HTMLElement>(
     refs: Array.from({ length: count }, (_, i) => setRef(i)),
     areAnimated,
     reset,
-    containerRef,
   };
 }
 
