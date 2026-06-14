@@ -61,12 +61,12 @@ Head to the [Sandbox](/sandbox) to try effects with modifiers interactively.
 
 ## Alt Modifiers
 
-| Modifier | Class | Description |
-|---|---|---|
-| Hover Only | `.alt-hover-only` | Pause until hover |
-| Slow | `.alt-slow` | Slower transitions (5s) |
-| Fast | `.alt-fast` | Faster transitions (1.5s) |
-| Reverse | `.alt-reverse` | Reverse direction |
+| Modifier   | Class             | Description               |
+| ---------- | ----------------- | ------------------------- |
+| Hover Only | `.alt-hover-only` | Pause until hover         |
+| Slow       | `.alt-slow`       | Slower transitions (5s)   |
+| Fast       | `.alt-fast`       | Faster transitions (1.5s) |
+| Reverse    | `.alt-reverse`    | Reverse direction         |
 
 **Shared modifiers** (work with both pro and alt): `.border-glow`, `.border-thick`
 

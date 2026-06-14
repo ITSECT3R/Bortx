@@ -53,12 +53,27 @@ export default defineConfig({
   vite: {
     resolve: {
       alias: {
-        'knocking-borders/borders': resolve(__dirname, '../../src/borders/index.ts'),
-        'knocking-borders/borders/styles': resolve(__dirname, '../../src/borders/base.css'),
-        'knocking-borders/borders/alt': resolve(__dirname, '../../src/borders/alt/index.ts'),
+        'knocking-borders/borders': resolve(
+          __dirname,
+          '../../src/borders/index.ts'
+        ),
+        'knocking-borders/borders/styles': resolve(
+          __dirname,
+          '../../src/borders/base.css'
+        ),
+        'knocking-borders/borders/alt': resolve(
+          __dirname,
+          '../../src/borders/alt/index.ts'
+        ),
         'knocking-borders/text': resolve(__dirname, '../../src/text/index.ts'),
-        'knocking-borders/text/styles': resolve(__dirname, '../../src/text/base.css'),
-        'knocking-borders/react': resolve(__dirname, '../../src/react/hooks/index.ts'),
+        'knocking-borders/text/styles': resolve(
+          __dirname,
+          '../../src/text/base.css'
+        ),
+        'knocking-borders/react': resolve(
+          __dirname,
+          '../../src/react/hooks/index.ts'
+        ),
         'knocking-borders': resolve(__dirname, '../../src/index.ts'),
       },
     },

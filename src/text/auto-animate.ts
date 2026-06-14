@@ -29,13 +29,15 @@ interface AutoAnimateOptions {
  *
  * @returns A cleanup function that disconnects all observers.
  */
-export function initTextAnimations(options: AutoAnimateOptions = {}): () => void {
+export function initTextAnimations(
+  options: AutoAnimateOptions = {}
+): () => void {
   const { threshold = 0.1, rootMargin = '50px', triggerOnce = true } = options;
 
   const animated = new WeakSet<Element>();
 
   const observer = new IntersectionObserver(
-    (entries) => {
+    entries => {
       for (const entry of entries) {
         if (entry.isIntersecting) {
           const el = entry.target;
@@ -50,22 +52,23 @@ export function initTextAnimations(options: AutoAnimateOptions = {}): () => void
         }
       }
     },
-    { threshold, rootMargin },
+    { threshold, rootMargin }
   );
 
   const observe = (el: Element) => {
+    if (!el.hasAttribute('data-text')) {
+      el.setAttribute('data-text', el.textContent ?? '');
+    }
     if (!animated.has(el)) {
       observer.observe(el);
     }
   };
 
   // Observe existing elements
-  document
-    .querySelectorAll<HTMLElement>('.text-effect')
-    .forEach(observe);
+  document.querySelectorAll<HTMLElement>('.text-effect').forEach(observe);
 
   // Watch for dynamically added elements
-  const mutationObserver = new MutationObserver((mutations) => {
+  const mutationObserver = new MutationObserver(mutations => {
     for (const mutation of mutations) {
       for (const node of mutation.addedNodes) {
         if (!(node instanceof HTMLElement)) continue;
@@ -76,9 +79,7 @@ export function initTextAnimations(options: AutoAnimateOptions = {}): () => void
 
         // Check children of the added node
         if (node.querySelectorAll) {
-          node
-            .querySelectorAll<HTMLElement>('.text-effect')
-            .forEach(observe);
+          node.querySelectorAll<HTMLElement>('.text-effect').forEach(observe);
         }
       }
     }

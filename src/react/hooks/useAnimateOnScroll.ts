@@ -86,6 +86,10 @@ export function useAnimateOnScroll<T extends HTMLElement = HTMLElement>(
     const element = ref.current;
     if (!element) return;
 
+    if (!element.hasAttribute('data-text')) {
+      element.setAttribute('data-text', element.textContent ?? '');
+    }
+
     const observer = new IntersectionObserver(
       entries => {
         entries.forEach(entry => {
@@ -189,6 +193,12 @@ export function useAnimateOnScrollMany<T extends HTMLElement = HTMLElement>(
   useEffect(() => {
     const elements = refs.current.filter(Boolean) as T[];
     if (elements.length === 0) return;
+
+    for (const el of elements) {
+      if (!el.hasAttribute('data-text')) {
+        el.setAttribute('data-text', el.textContent ?? '');
+      }
+    }
 
     const observer = new IntersectionObserver(
       entries => {

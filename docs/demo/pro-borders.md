@@ -104,13 +104,13 @@ with modifiers interactively.
 
 ## Pro Modifiers
 
-| Modifier | Class | Description |
-|---|---|---|
-| Hover Only | `.border-hover-only` | Pause animation until hover |
-| Glow | `.border-glow` | Add box-shadow glow (shared) |
-| Slow | `.border-slow` | Slower animation (5s) |
-| Fast | `.border-fast` | Faster animation (1.5s) |
-| Thick | `.border-thick` | Thicker border (4px, shared) |
-| Reverse | `.border-reverse` | Reverse animation direction |
+| Modifier   | Class                | Description                  |
+| ---------- | -------------------- | ---------------------------- |
+| Hover Only | `.border-hover-only` | Pause animation until hover  |
+| Glow       | `.border-glow`       | Add box-shadow glow (shared) |
+| Slow       | `.border-slow`       | Slower animation (5s)        |
+| Fast       | `.border-fast`       | Faster animation (1.5s)      |
+| Thick      | `.border-thick`      | Thicker border (4px, shared) |
+| Reverse    | `.border-reverse`    | Reverse animation direction  |
 
 See the [Sandbox](/sandbox) to try any combination of effects and modifiers.

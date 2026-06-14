@@ -12,16 +12,14 @@ const effects = [
 
 onMounted(() => {
   nextTick(() => {
-    document
-      .querySelectorAll('.VPFeatures .VPFeature')
-      .forEach((el, i) => {
-        el.classList.add(
-          'border-effect',
-          'border-hover-only',
-          'border-glow',
-          effects[i % effects.length],
-        );
-      });
+    document.querySelectorAll('.VPFeatures .VPFeature').forEach((el, i) => {
+      el.classList.add(
+        'border-effect',
+        'border-hover-only',
+        'border-glow',
+        effects[i % effects.length]
+      );
+    });
   });
 });
 </script>

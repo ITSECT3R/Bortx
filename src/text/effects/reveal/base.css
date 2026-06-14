@@ -1,0 +1,269 @@
+/* ============================================
+   Reveal Effects — Shared Base
+
+   Container, word/letter base, and auto-stagger
+   are direction-agnostic. Each direction file
+   (reveal-up.css, reveal-down.css, etc.) defines
+   the single-element effect and keyframe-specific
+   word/letter animations.
+   ============================================ */
+
+/* ============================================
+   Container for per-word/letter animation
+   ============================================ */
+.text-reveal-container {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0.25em;
+  overflow: hidden;
+}
+
+/* ============================================
+   Word / Letter Base Styles
+   ============================================ */
+:is(
+  .text-reveal-up-word,
+  .text-reveal-up-letter,
+  .text-reveal-down-word,
+  .text-reveal-down-letter,
+  .text-reveal-left-word,
+  .text-reveal-left-letter,
+  .text-reveal-right-word,
+  .text-reveal-right-letter
+) {
+  display: inline-block;
+  opacity: 0;
+}
+
+/* ============================================
+   Auto-Stagger (direction-agnostic via :is())
+   ============================================ */
+
+/* Word stagger */
+.text-reveal-container.text-stagger-auto
+  :is(
+    .text-reveal-up-word,
+    .text-reveal-down-word,
+    .text-reveal-left-word,
+    .text-reveal-right-word
+  ):nth-child(1) {
+  --text-effect-delay: 0s;
+}
+.text-reveal-container.text-stagger-auto
+  :is(
+    .text-reveal-up-word,
+    .text-reveal-down-word,
+    .text-reveal-left-word,
+    .text-reveal-right-word
+  ):nth-child(2) {
+  --text-effect-delay: 0.05s;
+}
+.text-reveal-container.text-stagger-auto
+  :is(
+    .text-reveal-up-word,
+    .text-reveal-down-word,
+    .text-reveal-left-word,
+    .text-reveal-right-word
+  ):nth-child(3) {
+  --text-effect-delay: 0.1s;
+}
+.text-reveal-container.text-stagger-auto
+  :is(
+    .text-reveal-up-word,
+    .text-reveal-down-word,
+    .text-reveal-left-word,
+    .text-reveal-right-word
+  ):nth-child(4) {
+  --text-effect-delay: 0.15s;
+}
+.text-reveal-container.text-stagger-auto
+  :is(
+    .text-reveal-up-word,
+    .text-reveal-down-word,
+    .text-reveal-left-word,
+    .text-reveal-right-word
+  ):nth-child(5) {
+  --text-effect-delay: 0.2s;
+}
+.text-reveal-container.text-stagger-auto
+  :is(
+    .text-reveal-up-word,
+    .text-reveal-down-word,
+    .text-reveal-left-word,
+    .text-reveal-right-word
+  ):nth-child(6) {
+  --text-effect-delay: 0.25s;
+}
+.text-reveal-container.text-stagger-auto
+  :is(
+    .text-reveal-up-word,
+    .text-reveal-down-word,
+    .text-reveal-left-word,
+    .text-reveal-right-word
+  ):nth-child(7) {
+  --text-effect-delay: 0.3s;
+}
+.text-reveal-container.text-stagger-auto
+  :is(
+    .text-reveal-up-word,
+    .text-reveal-down-word,
+    .text-reveal-left-word,
+    .text-reveal-right-word
+  ):nth-child(8) {
+  --text-effect-delay: 0.35s;
+}
+.text-reveal-container.text-stagger-auto
+  :is(
+    .text-reveal-up-word,
+    .text-reveal-down-word,
+    .text-reveal-left-word,
+    .text-reveal-right-word
+  ):nth-child(9) {
+  --text-effect-delay: 0.4s;
+}
+.text-reveal-container.text-stagger-auto
+  :is(
+    .text-reveal-up-word,
+    .text-reveal-down-word,
+    .text-reveal-left-word,
+    .text-reveal-right-word
+  ):nth-child(10) {
+  --text-effect-delay: 0.45s;
+}
+
+/* Letter stagger (faster) */
+.text-reveal-container.text-stagger-auto
+  :is(
+    .text-reveal-up-letter,
+    .text-reveal-down-letter,
+    .text-reveal-left-letter,
+    .text-reveal-right-letter
+  ):nth-child(1) {
+  --text-effect-delay: 0s;
+}
+.text-reveal-container.text-stagger-auto
+  :is(
+    .text-reveal-up-letter,
+    .text-reveal-down-letter,
+    .text-reveal-left-letter,
+    .text-reveal-right-letter
+  ):nth-child(2) {
+  --text-effect-delay: 0.02s;
+}
+.text-reveal-container.text-stagger-auto
+  :is(
+    .text-reveal-up-letter,
+    .text-reveal-down-letter,
+    .text-reveal-left-letter,
+    .text-reveal-right-letter
+  ):nth-child(3) {
+  --text-effect-delay: 0.04s;
+}
+.text-reveal-container.text-stagger-auto
+  :is(
+    .text-reveal-up-letter,
+    .text-reveal-down-letter,
+    .text-reveal-left-letter,
+    .text-reveal-right-letter
+  ):nth-child(4) {
+  --text-effect-delay: 0.06s;
+}
+.text-reveal-container.text-stagger-auto
+  :is(
+    .text-reveal-up-letter,
+    .text-reveal-down-letter,
+    .text-reveal-left-letter,
+    .text-reveal-right-letter
+  ):nth-child(5) {
+  --text-effect-delay: 0.08s;
+}
+.text-reveal-container.text-stagger-auto
+  :is(
+    .text-reveal-up-letter,
+    .text-reveal-down-letter,
+    .text-reveal-left-letter,
+    .text-reveal-right-letter
+  ):nth-child(6) {
+  --text-effect-delay: 0.1s;
+}
+.text-reveal-container.text-stagger-auto
+  :is(
+    .text-reveal-up-letter,
+    .text-reveal-down-letter,
+    .text-reveal-left-letter,
+    .text-reveal-right-letter
+  ):nth-child(7) {
+  --text-effect-delay: 0.12s;
+}
+.text-reveal-container.text-stagger-auto
+  :is(
+    .text-reveal-up-letter,
+    .text-reveal-down-letter,
+    .text-reveal-left-letter,
+    .text-reveal-right-letter
+  ):nth-child(8) {
+  --text-effect-delay: 0.14s;
+}
+.text-reveal-container.text-stagger-auto
+  :is(
+    .text-reveal-up-letter,
+    .text-reveal-down-letter,
+    .text-reveal-left-letter,
+    .text-reveal-right-letter
+  ):nth-child(9) {
+  --text-effect-delay: 0.16s;
+}
+.text-reveal-container.text-stagger-auto
+  :is(
+    .text-reveal-up-letter,
+    .text-reveal-down-letter,
+    .text-reveal-left-letter,
+    .text-reveal-right-letter
+  ):nth-child(10) {
+  --text-effect-delay: 0.18s;
+}
+.text-reveal-container.text-stagger-auto
+  :is(
+    .text-reveal-up-letter,
+    .text-reveal-down-letter,
+    .text-reveal-left-letter,
+    .text-reveal-right-letter
+  ):nth-child(11) {
+  --text-effect-delay: 0.2s;
+}
+.text-reveal-container.text-stagger-auto
+  :is(
+    .text-reveal-up-letter,
+    .text-reveal-down-letter,
+    .text-reveal-left-letter,
+    .text-reveal-right-letter
+  ):nth-child(12) {
+  --text-effect-delay: 0.22s;
+}
+.text-reveal-container.text-stagger-auto
+  :is(
+    .text-reveal-up-letter,
+    .text-reveal-down-letter,
+    .text-reveal-left-letter,
+    .text-reveal-right-letter
+  ):nth-child(13) {
+  --text-effect-delay: 0.24s;
+}
+.text-reveal-container.text-stagger-auto
+  :is(
+    .text-reveal-up-letter,
+    .text-reveal-down-letter,
+    .text-reveal-left-letter,
+    .text-reveal-right-letter
+  ):nth-child(14) {
+  --text-effect-delay: 0.26s;
+}
+.text-reveal-container.text-stagger-auto
+  :is(
+    .text-reveal-up-letter,
+    .text-reveal-down-letter,
+    .text-reveal-left-letter,
+    .text-reveal-right-letter
+  ):nth-child(15) {
+  --text-effect-delay: 0.28s;
+}

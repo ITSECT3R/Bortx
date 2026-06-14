@@ -14,8 +14,18 @@
 
 .alt-glow-ring {
   box-shadow:
-    0 0 calc(var(--border-effect-intensity, 6px) * var(--border-effect-glow-spread, 1.5)) var(--border-effect-accent, #8b52fd),
-    inset 0 0 calc(var(--border-effect-intensity, 6px) * var(--border-effect-glow-spread, 1.5)) var(--border-effect-accent, #8b52fd);
+    0 0
+      calc(
+        var(--border-effect-intensity, 6px) *
+          var(--border-effect-glow-spread, 1.5)
+      )
+      var(--border-effect-accent, #8b52fd),
+    inset 0 0
+      calc(
+        var(--border-effect-intensity, 6px) *
+          var(--border-effect-glow-spread, 1.5)
+      )
+      var(--border-effect-accent, #8b52fd);
   border-radius: var(--border-effect-radius, 12px);
   transition: box-shadow var(--border-effect-glow-speed, 0.5s) ease;
 }
@@ -27,6 +37,16 @@
 
 .alt-glow-ring.alt-hover-only:hover {
   box-shadow:
-    0 0 calc(var(--border-effect-intensity, 6px) * var(--border-effect-glow-spread, 1.5)) var(--border-effect-accent, #8b52fd),
-    inset 0 0 calc(var(--border-effect-intensity, 6px) * var(--border-effect-glow-spread, 1.5)) var(--border-effect-accent, #8b52fd);
+    0 0
+      calc(
+        var(--border-effect-intensity, 6px) *
+          var(--border-effect-glow-spread, 1.5)
+      )
+      var(--border-effect-accent, #8b52fd),
+    inset 0 0
+      calc(
+        var(--border-effect-intensity, 6px) *
+          var(--border-effect-glow-spread, 1.5)
+      )
+      var(--border-effect-accent, #8b52fd);
 }

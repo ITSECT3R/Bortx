@@ -3,5 +3,5 @@
  * Import all text effect styles
  */
 @import './typewriter.css';
-@import './reveal-up.css';
+@import './reveal/index.css';
 @import './glitch.css';

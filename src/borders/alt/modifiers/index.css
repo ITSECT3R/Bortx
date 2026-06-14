@@ -27,5 +27,3 @@
 .alt-fast {
   --border-effect-speed: var(--border-effect-speed-fast, 1.5s);
 }
-
-

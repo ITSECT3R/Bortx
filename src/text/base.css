@@ -7,9 +7,12 @@
  * Base class (required): .text-effect
  * 
  * Effects:
- *   - .text-typewriter    → Classic typing effect
- *   - .text-reveal-up     → Letters slide up from masked container
- *   - .text-glitch        → Digital glitch effect
+ *   - .text-typewriter     → Classic typing effect
+ *   - .text-reveal-up      → Text slides up from below
+ *   - .text-reveal-down    → Text slides down from above
+ *   - .text-reveal-left    → Text slides in from the right
+ *   - .text-reveal-right   → Text slides in from the left
+ *   - .text-glitch         → Digital glitch effect
  * 
  * Modifiers:
  *   - .text-glow          → Customizable text-shadow glow
@@ -132,6 +135,42 @@
   }
 }
 
+/* Reveal down */
+@keyframes text-reveal-down {
+  from {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Reveal left (slides in from right) */
+@keyframes text-reveal-left {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Reveal right (slides in from left) */
+@keyframes text-reveal-right {
+  from {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
 /* Glitch effect */
 @keyframes text-glitch {
   0%,
@@ -210,22 +249,33 @@
   }
 }
 
-/* Glow pulse */
+/* Glow pulse — animates filter drop-shadow for a pulsing glow.
+   Uses consistent 3-shadow count at all keyframes so
+   browsers can interpolate smoothly. */
 @keyframes text-glow-pulse {
   0%,
   100% {
-    text-shadow:
-      0 0 calc(var(--text-effect-glow-intensity) * 0.5)
-        var(--text-effect-glow-color),
-      0 0 var(--text-effect-glow-intensity) var(--text-effect-glow-color);
+    filter: drop-shadow(
+        0 0 calc(var(--text-effect-glow-intensity) * 0.5)
+          var(--text-effect-glow-color)
+      )
+      drop-shadow(
+        0 0 var(--text-effect-glow-intensity) var(--text-effect-glow-color)
+      )
+      drop-shadow(0 0 0px transparent);
   }
   50% {
-    text-shadow:
-      0 0 var(--text-effect-glow-intensity) var(--text-effect-glow-color),
-      0 0 calc(var(--text-effect-glow-intensity) * 2)
-        var(--text-effect-glow-color),
-      0 0 calc(var(--text-effect-glow-intensity) * 3)
-        var(--text-effect-glow-color);
+    filter: drop-shadow(
+        0 0 var(--text-effect-glow-intensity) var(--text-effect-glow-color)
+      )
+      drop-shadow(
+        0 0 calc(var(--text-effect-glow-intensity) * 2)
+          var(--text-effect-glow-color)
+      )
+      drop-shadow(
+        0 0 calc(var(--text-effect-glow-intensity) * 3)
+          var(--text-effect-glow-color)
+      );
   }
 }
 
@@ -259,17 +309,23 @@
    conflicts.
    ============================================ */
 .text-effect.is-animated {
-  animation-name: var(--text-effect-animation-name, none),
+  animation-name:
+    var(--text-effect-animation-name, none),
     var(--text-effect-modifier-name, none);
-  animation-duration: var(--text-effect-animation-duration, 0s),
+  animation-duration:
+    var(--text-effect-animation-duration, 0s),
     var(--text-effect-modifier-animation-duration, 0s);
-  animation-timing-function: var(--text-effect-animation-timing, ease),
+  animation-timing-function:
+    var(--text-effect-animation-timing, ease),
     var(--text-effect-modifier-animation-timing, ease);
-  animation-fill-mode: var(--text-effect-animation-fill, none),
+  animation-fill-mode:
+    var(--text-effect-animation-fill, none),
     var(--text-effect-modifier-animation-fill, none);
-  animation-iteration-count: var(--text-effect-animation-iteration, 1),
+  animation-iteration-count:
+    var(--text-effect-animation-iteration, 1),
     var(--text-effect-modifier-animation-iteration, 1);
-  animation-direction: var(--text-effect-animation-direction, normal),
+  animation-direction:
+    var(--text-effect-animation-direction, normal),
     var(--text-effect-modifier-animation-direction, normal);
   animation-delay: var(--text-effect-delay, 0s), 0s;
 }
@@ -291,16 +347,25 @@
   }
 
   .text-reveal-up-word.is-animated,
-  .text-reveal-up-letter.is-animated {
+  .text-reveal-up-letter.is-animated,
+  .text-reveal-down-word.is-animated,
+  .text-reveal-down-letter.is-animated,
+  .text-reveal-left-word.is-animated,
+  .text-reveal-left-letter.is-animated,
+  .text-reveal-right-word.is-animated,
+  .text-reveal-right-letter.is-animated {
     opacity: 1;
     transform: none;
     translate: none;
   }
 
   .text-glow,
-  .text-glow-pulse,
   .text-glow-intense {
-    text-shadow: none;
+    filter: none;
+  }
+
+  .text-shadow-depth {
+    filter: none;
   }
 
   .text-glitch {

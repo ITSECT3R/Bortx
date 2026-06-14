@@ -1,0 +1,8 @@
+/**
+ * Reveal Effects — CSS Barrel
+ */
+@import './base.css';
+@import './reveal-up.css';
+@import './reveal-down.css';
+@import './reveal-left.css';
+@import './reveal-right.css';

@@ -1,0 +1,41 @@
+/* ============================================
+   EFFECT: Reveal Right
+
+   Text slides in from the left.
+   ============================================ */
+
+.text-reveal-right {
+  display: inline-block;
+  overflow: hidden;
+
+  --text-effect-animation-name: text-reveal-right;
+  --text-effect-animation-duration: var(--text-effect-speed, 0.8s);
+  --text-effect-animation-timing: cubic-bezier(0.16, 1, 0.3, 1);
+  --text-effect-animation-fill: forwards;
+  --text-effect-animation-iteration: 1;
+}
+
+.text-reveal-right > * {
+  display: inline-block;
+}
+
+.text-reveal-right:not(.is-animated) {
+  opacity: 0;
+  transform: translateX(-100%);
+}
+
+.text-reveal-right.is-animated {
+  /* Animation runs via the composition bridge in base.css */
+}
+
+/* Per-word / per-letter */
+.text-reveal-right-word,
+.text-reveal-right-letter {
+  transform: translateX(-100%);
+}
+
+.text-reveal-right-word.is-animated,
+.text-reveal-right-letter.is-animated {
+  animation: text-reveal-right var(--text-effect-speed, 0.6s)
+    cubic-bezier(0.16, 1, 0.3, 1) var(--text-effect-delay, 0s) forwards;
+}
