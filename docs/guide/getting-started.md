@@ -23,8 +23,15 @@ import 'knocking-borders';
 // Just borders
 import 'knocking-borders/borders';
 
-// Just text (CSS + vanilla JS trigger)
+// Just text (CSS + vanilla JS trigger + JS helpers)
 import 'knocking-borders/text';
+
+// Named JS exports from text module
+import {
+  initTextAnimations,
+  applyTextConfig,
+  applyColorPreset,
+} from 'knocking-borders/text';
 
 // React hooks only (no CSS)
 import { useAnimateOnScroll } from 'knocking-borders/react';
@@ -40,9 +47,7 @@ import { initTextAnimations } from 'knocking-borders/text';
 All border effects require the `.border-effect` base class plus an effect class:
 
 ```html
-<div class="border-effect border-rainbow">
-  Basic rainbow border
-</div>
+<div class="border-effect border-rainbow">Basic rainbow border</div>
 
 <div class="border-effect border-pulse border-glow border-hover-only">
   Pulse + glow, only on hover
@@ -59,20 +64,52 @@ Customize with CSS variables:
 <div
   class="border-effect border-rainbow"
   style="--border-effect-radius: 50px; --border-effect-accent: #ff00ff"
->
-</div>
+></div>
 ```
 
 Border effects animate **by default**. Use `.border-hover-only` to pause until hover.
 
 ### Text Effects
 
-Text effects require `.text-effect` base class, an effect class, and the `.is-animated` trigger class:
+Text effects require `.text-effect` base class, an effect class, and the `.is-animated` trigger class.
+
+**Colors can be configured three ways — pick the approach that fits your use case:**
+
+**1. Color preset classes (simplest, no inline styles):**
 
 ```html
-<h1 class="text-effect text-typewriter" style="--text-effect-chars: 13">
+<h1
+  class="text-effect text-typewriter text-gradient-animated text-colors-sunset"
+  style="--text-effect-chars: 13"
+>
   Hello, World!
 </h1>
+```
+
+Available presets: `.text-colors-sunset`, `.text-colors-ocean`, `.text-colors-cyberpunk`, `.text-glitch-colors-error`, `.text-glow-purple`, and more (see full docs).
+
+**2. CSS custom properties (most flexible):**
+
+```html
+<h1
+  class="text-effect text-glitch text-glow"
+  style="--text-effect-glitch-color-1: #ff00ff; --text-effect-glow-color: #00ffff;"
+>
+  Cyber Punk
+</h1>
+```
+
+**3. JS config helper (programmatic, type-safe):**
+
+```ts
+import { applyTextConfig } from 'knocking-borders/text';
+
+const el = document.querySelector('.hero-title')!;
+applyTextConfig(el, {
+  chars: 15,
+  gradient: ['#ff9f40', '#ff0000'],
+  glowColor: '#00ffff',
+});
 ```
 
 Text animations are **paused by default**. The `.is-animated` class triggers them. You can add this class manually or use one of the trigger methods:
@@ -85,8 +122,11 @@ import { useAnimateOnScroll } from 'knocking-borders/react';
 function Heading() {
   const { ref } = useAnimateOnScroll();
   return (
-    <h1 ref={ref} className="text-effect text-typewriter text-glow"
-        style={{ '--text-effect-chars': 13 } as React.CSSProperties}>
+    <h1
+      ref={ref}
+      className="text-effect text-typewriter text-glow"
+      style={{ '--text-effect-chars': 13 } as React.CSSProperties}
+    >
       Hello, World!
     </h1>
   );
@@ -114,26 +154,32 @@ document.querySelector('.text-effect').classList.add('is-animated');
 
 ### Border Variables
 
-| Variable | Default | Purpose |
-|---|---|---|
-| `--border-effect-speed` | `3s` | Animation duration |
-| `--border-effect-thickness` | `2px` | Border width |
-| `--border-effect-radius` | `12px` | Border radius |
-| `--border-effect-color` | `rgba(255,255,255,0.5)` | Static border color |
-| `--border-effect-accent` | `#8b52fd` | Primary effect color |
-| `--border-effect-accent-secondary` | `#00ffff` | Secondary effect color |
-| `--border-effect-intensity` | `6px` | Glow blur radius |
+| Variable                           | Default                 | Purpose                |
+| ---------------------------------- | ----------------------- | ---------------------- |
+| `--border-effect-speed`            | `3s`                    | Animation duration     |
+| `--border-effect-thickness`        | `2px`                   | Border width           |
+| `--border-effect-radius`           | `12px`                  | Border radius          |
+| `--border-effect-color`            | `rgba(255,255,255,0.5)` | Static border color    |
+| `--border-effect-accent`           | `#8b52fd`               | Primary effect color   |
+| `--border-effect-accent-secondary` | `#00ffff`               | Secondary effect color |
+| `--border-effect-intensity`        | `6px`                   | Glow blur radius       |
 
 ### Text Variables
 
-| Variable | Default | Purpose |
-|---|---|---|
-| `--text-effect-speed` | `2s` | Animation duration |
-| `--text-effect-delay` | `0s` | Animation delay |
-| `--text-effect-chars` | `20` | Character count for typewriter |
-| `--text-effect-accent` | `#8b52fd` | Accent color |
-| `--text-effect-glow-color` | `currentColor` | Glow color |
-| `--text-effect-glow-intensity` | `10px` | Glow blur radius |
+| Variable                         | Default        | Purpose                        |
+| -------------------------------- | -------------- | ------------------------------ |
+| `--text-effect-speed`            | `2s`           | Animation duration             |
+| `--text-effect-delay`            | `0s`           | Animation delay                |
+| `--text-effect-chars`            | `20`           | Character count for typewriter |
+| `--text-effect-accent`           | `#8b52fd`      | Accent color                   |
+| `--text-effect-glow-color`       | `currentColor` | Glow color                     |
+| `--text-effect-glow-intensity`   | `10px`         | Glow blur radius               |
+| `--text-effect-gradient-start`   | `#8b52fd`      | Gradient start color           |
+| `--text-effect-gradient-end`     | `#00ffff`      | Gradient end color             |
+| `--text-effect-gradient-angle`   | `90deg`        | Gradient angle                 |
+| `--text-effect-glitch-color-1`   | `#ff0000`      | Glitch color 1                 |
+| `--text-effect-glitch-color-2`   | `#00ffff`      | Glitch color 2                 |
+| `--text-effect-glitch-intensity` | `2px`          | Glitch distortion strength     |
 
 ## Browser Support
 

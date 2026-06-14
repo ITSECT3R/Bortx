@@ -27,6 +27,27 @@ src/borders/
 ├── shared/              # Modifiers that work with both .border-effect and .border-alt
 │   └── modifiers.css    # .border-glow, .border-thick
 └── index.ts             # Master barrel — imports everything
+
+src/text/
+├── base.css             # CSS vars, keyframes, .text-effect base, composition bridge
+├── effects/             # Effect CSS files + barrels
+│   ├── typewriter.css   # Typing animation + no-cursor/loop variants
+│   ├── glitch.css       # Digital distortion + intense/subtle variants
+│   ├── reveal/          # Reveal effects (shared base + 4 directions)
+│   │   ├── base.css     # Container, word/letter, stagger
+│   │   ├── reveal-up.css / reveal-down.css / reveal-left.css / reveal-right.css
+│   │   ├── index.css
+│   │   └── index.ts
+│   ├── index.css
+│   └── index.ts
+├── modifiers/           # Glow, gradient, speed, delays, color presets
+│   ├── index.css        # Modifier classes + @import for color-presets.css
+│   ├── index.ts         # Barrel (CSS import + preset re-exports)
+│   ├── color-presets.css   # 24 preset classes (10 gradient, 6 glitch, 8 glow)
+│   └── color-presets.ts    # TypeScript types + metadata for presets
+├── auto-animate.ts      # Vanilla IntersectionObserver trigger
+├── apply-config.ts      # JS helpers: applyTextConfig(), applyColorPreset()
+└── index.ts             # Master barrel — imports CSS, exports helpers + types
 ```
 
 Import pattern: `.ts` barrel files import `.css` directly.
@@ -52,36 +73,51 @@ There is no `build` yet — the library ships source CSS directly.
 import 'knocking-borders/borders'; // All border effects + modifiers (pro + alt + shared)
 import 'knocking-borders/borders/styles'; // CSS base only (no TS)
 import 'knocking-borders/borders/alt'; // Alt border effects only (no webkit-mask)
-import 'knocking-borders/text'; // All text effects + modifiers
+import 'knocking-borders/text'; // All text CSS + TS exports (effects, modifiers, helpers)
 import 'knocking-borders/text/styles'; // CSS base only (no TS)
 import {
   useAnimateOnScroll,
   useAnimateOnScrollMany,
 } from 'knocking-borders/react';
+import {
+  applyTextConfig,
+  applyColorPreset,
+  initTextAnimations,
+  gradientPresets,
+  glitchPresets,
+  glowPresets,
+  getPresetByClass,
+} from 'knocking-borders/text';
+import type {
+  TextEffectConfig,
+  GradientPreset,
+  GlitchPreset,
+  GlowPreset,
+} from 'knocking-borders/text';
 ```
 
 ### Border Effects
 
 **Pro** (base class: `.border-effect`, uses webkit-mask pattern):
 
-| Effects                    | Modifiers                           |
-| -------------------------- | ----------------------------------- |
-| `.border-rainbow`          | `.border-hover-only`                |
-| `.border-light-trail`      | `.border-slow` / `.border-fast`     |
-| `.border-pulse`            | `.border-reverse`                   |
-| `.border-gradient`         |                                     |
-| `.border-shimmer`          |                                     |
-| `.border-dots`             |                                     |
-| `.border-dual-spin`        |                                     |
-| `.border-neon`             |                                     |
-| `.border-ripple`           |                                     |
-| `.border-corner-highlight` |                                     |
-| `.border-dash-chase`       |                                     |
+| Effects                    | Modifiers                       |
+| -------------------------- | ------------------------------- |
+| `.border-rainbow`          | `.border-hover-only`            |
+| `.border-light-trail`      | `.border-slow` / `.border-fast` |
+| `.border-pulse`            | `.border-reverse`               |
+| `.border-gradient`         |                                 |
+| `.border-shimmer`          |                                 |
+| `.border-dots`             |                                 |
+| `.border-dual-spin`        |                                 |
+| `.border-neon`             |                                 |
+| `.border-ripple`           |                                 |
+| `.border-corner-highlight` |                                 |
+| `.border-dash-chase`       |                                 |
 
 **Alt** (base class: `.border-alt`, no webkit-mask dependency, import `knocking-borders/borders/alt`):
 
-| Effects         | Modifiers                                |
-| --------------- | ---------------------------------------- |
+| Effects          | Modifiers                                                      |
+| ---------------- | -------------------------------------------------------------- |
 | `.alt-glow-ring` | `.alt-hover-only` / `.alt-slow` / `.alt-fast` / `.alt-reverse` |
 
 **Shared modifiers** (work with both `.border-effect` and `.border-alt`):
@@ -98,16 +134,26 @@ CSS variables: `--border-effect-speed`, `--border-effect-thickness`, `--border-e
 Base class: `.text-effect` (required)  
 Trigger class: `.is-animated` (required — all text animations are hidden/paused by default)
 
-| Effects            | Modifiers                                                               |
-| ------------------ | ----------------------------------------------------------------------- |
-| `.text-typewriter` | `.text-glow` / `.text-glow-pulse` / `.text-glow-intense`                |
-| `.text-reveal-up`  | `.text-gradient` / `.text-gradient-animated` / `.text-gradient-rainbow` |
-| `.text-glitch`     | `.text-slow` / `.text-fast`                                             |
-|                    | `.text-delay-1` through `.text-delay-5`                                 |
+| Effects                                                                              | Modifiers                                                               |
+| ------------------------------------------------------------------------------------ | ----------------------------------------------------------------------- |
+| `.text-typewriter`                                                                   | `.text-glow` / `.text-glow-pulse` / `.text-glow-intense`                |
+| `.text-reveal-up` / `.text-reveal-down` / `.text-reveal-left` / `.text-reveal-right` | `.text-gradient` / `.text-gradient-animated` / `.text-gradient-rainbow` |
+| `.text-glitch`                                                                       | `.text-slow` / `.text-fast`                                             |
+| `.text-typewriter-loop` (variant)                                                    | `.text-delay-1` through `.text-delay-5`                                 |
+| `.text-typewriter-no-cursor` (variant)                                               | `.text-shadow-depth`                                                    |
+| `.text-glitch-intense` / `.text-glitch-subtle` (variants)                            | `.text-typewriter-loop` / `.text-typewriter-no-cursor`                  |
 
-Text animations need `.is-animated` added via JS — use the React hook or `IntersectionObserver`.
+**Color presets** (CSS classes that set color variables — combine with gradient/glitch/glow modifiers):
 
-CSS variables: `--text-effect-speed`, `--text-effect-delay`, `--text-effect-accent`, `--text-effect-chars`, `--text-effect-glow-color`, `--text-effect-glow-intensity`, `--text-effect-gradient-start/end/angle`
+| Gradient presets                                                                                                                  | Glitch presets                                                                         | Glow presets                                                                                 |
+| --------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
+| `.text-colors-sunset` / `-ocean` / `-cyberpunk` / `-forest` / `-fire` / `-twilight` / `-neon` / `-candy` / `-midnight` / `-ember` | `.text-glitch-colors-error` / `-neon` / `-matrix` / `-vaporwave` / `-cyber` / `-toxic` | `.text-glow-purple` / `-cyan` / `-orange` / `-pink` / `-green` / `-red` / `-gold` / `-white` |
+
+Text animations need `.is-animated` added via JS — use the React hook, vanilla `initTextAnimations()`, or manual class toggle.
+
+**JS helpers** (`applyTextConfig`, `applyColorPreset`) provide programmatic configuration without inline styles. `initTextAnimations()` is a vanilla IntersectionObserver auto-trigger.
+
+CSS variables: `--text-effect-speed`, `--text-effect-delay`, `--text-effect-accent`, `--text-effect-chars`, `--text-effect-glow-color`, `--text-effect-glow-intensity`, `--text-effect-gradient-start/end/angle`, `--text-effect-glitch-color-1/2`, `--text-effect-glitch-intensity`
 
 ## Browser Caveats
 

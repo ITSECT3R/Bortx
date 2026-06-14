@@ -31,15 +31,26 @@ src/
 │   └── index.ts              # Master barrel
 ├── text/                     # Text effects library
 │   ├── base.css              # CSS vars, keyframes, .text-effect
-│   ├── effects/              # 3 effect CSS files + barrel
+│   ├── effects/              # Effect CSS files + barrels
 │   │   ├── typewriter.css    # Typing animation
-│   │   ├── reveal-up.css     # Slide-up reveal
 │   │   ├── glitch.css        # Digital distortion
+│   │   ├── reveal/           # Reveal effects (shared base + 4 directions)
+│   │   │   ├── base.css      # Container, word/letter, stagger
+│   │   │   ├── reveal-up.css # Slide up
+│   │   │   ├── reveal-down.css   # Slide down
+│   │   │   ├── reveal-left.css   # Slide in from right
+│   │   │   ├── reveal-right.css  # Slide in from left
+│   │   │   ├── index.css
+│   │   │   └── index.ts
 │   │   ├── index.css
 │   │   └── index.ts
-│   ├── modifiers/            # Glow, gradient, speed, delays
+│   ├── modifiers/            # Glow, gradient, speed, delays, color presets
 │   │   ├── index.css
-│   │   └── index.ts
+│   │   ├── index.ts
+│   │   ├── color-presets.css # 24 CSS preset classes
+│   │   └── color-presets.ts  # TypeScript types + metadata
+│   ├── auto-animate.ts       # Vanilla IntersectionObserver trigger
+│   ├── apply-config.ts       # JS config helper (applyTextConfig, applyColorPreset)
 │   └── index.ts              # Master barrel
 ├── react/                    # React integration
 │   └── hooks/
@@ -69,6 +80,16 @@ The core is pure CSS with CSS custom properties for configuration. Framework wra
 
 Effects and modifiers are separate CSS classes composed together (e.g. `border-effect border-rainbow border-hover-only border-glow`). This avoids combinatorial explosion (11 effects × 6 modifiers = 66 combinations vs thousands with single classes) and makes extending the library trivial — a new modifier is one CSS file.
 
+### Hybrid configuration: Presets + CSS vars + JS helpers
+
+Three layers of configuration, from simplest to most flexible:
+
+1. **Color preset classes** (`.text-colors-sunset`, `.text-glow-purple`, etc.) — droppable CSS classes, no code needed
+2. **CSS custom properties** (`--text-effect-gradient-start`, etc.) — inline styles or stylesheets, full control
+3. **JS config helpers** (`applyTextConfig()`, `applyColorPreset()`) — programmatic configuration with TypeScript types
+
+Inline styles always override class presets (higher specificity), so users can mix approaches.
+
 ### Namespaced class names and CSS variables
 
 - Border classes: `.border-effect`, `.border-rainbow`, `.border-hover-only`, etc.
@@ -86,6 +107,9 @@ This prevents collisions when both libraries are used on the same page.
 - [x] Alt border effects (`.border-alt` — no webkit-mask dependency)
 - [x] Shared modifiers (`.border-glow`, `.border-thick` — work with both systems)
 - [x] Text effects (3 effects + modifiers)
+- [x] Color presets (24 CSS classes: 10 gradient, 6 glitch, 8 glow)
+- [x] JS config helpers (`applyTextConfig`, `applyColorPreset`)
+- [x] Vanilla JS trigger (`initTextAnimations`)
 - [x] React scroll-trigger hooks
 - [x] Project structure under `src/`
 - [x] Lint, format, typecheck scripts

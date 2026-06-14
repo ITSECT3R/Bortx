@@ -1,0 +1,146 @@
+/* ============================================
+   Color Presets
+   
+   Pre-defined color schemes that set CSS custom
+   properties. Use with gradient, glitch, or glow
+   modifiers to quickly apply a color scheme
+   without inline styles.
+   
+   Inline styles always override these presets,
+   so you can still customize when needed.
+   ============================================ */
+
+/* ============================================
+   Gradient Color Presets
+   
+   Sets --text-effect-gradient-start and
+   --text-effect-gradient-end. Combine with
+   .text-gradient, .text-gradient-animated,
+   or .text-gradient-rainbow.
+   ============================================ */
+.text-colors-sunset {
+  --text-effect-gradient-start: #ff9f40;
+  --text-effect-gradient-end: #ff0000;
+}
+
+.text-colors-ocean {
+  --text-effect-gradient-start: #00d4ff;
+  --text-effect-gradient-end: #8b52fd;
+}
+
+.text-colors-cyberpunk {
+  --text-effect-gradient-start: #ff00ff;
+  --text-effect-gradient-end: #00ffff;
+}
+
+.text-colors-forest {
+  --text-effect-gradient-start: #00ff88;
+  --text-effect-gradient-end: #00aa55;
+}
+
+.text-colors-fire {
+  --text-effect-gradient-start: #ff6600;
+  --text-effect-gradient-end: #ffcc00;
+}
+
+.text-colors-twilight {
+  --text-effect-gradient-start: #8b52fd;
+  --text-effect-gradient-end: #ff9f40;
+}
+
+.text-colors-neon {
+  --text-effect-gradient-start: #00ff88;
+  --text-effect-gradient-end: #00d4ff;
+}
+
+.text-colors-candy {
+  --text-effect-gradient-start: #ff69b4;
+  --text-effect-gradient-end: #ffd700;
+}
+
+.text-colors-midnight {
+  --text-effect-gradient-start: #1a1a2e;
+  --text-effect-gradient-end: #16213e;
+}
+
+.text-colors-ember {
+  --text-effect-gradient-start: #e94560;
+  --text-effect-gradient-end: #533483;
+}
+
+/* ============================================
+   Glitch Color Presets
+   
+   Sets --text-effect-glitch-color-1 and
+   --text-effect-glitch-color-2. Combine
+   with .text-glitch, .text-glitch-intense,
+   or .text-glitch-subtle.
+   ============================================ */
+.text-glitch-colors-error {
+  --text-effect-glitch-color-1: #ff0000;
+  --text-effect-glitch-color-2: #00ffff;
+}
+
+.text-glitch-colors-neon {
+  --text-effect-glitch-color-1: #ff00ff;
+  --text-effect-glitch-color-2: #00ff00;
+}
+
+.text-glitch-colors-matrix {
+  --text-effect-glitch-color-1: #00ff00;
+  --text-effect-glitch-color-2: #003300;
+}
+
+.text-glitch-colors-vaporwave {
+  --text-effect-glitch-color-1: #ff71ce;
+  --text-effect-glitch-color-2: #01cdfe;
+}
+
+.text-glitch-colors-cyber {
+  --text-effect-glitch-color-1: #ff9f40;
+  --text-effect-glitch-color-2: #8b52fd;
+}
+
+.text-glitch-colors-toxic {
+  --text-effect-glitch-color-1: #39ff14;
+  --text-effect-glitch-color-2: #ff6600;
+}
+
+/* ============================================
+   Glow Color Presets
+   
+   Sets --text-effect-glow-color. Combine
+   with .text-glow, .text-glow-pulse, or
+   .text-glow-intense.
+   ============================================ */
+.text-glow-purple {
+  --text-effect-glow-color: #8b52fd;
+}
+
+.text-glow-cyan {
+  --text-effect-glow-color: #00ffff;
+}
+
+.text-glow-orange {
+  --text-effect-glow-color: #ff9f40;
+}
+
+.text-glow-pink {
+  --text-effect-glow-color: #ff69b4;
+}
+
+.text-glow-green {
+  --text-effect-glow-color: #00ff88;
+}
+
+.text-glow-red {
+  --text-effect-glow-color: #ff0000;
+}
+
+.text-glow-gold {
+  --text-effect-glow-color: #ffd700;
+}
+
+.text-glow-white {
+  --text-effect-glow-color: #ffffff;
+}

@@ -2,180 +2,353 @@
 
 ## Overview
 
-The text animation system in this portfolio consists of three main components:
+The text animation system has four layers:
 
-1. **React Hooks** (`src/hooks/useAnimateOnScroll.ts`) - Handle viewport detection and animation triggering
-2. **CSS Effects** (`src/text/`) - Define the actual animation styles
-3. **Component Integration** - How components use the hooks and styles together
+1. **CSS Effects & Modifiers** (`src/text/`) — Pure CSS classes with CSS custom property configuration
+2. **Color Presets** (`src/text/modifiers/color-presets.css`) — Drop-in CSS classes for quick color theming
+3. **JS Config Helper** (`src/text/apply-config.ts`) — Programmatic configuration without inline styles
+4. **Trigger System** — React hooks (`useAnimateOnScroll`) or vanilla JS (`initTextAnimations`) to add the `.is-animated` trigger class on viewport entry
 
-## How It Works
+Text animations are **paused/hidden by default**. Add `.is-animated` to trigger them — either via the provided helpers or manually.
 
-### 1. Animation Trigger System (React Hooks)
+---
 
-The system uses `IntersectionObserver` via the `useAnimateOnScroll` hook to detect when text elements enter the viewport. When an element becomes visible, the hook automatically adds the `is-animated` CSS class, which triggers the animations.
+## 1. Effects
 
-#### Key Hook Features:
+### Base Requirements
 
-- **Automatic Class Toggle**: Adds/removes `is-animated` class based on viewport intersection
-- **Configurable Options**: Threshold, root margin, trigger once, delay
-- **Multiple Elements**: `useAnimateOnScrollMany` for staggered animations on multiple elements
-- **Reset Functionality**: Can manually reset animation state
+- **Required Class**: `.text-effect` (base styles and CSS variable defaults)
+- **Trigger Class**: `.is-animated` (un-pauses all animations)
 
-#### Hook Usage Example:
+### Typewriter (`.text-typewriter`)
 
-```tsx
-const { ref, isAnimated } = useAnimateOnScroll({
-  threshold: 0.5, // Trigger when 50% visible
-  delay: 200, // Wait 200ms before adding class
-  triggerOnce: true, // Only animate once
-});
+Simulates typing with a blinking cursor. Uses `ch` units for accurate character width.
 
-return (
-  <h1 ref={ref} className="text-effect text-typewriter">
-    Animated Text
-  </h1>
-);
+| Variant                      | Behavior                              |
+| ---------------------------- | ------------------------------------- |
+| (default)                    | Types once, cursor blinks             |
+| `.text-typewriter-no-cursor` | Types once, no cursor                 |
+| `.text-typewriter-loop`      | Types → un-types → repeats infinitely |
+
+**Required variable**: `--text-effect-chars` (number of characters)
+
+### Reveal (`.text-reveal-up` / `-down` / `-left` / `-right`)
+
+Text slides into view with opacity fade. Supports per-word or per-letter staggering via container classes.
+
+| Class                | Movement               |
+| -------------------- | ---------------------- |
+| `.text-reveal-up`    | Slides up from below   |
+| `.text-reveal-down`  | Slides down from above |
+| `.text-reveal-left`  | Slides in from right   |
+| `.text-reveal-right` | Slides in from left    |
+
+### Glitch (`.text-glitch`)
+
+Digital distortion with color separation and position jitter.
+
+| Variant                | Description                                                            |
+| ---------------------- | ---------------------------------------------------------------------- |
+| (default)              | Moderate text-shadow jitter                                            |
+| `.text-glitch-intense` | Pseudo-element slices via `clip-path` (`data-text` attribute required) |
+| `.text-glitch-subtle`  | Slow, subdued distortion                                               |
+
+---
+
+## 2. Modifiers
+
+Modifiers compose with any effect. Apply them alongside the effect class.
+
+### Glow Modifiers
+
+| Class                | Behavior                         |
+| -------------------- | -------------------------------- |
+| `.text-glow`         | Static two-layer `drop-shadow`   |
+| `.text-glow-pulse`   | Animated pulsing glow (2s cycle) |
+| `.text-glow-intense` | Four-layer static glow           |
+
+Variables: `--text-effect-glow-color`, `--text-effect-glow-intensity`
+
+### Gradient Modifiers
+
+| Class                     | Behavior                                   |
+| ------------------------- | ------------------------------------------ |
+| `.text-gradient`          | Static two-color linear gradient           |
+| `.text-gradient-animated` | Shifting gradient (3s cycle, 200% bg size) |
+| `.text-gradient-rainbow`  | 8-color rainbow with shift (5s cycle)      |
+
+Variables: `--text-effect-gradient-start`, `--text-effect-gradient-end`, `--text-effect-gradient-angle`
+
+### Timing Modifiers
+
+| Class                                   | Effect             |
+| --------------------------------------- | ------------------ |
+| `.text-slow`                            | 4s duration        |
+| `.text-fast`                            | 1s duration        |
+| `.text-delay-1` through `.text-delay-5` | 0.1s to 0.5s delay |
+
+### Other Modifiers
+
+| Class                        | Description                                          |
+| ---------------------------- | ---------------------------------------------------- |
+| `.text-shadow-depth`         | 3-layer drop-shadow for a 3D stacked look            |
+| `.text-typewriter-loop`      | Typewriter loops infinitely (alternate direction)    |
+| `.text-typewriter-no-cursor` | Hide typewriter cursor                               |
+| `.text-glitch-intense`       | Intense glitch variant (needs `data-text` attribute) |
+| `.text-glitch-subtle`        | Subtle, slow glitch (5s cycle, 1px intensity)        |
+
+---
+
+## 3. Color Presets
+
+Pre-defined CSS classes that set color-related CSS custom properties. No inline styles needed. Inline styles still override presets when both are used.
+
+### Gradient Color Presets
+
+Combine with `.text-gradient`, `.text-gradient-animated`, or `.text-gradient-rainbow`.
+
+| Class                    | Colors                |
+| ------------------------ | --------------------- |
+| `.text-colors-sunset`    | `#ff9f40` → `#ff0000` |
+| `.text-colors-ocean`     | `#00d4ff` → `#8b52fd` |
+| `.text-colors-cyberpunk` | `#ff00ff` → `#00ffff` |
+| `.text-colors-forest`    | `#00ff88` → `#00aa55` |
+| `.text-colors-fire`      | `#ff6600` → `#ffcc00` |
+| `.text-colors-twilight`  | `#8b52fd` → `#ff9f40` |
+| `.text-colors-neon`      | `#00ff88` → `#00d4ff` |
+| `.text-colors-candy`     | `#ff69b4` → `#ffd700` |
+| `.text-colors-midnight`  | `#1a1a2e` → `#16213e` |
+| `.text-colors-ember`     | `#e94560` → `#533483` |
+
+```html
+<h1
+  class="text-effect text-typewriter text-gradient-animated text-colors-sunset"
+>
+  Hello World
+</h1>
 ```
 
-### 2. CSS Animation Effects
+### Glitch Color Presets
 
-All animations are CSS-based and triggered by the `is-animated` class. The system includes:
+Combine with `.text-glitch`, `.text-glitch-intense`, or `.text-glitch-subtle`.
 
-#### Base Requirements:
+| Class                           | Colors                |
+| ------------------------------- | --------------------- |
+| `.text-glitch-colors-error`     | `#ff0000` / `#00ffff` |
+| `.text-glitch-colors-neon`      | `#ff00ff` / `#00ff00` |
+| `.text-glitch-colors-matrix`    | `#00ff00` / `#003300` |
+| `.text-glitch-colors-vaporwave` | `#ff71ce` / `#01cdfe` |
+| `.text-glitch-colors-cyber`     | `#ff9f40` / `#8b52fd` |
+| `.text-glitch-colors-toxic`     | `#39ff14` / `#ff6600` |
 
-- **Required Class**: `text-effect` (base styles and variables)
-- **Trigger Class**: `is-animated` (added by hook when element enters viewport)
-- **Effect Classes**: Specific animation types (see below)
+### Glow Color Presets
 
-#### Available Effects:
+Combine with `.text-glow`, `.text-glow-pulse`, or `.text-glow-intense`.
 
-**Typewriter Effect** (`text-typewriter`)
+| Class               | Color     |
+| ------------------- | --------- |
+| `.text-glow-purple` | `#8b52fd` |
+| `.text-glow-cyan`   | `#00ffff` |
+| `.text-glow-orange` | `#ff9f40` |
+| `.text-glow-pink`   | `#ff69b4` |
+| `.text-glow-green`  | `#00ff88` |
+| `.text-glow-red`    | `#ff0000` |
+| `.text-glow-gold`   | `#ffd700` |
+| `.text-glow-white`  | `#ffffff` |
 
-- Simulates typing with blinking cursor
-- Requires `--text-effect-chars` CSS variable (character count)
-- Uses `ch` units for accurate character width
-- Variants: `text-typewriter-no-cursor`, `text-typewriter-loop`
+---
 
-**Reveal Up Effect** (`text-reveal-up`)
+## 4. JS Configuration Helpers
 
-- Text slides up from bottom with opacity fade-in
-- Can animate entire blocks or individual words/letters
-- Container class: `text-reveal-up-container` with `text-reveal-up-word` children
-- Auto-stagger: Add `text-stagger-auto` for automatic delays
+Three approaches to configure text effects, from simplest to most flexible:
 
-**Glitch Effect** (`text-glitch`)
+### A: Color Presets (CSS-only, simplest)
 
-- Digital distortion with color separation and position jitter
-- Variants: `text-glitch-intense` (uses pseudo-elements), `text-glitch-subtle`
-- Customizable colors via `--text-effect-glitch-color-1/2`
+```html
+<h1
+  class="text-effect text-typewriter text-gradient-animated text-colors-sunset"
+>
+  Hello World
+</h1>
+```
 
-#### Modifiers (can combine with any effect):
+### B: CSS Custom Properties (inline styles, full control)
 
-**Glow** (`text-glow`)
+```html
+<h1
+  class="text-effect text-glitch text-glow"
+  style="--text-effect-glitch-color-1: #ff00ff; --text-effect-glow-color: #00ffff;"
+>
+  Cyber Punk
+</h1>
+```
 
-- Adds text-shadow glow effect
-- Variants: `text-glow-pulse` (animated), `text-glow-intense`
-- Variables: `--text-effect-glow-color`, `--text-effect-glow-intensity`
+### C: JS Helper (programmatic, type-safe)
 
-**Gradient** (`text-gradient`)
+```ts
+import { applyTextConfig, applyColorPreset } from 'knocking-borders/text';
 
-- Applies linear gradient to text using `background-clip: text`
-- Variants: `text-gradient-animated`, `text-gradient-rainbow`
-- Variables: `--text-effect-gradient-start/end/angle`
+const el = document.querySelector('.my-text')!;
 
-**Timing Modifiers**:
+applyTextConfig(el, {
+  chars: 15,
+  speed: '3s',
+  gradient: ['#ff9f40', '#ff0000'],
+  glowColor: '#00ffff',
+  glowIntensity: '12px',
+});
 
-- `text-slow` / `text-fast` - Adjust animation speed
-- `text-delay-1` through `text-delay-5` - Preset delays
+applyColorPreset(el, 'text-colors-sunset');
+```
 
-### 3. CSS Variables (Customization)
+Available JS exports:
 
-The system uses CSS custom properties for easy customization:
+| Export                                              | Type     | Description                                                |
+| --------------------------------------------------- | -------- | ---------------------------------------------------------- |
+| `applyTextConfig(el, config)`                       | Function | Set CSS custom properties programmatically                 |
+| `applyColorPreset(el, className)`                   | Function | Add a color preset class (removes same-category conflicts) |
+| `initTextAnimations(options?)`                      | Function | Vanilla IntersectionObserver auto-trigger                  |
+| `TextEffectConfig`                                  | Type     | TypeScript interface for config object                     |
+| `GradientPreset` / `GlitchPreset` / `GlowPreset`    | Type     | Preset type definitions                                    |
+| `gradientPresets` / `glitchPresets` / `glowPresets` | Array    | Preset metadata (class, label, colors)                     |
+| `getPresetByClass(className)`                       | Function | Lookup preset metadata by class name                       |
+
+---
+
+## 5. CSS Variables Reference
+
+All configurable custom properties:
 
 ```css
 /* Timing */
---text-effect-speed: 2s;
---text-effect-delay: 0s;
+--text-effect-speed: 2s; /* Animation duration */
+--text-effect-delay: 0s; /* Animation delay */
+--text-effect-speed-slow: 4s; /* Used by .text-slow */
+--text-effect-speed-fast: 1s; /* Used by .text-fast */
 
 /* Colors */
---text-effect-color: inherit;
---text-effect-accent: #8b52fd;
+--text-effect-color: inherit; /* Base text color */
+--text-effect-accent: #8b52fd; /* Accent color */
 --text-effect-glow-color: currentColor;
+--text-effect-glow-intensity: 10px;
 
-/* Effect-specific */
---text-effect-chars: 20; /* Typewriter */
---text-effect-glitch-intensity: 2px; /* Glitch */
---text-effect-glow-intensity: 10px; /* Glow */
---text-effect-gradient-start: #8b52fd; /* Gradient */
+/* Gradient */
+--text-effect-gradient-start: #8b52fd;
+--text-effect-gradient-end: #00ffff;
+--text-effect-gradient-angle: 90deg;
+
+/* Typewriter */
+--text-effect-chars: 20;
+--text-effect-cursor-width: 3px;
+--text-effect-cursor-color: currentColor;
+
+/* Glitch */
+--text-effect-glitch-color-1: #ff0000;
+--text-effect-glitch-color-2: #00ffff;
+--text-effect-glitch-intensity: 2px;
 ```
 
-### 4. Component Integration Pattern
+---
 
-Components follow this pattern:
+## 6. Trigger System
 
-1. **Import Hook**: `import { useAnimateOnScroll } from '../hooks';`
-2. **Import Styles**: `import '../styles/text';` (or specific effect files)
-3. **Create Hook Instance**: Configure options per element
-4. **Apply Classes**: Combine `text-effect` + effect class + modifiers
-5. **Attach Ref**: Connect element to hook
-6. **Set Variables**: Use inline styles for dynamic values
+### Vanilla JS (`initTextAnimations`)
 
-#### Complete Example:
+```ts
+import { initTextAnimations } from 'knocking-borders/text';
+
+// Auto-adds .is-animated when elements enter viewport
+const cleanup = initTextAnimations({
+  threshold: 0.1,
+  rootMargin: '100px',
+  triggerOnce: true,
+});
+
+// Stop observing when done
+cleanup();
+```
+
+### React (`useAnimateOnScroll`)
 
 ```tsx
-import { useAnimateOnScroll } from '../hooks';
-import '../styles/text';
+import { useAnimateOnScroll } from 'knocking-borders/react';
 
-export default function MyComponent() {
-  const { ref: titleRef } = useAnimateOnScroll({ threshold: 0.5 });
-  const { ref: subtitleRef } = useAnimateOnScroll({
-    threshold: 0.3,
-    delay: 300,
-  });
+function MyComponent() {
+  const { ref } = useAnimateOnScroll({ threshold: 0.5, delay: 200 });
 
   return (
-    <>
-      <h1
-        ref={titleRef}
-        className="text-effect text-typewriter text-glow text-fast"
-        style={
-          {
-            '--text-effect-chars': 15,
-            '--text-effect-glow-color': '#00d4ff',
-          } as React.CSSProperties
-        }
-      >
-        Welcome to My Site
-      </h1>
-
-      <h2
-        ref={subtitleRef}
-        className="text-effect text-glitch text-gradient-animated"
-      >
-        Full Stack Developer
-      </h2>
-    </>
+    <h1
+      ref={ref}
+      className="text-effect text-typewriter text-glow text-colors-sunset"
+    >
+      Welcome
+    </h1>
   );
 }
 ```
 
-### 5. Animation States
+### Manual Trigger
 
-- **Before Animation**: Element has base classes but no `is-animated` → animations paused/hidden
-- **During Animation**: Hook detects intersection → adds `is-animated` → CSS animations run
-- **After Animation**: Element stays animated (unless `triggerOnce: false`)
+```html
+<h1 class="text-effect text-reveal-up is-animated">Always visible</h1>
+```
 
-### 6. Performance Considerations
+---
 
-- Uses `IntersectionObserver` (efficient, no polling)
-- CSS-only animations (GPU accelerated)
+## 7. Complete Examples
+
+### Sunset Gradient Typewriter
+
+```tsx
+const { ref } = useAnimateOnScroll({ threshold: 0.5 });
+return (
+  <h1
+    ref={ref}
+    className="text-effect text-typewriter text-gradient-animated text-colors-sunset"
+    style={{ '--text-effect-chars': 17 } as React.CSSProperties}
+  >
+    Full Stack Developer
+  </h1>
+);
+```
+
+### Cyberpunk Glitch with Glow (JS helper)
+
+```ts
+import { applyTextConfig, applyColorPreset } from 'knocking-borders/text';
+
+const el = document.querySelector('.hero-title')!;
+applyTextConfig(el, {
+  glitchColors: ['#ff00ff', '#00ff00'],
+  glowColor: '#ff00ff',
+  glowIntensity: '6px',
+});
+el.className = 'text-effect text-glitch text-glow is-animated';
+```
+
+### 3D Shadow Reveal
+
+```html
+<h2 class="text-effect text-reveal-up text-shadow-depth text-fast text-delay-2">
+  Slow Reveal
+</h2>
+```
+
+---
+
+## 8. Animation States
+
+- **Before animation**: Element has classes but no `.is-animated` → animations paused/hidden
+- **During animation**: Trigger system adds `.is-animated` → CSS animations run
+- **After animation**: Element stays in final animated state (unless `triggerOnce: false`)
+
+---
+
+## 9. Performance & Accessibility
+
+- Uses `IntersectionObserver` (no polling)
+- CSS-only animations (GPU accelerated via `transform` and `filter`)
 - Lazy loading: animations only start when elements are visible
-- Minimal JavaScript: hooks are lightweight wrappers around native APIs
-
-### 7. Browser Support
-
-- Modern browsers with CSS custom properties and IntersectionObserver
-- Fallbacks: Elements remain readable even without animations
-- Graceful degradation: Non-supporting browsers show static text
-
-This system provides a flexible, performant way to add engaging text animations that enhance the user experience without compromising accessibility or performance.
+- `prefers-reduced-motion: reduce` disables all animations and shows static text
+- `forced-colors: active` strips gradient fills for readability
+- Graceful degradation: non-supporting browsers show static text

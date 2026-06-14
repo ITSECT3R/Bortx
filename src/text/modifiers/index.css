@@ -2,26 +2,35 @@
    Text Effect Modifiers
    ============================================ */
 
+@import './color-presets.css';
+
 /* ============================================
    MODIFIER: Glow
    
-   Adds a customizable text-shadow glow effect.
-   Can be static or pulsing.
+   Adds a customizable glow effect via CSS filter
+   drop-shadow. Uses filter instead of text-shadow
+   so that effects which animate text-shadow (like
+   glitch) do not override the glow.
    
    Variables:
    --text-effect-glow-color     → Glow color (default: currentColor)
    --text-effect-glow-intensity → Blur radius (default: 10px)
    ============================================ */
 .text-glow {
-  text-shadow:
-    0 0 calc(var(--text-effect-glow-intensity, 10px) * 0.5)
-      var(--text-effect-glow-color, currentColor),
-    0 0 var(--text-effect-glow-intensity, 10px)
-      var(--text-effect-glow-color, currentColor);
+  filter: drop-shadow(
+      0 0 calc(var(--text-effect-glow-intensity, 10px) * 0.5)
+        var(--text-effect-glow-color, currentColor)
+    )
+    drop-shadow(
+      0 0 var(--text-effect-glow-intensity, 10px)
+        var(--text-effect-glow-color, currentColor)
+    );
 }
 
-/* Pulsing glow variant — animation configured via custom properties
-   so it composes with any effect class without cascade conflicts. */
+/* Pulsing glow variant — uses filter animation via
+   the composition bridge. Animated filter (not text-shadow)
+   so glitch effects that animate text-shadow don't
+   interfere. */
 .text-glow-pulse {
   --text-effect-modifier-name: text-glow-pulse;
   --text-effect-modifier-animation-duration: var(--text-effect-speed, 2s);
@@ -30,17 +39,24 @@
   --text-effect-modifier-animation-iteration: infinite;
 }
 
-/* Intense glow */
+/* Intense glow — 4 filter layers, capped at 1x base intensity */
 .text-glow-intense {
-  text-shadow:
-    0 0 calc(var(--text-effect-glow-intensity, 10px) * 0.25)
-      var(--text-effect-glow-color, currentColor),
-    0 0 calc(var(--text-effect-glow-intensity, 10px) * 0.5)
-      var(--text-effect-glow-color, currentColor),
-    0 0 var(--text-effect-glow-intensity, 10px)
-      var(--text-effect-glow-color, currentColor),
-    0 0 calc(var(--text-effect-glow-intensity, 10px) * 2)
-      var(--text-effect-glow-color, currentColor);
+  filter: drop-shadow(
+      0 0 calc(var(--text-effect-glow-intensity, 10px) * 0.2)
+        var(--text-effect-glow-color, currentColor)
+    )
+    drop-shadow(
+      0 0 calc(var(--text-effect-glow-intensity, 10px) * 0.4)
+        var(--text-effect-glow-color, currentColor)
+    )
+    drop-shadow(
+      0 0 calc(var(--text-effect-glow-intensity, 10px) * 0.7)
+        var(--text-effect-glow-color, currentColor)
+    )
+    drop-shadow(
+      0 0 var(--text-effect-glow-intensity, 10px)
+        var(--text-effect-glow-color, currentColor)
+    );
 }
 
 /* ============================================
@@ -155,13 +171,14 @@
 /* ============================================
    MODIFIER: Text Shadow Depth
     
-    Adds a subtle 3D shadow effect.
+    Adds a subtle 3D shadow effect via filter
+    drop-shadow (avoiding text-shadow conflicts
+    with effects like glitch that animate it).
     ============================================ */
 .text-shadow-depth {
-  text-shadow:
-    1px 1px 0 rgba(0, 0, 0, 0.2),
-    2px 2px 0 rgba(0, 0, 0, 0.15),
-    3px 3px 0 rgba(0, 0, 0, 0.1);
+  filter: drop-shadow(1px 1px 0 rgba(0, 0, 0, 0.2))
+    drop-shadow(2px 2px 0 rgba(0, 0, 0, 0.15))
+    drop-shadow(3px 3px 0 rgba(0, 0, 0, 0.1));
 }
 
 /* ============================================

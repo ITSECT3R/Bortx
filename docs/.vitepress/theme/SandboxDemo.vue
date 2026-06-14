@@ -1,5 +1,10 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted } from 'vue';
+import {
+  gradientPresets,
+  glitchPresets,
+  glowPresets,
+} from 'knocking-borders/text';
 
 // ========================================
 // Border State
@@ -45,35 +50,40 @@ const altModifiers = [
 ];
 
 const borderEffects = computed(() =>
-  borderMode.value === 'pro' ? proEffects : altEffects,
+  borderMode.value === 'pro' ? proEffects : altEffects
 );
 const borderModifiers = computed(() =>
-  borderMode.value === 'pro' ? proModifiers : altModifiers,
+  borderMode.value === 'pro' ? proModifiers : altModifiers
 );
 
 const borderBaseClass = computed(() =>
-  borderMode.value === 'pro' ? 'border-effect' : 'border-alt',
+  borderMode.value === 'pro' ? 'border-effect' : 'border-alt'
 );
 
 const borderClasses = computed(() =>
-  [borderBaseClass.value, borderEffect.value, ...activeBorderModifiers.value].join(' '),
+  [
+    borderBaseClass.value,
+    borderEffect.value,
+    ...activeBorderModifiers.value,
+  ].join(' ')
 );
 
 const activeBorderChips = computed(() => {
   const lookup = [...proModifiers, ...altModifiers];
   return activeBorderModifiers.value.map(
-    (v) => lookup.find((m) => m.value === v)?.label ?? v,
+    v => lookup.find(m => m.value === v)?.label ?? v
   );
 });
 
 const availableBorderMods = computed(() =>
   borderModifiers.value.filter(
-    (m) => !activeBorderModifiers.value.includes(m.value),
-  ),
+    m => !activeBorderModifiers.value.includes(m.value)
+  )
 );
 
 const borderEffectLabel = computed(
-  () => borderEffects.value.find((e) => e.value === borderEffect.value)?.label ?? '',
+  () =>
+    borderEffects.value.find(e => e.value === borderEffect.value)?.label ?? ''
 );
 
 function switchMode(mode: 'pro' | 'alt') {
@@ -117,6 +127,9 @@ const textEffects = [
   { value: 'text-typewriter', label: 'Typewriter' },
   { value: 'text-glitch', label: 'Glitch' },
   { value: 'text-reveal-up', label: 'Reveal Up' },
+  { value: 'text-reveal-down', label: 'Reveal Down' },
+  { value: 'text-reveal-left', label: 'Reveal Left' },
+  { value: 'text-reveal-right', label: 'Reveal Right' },
 ];
 
 const textModifiers = [
@@ -128,35 +141,95 @@ const textModifiers = [
   { value: 'text-gradient-rainbow', label: 'Gradient Rainbow' },
   { value: 'text-slow', label: 'Slow' },
   { value: 'text-fast', label: 'Fast' },
+  { value: 'text-shadow-depth', label: 'Shadow Depth' },
+  { value: 'text-typewriter-loop', label: 'Loop' },
+  { value: 'text-typewriter-no-cursor', label: 'No Cursor' },
+  { value: 'text-glitch-intense', label: 'Intense Glitch' },
+  { value: 'text-glitch-subtle', label: 'Subtle Glitch' },
 ];
 
 const textClasses = computed(() => {
   if (!textEffect.value) return '';
-  return ['text-effect', textEffect.value, 'is-animated', ...activeTextModifiers.value].join(
-    ' ',
-  );
+  return [
+    'text-effect',
+    textEffect.value,
+    'is-animated',
+    ...activeTextModifiers.value,
+    ...activeColorPresets.value,
+  ].join(' ');
 });
 
 const textEffectLabel = computed(
-  () => textEffects.find((e) => e.value === textEffect.value)?.label ?? 'None',
+  () => textEffects.find(e => e.value === textEffect.value)?.label ?? 'None'
 );
 
 const activeTextChips = computed(() => {
   return activeTextModifiers.value.map(
-    (v) => textModifiers.find((m) => m.value === v)?.label ?? v,
+    v => textModifiers.find(m => m.value === v)?.label ?? v
   );
 });
 
 const availableTextMods = computed(() =>
-  textModifiers.filter((m) => !activeTextModifiers.value.includes(m.value)),
+  textModifiers.filter(m => !activeTextModifiers.value.includes(m.value))
 );
 
 const computedChars = computed(() => textContent.value.length);
+
+// ========================================
+// Color Presets
+// ========================================
+const activeColorPresets = ref<string[]>([]);
+
+const showGradientColors = computed(() =>
+  activeTextModifiers.value.some(m =>
+    [
+      'text-gradient',
+      'text-gradient-animated',
+      'text-gradient-rainbow',
+    ].includes(m)
+  )
+);
+
+const showGlitchColors = computed(() => textEffect.value === 'text-glitch');
+
+const showGlowColors = computed(() =>
+  activeTextModifiers.value.some(m =>
+    ['text-glow', 'text-glow-pulse', 'text-glow-intense'].includes(m)
+  )
+);
+
+function toggleColorPreset(className: string) {
+  const categories = [
+    gradientPresets.map(p => p.class),
+    glitchPresets.map(p => p.class),
+    glowPresets.map(p => p.class),
+  ];
+
+  if (activeColorPresets.value.includes(className)) {
+    activeColorPresets.value = activeColorPresets.value.filter(
+      c => c !== className
+    );
+    return;
+  }
+
+  // Remove any other preset in the same category
+  for (const cat of categories) {
+    if (cat.includes(className)) {
+      activeColorPresets.value = activeColorPresets.value.filter(
+        c => !cat.includes(c)
+      );
+      break;
+    }
+  }
+
+  activeColorPresets.value = [...activeColorPresets.value, className];
+}
 
 function selectTextEffect(value: string) {
   textEffect.value = value;
   textKey.value++;
   activeTextModifiers.value = [];
+  activeColorPresets.value = [];
   textEffectOpen.value = false;
 }
 
@@ -172,6 +245,10 @@ function toggleTextModifier(value: string) {
 function removeTextModifier(value: string) {
   const idx = activeTextModifiers.value.indexOf(value);
   if (idx >= 0) activeTextModifiers.value.splice(idx, 1);
+}
+
+function replayText() {
+  textKey.value++;
 }
 
 // ========================================
@@ -319,6 +396,16 @@ onUnmounted(() => document.removeEventListener('keydown', onKeydown));
       <div class="controls-group text-controls">
         <span class="group-label">Text</span>
 
+        <!-- Replay button -->
+        <button
+          v-if="textEffect"
+          class="replay-btn"
+          title="Replay animation"
+          @click="replayText"
+        >
+          &#x21bb; Replay
+        </button>
+
         <!-- Effect dropdown -->
         <div class="dropdown" :class="{ open: textEffectOpen }">
           <button class="dropdown-trigger" @click.stop="toggleTextEffect">
@@ -345,6 +432,58 @@ onUnmounted(() => document.removeEventListener('keydown', onKeydown));
           placeholder="Text content..."
           maxlength="40"
         />
+
+        <!-- Color Presets -->
+        <div
+          v-if="showGradientColors || showGlitchColors || showGlowColors"
+          class="color-presets-section"
+        >
+          <!-- Gradient colors -->
+          <div v-if="showGradientColors" class="color-preset-group">
+            <span class="color-preset-label">Gradient</span>
+            <button
+              v-for="p in gradientPresets"
+              :key="p.class"
+              :class="{ active: activeColorPresets.includes(p.class) }"
+              class="color-swatch"
+              :style="{
+                background: `linear-gradient(135deg, ${p.start}, ${p.end})`,
+              }"
+              :title="p.label"
+              @click.stop="toggleColorPreset(p.class)"
+            />
+          </div>
+
+          <!-- Glitch colors -->
+          <div v-if="showGlitchColors" class="color-preset-group">
+            <span class="color-preset-label">Glitch</span>
+            <button
+              v-for="p in glitchPresets"
+              :key="p.class"
+              :class="{ active: activeColorPresets.includes(p.class) }"
+              class="color-swatch split-swatch"
+              :title="p.label"
+              @click.stop="toggleColorPreset(p.class)"
+            >
+              <span :style="{ background: p.color1 }" />
+              <span :style="{ background: p.color2 }" />
+            </button>
+          </div>
+
+          <!-- Glow colors -->
+          <div v-if="showGlowColors" class="color-preset-group">
+            <span class="color-preset-label">Glow</span>
+            <button
+              v-for="p in glowPresets"
+              :key="p.class"
+              :class="{ active: activeColorPresets.includes(p.class) }"
+              class="color-swatch"
+              :style="{ background: p.color }"
+              :title="p.label"
+              @click.stop="toggleColorPreset(p.class)"
+            />
+          </div>
+        </div>
 
         <!-- Modifiers -->
         <div class="mod-controls">
@@ -378,10 +517,7 @@ onUnmounted(() => document.removeEventListener('keydown', onKeydown));
               >
                 {{ m.label }}
               </div>
-              <div
-                v-if="!availableTextMods.length"
-                class="dropdown-item empty"
-              >
+              <div v-if="!availableTextMods.length" class="dropdown-item empty">
                 All modifiers active
               </div>
             </div>
@@ -549,6 +685,29 @@ onUnmounted(() => document.removeEventListener('keydown', onKeydown));
   color: var(--vp-c-text-3);
 }
 
+/* Replay button */
+.replay-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.35rem 0.55rem;
+  font-size: 0.75rem;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 6px;
+  background: var(--vp-c-bg);
+  color: var(--vp-c-text-2);
+  cursor: pointer;
+  white-space: nowrap;
+  transition:
+    border-color 0.15s,
+    color 0.15s;
+}
+
+.replay-btn:hover {
+  border-color: var(--vp-c-brand);
+  color: var(--vp-c-brand);
+}
+
 .chevron {
   font-size: 0.6rem;
 }
@@ -629,6 +788,68 @@ onUnmounted(() => document.removeEventListener('keydown', onKeydown));
   font-weight: 700;
   font-size: 0.85rem;
   line-height: 1;
+}
+
+/* ============================================ */
+/* Color Preset Buttons */
+/* ============================================ */
+.color-presets-section {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-top: 0.3rem;
+}
+
+.color-preset-group {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  flex-wrap: wrap;
+}
+
+.color-preset-label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--vp-c-text-3);
+  margin-right: 0.2rem;
+  white-space: nowrap;
+}
+
+.color-swatch {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  cursor: pointer;
+  padding: 0;
+  transition:
+    border-color 0.15s,
+    transform 0.15s;
+  flex-shrink: 0;
+}
+
+.color-swatch:hover {
+  transform: scale(1.2);
+  border-color: var(--vp-c-text-2);
+}
+
+.color-swatch.active {
+  border-color: #fff;
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.3);
+}
+
+.split-swatch {
+  display: flex;
+  overflow: hidden;
+  padding: 0;
+}
+
+.split-swatch span {
+  flex: 1;
+  height: 100%;
 }
 
 /* ============================================ */
