@@ -5,6 +5,7 @@ export default defineConfig({
   title: 'Bortx',
   description: 'CSS Border & Text Animation Library — powered by the vortex',
   lang: 'en-US',
+  appearance: 'dark',
 
   themeConfig: {
     nav: [
@@ -29,7 +30,6 @@ export default defineConfig({
           text: 'Live Demos',
           items: [
             { text: 'Pro Borders', link: '/demo/pro-borders' },
-            { text: 'Alt Borders', link: '/demo/alt-borders' },
             { text: 'Text Effects', link: '/demo/text' },
           ],
         },
@@ -58,13 +58,10 @@ export default defineConfig({
           __dirname,
           '../../src/borders/base.css'
         ),
-        'bortx/borders/alt': resolve(
-          __dirname,
-          '../../src/borders/alt/index.ts'
-        ),
         'bortx/text': resolve(__dirname, '../../src/text/index.ts'),
         'bortx/text/styles': resolve(__dirname, '../../src/text/base.css'),
         'bortx/react': resolve(__dirname, '../../src/react/hooks/index.ts'),
+        'bortx/logo': resolve(__dirname, '../../src/logo/vortex.css'),
         bortx: resolve(__dirname, '../../src/index.ts'),
       },
     },

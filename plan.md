@@ -25,8 +25,11 @@ src/
 │   │   ├── dash-chase.css    # Racing stripe dashes
 │   │   ├── index.css         # @import barrel (for CSS consumers)
 │   │   └── index.ts          # import barrel (for TS/bundler consumers)
-│   ├── modifiers/            # Speed, glow, hover-only, thick, reverse
+│   ├── modifiers/            # Pro modifiers (hover-only, slow, fast, reverse)
 │   │   ├── index.css
+│   │   └── index.ts
+│   ├── shared/               # Shared modifiers (.border-glow, .border-thick)
+│   │   ├── modifiers.css
 │   │   └── index.ts
 │   └── index.ts              # Master barrel
 ├── text/                     # Text effects library
@@ -54,7 +57,7 @@ src/
 │   └── index.ts              # Master barrel
 ├── react/                    # React integration
 │   └── hooks/
-│       ├── useAnimateOnScroll.ts       # Single element
+│       ├── useAnimateOnScroll.ts       # Scroll-triggered hooks (single + many)
 │       └── index.ts                    # Barrel export
 └── index.ts                  # Root entry — imports borders + text, exports React hooks
 ```
@@ -104,8 +107,8 @@ This prevents collisions when both libraries are used on the same page.
 ### Phase 1 — Foundation (current)
 
 - [x] Border effects (11 effects + modifiers)
-- [x] Alt border effects (`.border-alt` — no webkit-mask dependency)
-- [x] Shared modifiers (`.border-glow`, `.border-thick` — work with both systems)
+- [x] Alt border effects (`.border-alt` — no webkit-mask dependency, removed from production, future release)
+- [x] Shared modifiers (`.border-glow`, `.border-thick`)
 - [x] Text effects (3 effects + modifiers)
 - [x] Color presets (24 CSS classes: 10 gradient, 6 glitch, 8 glow)
 - [x] JS config helpers (`applyTextConfig`, `applyColorPreset`)
@@ -129,12 +132,13 @@ This prevents collisions when both libraries are used on the same page.
 - [ ] npm publish (`bortx`)
 - [ ] Bundle size tracking (bundlephobia)
 
-### Phase 3 — Framework Wrappers
+### Phase 3 — Framework Wrappers & Alt Effects
 
 - [ ] React `<BortxBorder effect="pulse" glow />` component
 - [ ] React `<BortxText effect="typewriter" />` component
 - [ ] Vue composables and components
 - [ ] Angular directive (secondary — may be separate package)
+- [ ] Alt border effects (`.border-alt` — no webkit-mask dependency, broader browser support)
 
 ### Phase 4 — Docs & Ecosystem
 

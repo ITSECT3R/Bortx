@@ -103,7 +103,7 @@ Text animations are scroll-triggered — **scroll down** to see them animate.
   </div>
 
   <div class="demo-text">
-    <span class="label">No Cursor Loop</span>
+    <span class="label">Looping Typewriter</span>
     <h2
       class="text-effect text-typewriter text-typewriter-loop text-glow-pulse"
       style="--text-effect-chars: 6; --text-effect-speed: 2s; --text-effect-glow-color: #00ffff;"

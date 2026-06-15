@@ -34,7 +34,7 @@ import {
 } from 'bortx/text';
 
 // React hooks only (no CSS)
-import { useAnimateOnScroll } from 'bortx/react';
+import { useAnimateOnScroll, useAnimateOnScrollMany } from 'bortx/react';
 
 // Vanilla JS auto-animate trigger only (no React)
 import { initTextAnimations } from 'bortx/text';
@@ -180,6 +180,8 @@ document.querySelector('.text-effect').classList.add('is-animated');
 | `--text-effect-glitch-color-1`   | `#ff0000`      | Glitch color 1                 |
 | `--text-effect-glitch-color-2`   | `#00ffff`      | Glitch color 2                 |
 | `--text-effect-glitch-intensity` | `2px`          | Glitch distortion strength     |
+| `--text-effect-cursor-width`     | `3px`          | Typewriter cursor width        |
+| `--text-effect-cursor-color`     | `currentColor` | Typewriter cursor color        |
 
 ## Browser Support
 

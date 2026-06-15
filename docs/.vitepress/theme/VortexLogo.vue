@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import '../../../src/logo/vortex.css';
+import 'bortx/logo';
 import 'bortx/borders';
 
 defineProps<{

@@ -6,6 +6,12 @@
  * are inconvenient.
  */
 
+import {
+  gradientPresetClasses,
+  glitchPresetClasses,
+  glowPresetClasses,
+} from './modifiers/color-presets';
+
 export interface TextEffectConfig {
   /** Character count for typewriter effect */
   chars?: number;
@@ -27,12 +33,15 @@ export interface TextEffectConfig {
   glowIntensity?: string;
   /** Accent color */
   accent?: string;
+  /** Base text color (sets --text-effect-color) */
+  color?: string;
 }
 
 const PROPERTY_MAP: Record<string, string> = {
   chars: '--text-effect-chars',
   speed: '--text-effect-speed',
   delay: '--text-effect-delay',
+  color: '--text-effect-color',
   accent: '--text-effect-accent',
   glowColor: '--text-effect-glow-color',
   glowIntensity: '--text-effect-glow-intensity',
@@ -71,43 +80,12 @@ export function applyTextConfig(
  * Removes conflicting presets in the same category.
  */
 export function applyColorPreset(el: HTMLElement, presetClass: string): void {
-  const gradientClasses = [
-    'text-colors-sunset',
-    'text-colors-ocean',
-    'text-colors-cyberpunk',
-    'text-colors-forest',
-    'text-colors-fire',
-    'text-colors-twilight',
-    'text-colors-neon',
-    'text-colors-candy',
-    'text-colors-midnight',
-    'text-colors-ember',
-  ];
-  const glitchClasses = [
-    'text-glitch-colors-error',
-    'text-glitch-colors-neon',
-    'text-glitch-colors-matrix',
-    'text-glitch-colors-vaporwave',
-    'text-glitch-colors-cyber',
-    'text-glitch-colors-toxic',
-  ];
-  const glowClasses = [
-    'text-glow-purple',
-    'text-glow-cyan',
-    'text-glow-orange',
-    'text-glow-pink',
-    'text-glow-green',
-    'text-glow-red',
-    'text-glow-gold',
-    'text-glow-white',
-  ];
-
-  const category = gradientClasses.includes(presetClass)
-    ? gradientClasses
-    : glitchClasses.includes(presetClass)
-      ? glitchClasses
-      : glowClasses.includes(presetClass)
-        ? glowClasses
+  const category = gradientPresetClasses.includes(presetClass)
+    ? gradientPresetClasses
+    : glitchPresetClasses.includes(presetClass)
+      ? glitchPresetClasses
+      : glowPresetClasses.includes(presetClass)
+        ? glowPresetClasses
         : null;
 
   if (category) {

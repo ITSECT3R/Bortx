@@ -5,7 +5,6 @@ import { gradientPresets, glitchPresets, glowPresets } from 'bortx/text';
 // ========================================
 // Border State
 // ========================================
-const borderMode = ref<'pro' | 'alt'>('pro');
 const borderEffect = ref('border-rainbow');
 const activeBorderModifiers = ref<string[]>([]);
 const borderModOpen = ref(false);
@@ -25,8 +24,6 @@ const proEffects = [
   { value: 'border-dash-chase', label: 'Dash Chase' },
 ];
 
-const altEffects = [{ value: 'alt-glow-ring', label: 'Glow Ring' }];
-
 const proModifiers = [
   { value: 'border-hover-only', label: 'Hover Only' },
   { value: 'border-glow', label: 'Glow' },
@@ -36,25 +33,10 @@ const proModifiers = [
   { value: 'border-reverse', label: 'Reverse' },
 ];
 
-const altModifiers = [
-  { value: 'alt-hover-only', label: 'Hover Only' },
-  { value: 'alt-slow', label: 'Slow' },
-  { value: 'alt-fast', label: 'Fast' },
-  { value: 'alt-reverse', label: 'Reverse' },
-  { value: 'border-glow', label: 'Glow' },
-  { value: 'border-thick', label: 'Thick' },
-];
+const borderEffects = computed(() => proEffects);
+const borderModifiers = computed(() => proModifiers);
 
-const borderEffects = computed(() =>
-  borderMode.value === 'pro' ? proEffects : altEffects
-);
-const borderModifiers = computed(() =>
-  borderMode.value === 'pro' ? proModifiers : altModifiers
-);
-
-const borderBaseClass = computed(() =>
-  borderMode.value === 'pro' ? 'border-effect' : 'border-alt'
-);
+const borderBaseClass = computed(() => 'border-effect');
 
 const borderClasses = computed(() =>
   [
@@ -65,9 +47,8 @@ const borderClasses = computed(() =>
 );
 
 const activeBorderChips = computed(() => {
-  const lookup = [...proModifiers, ...altModifiers];
   return activeBorderModifiers.value.map(
-    v => lookup.find(m => m.value === v)?.label ?? v
+    v => proModifiers.find(m => m.value === v)?.label ?? v
   );
 });
 
@@ -81,13 +62,6 @@ const borderEffectLabel = computed(
   () =>
     borderEffects.value.find(e => e.value === borderEffect.value)?.label ?? ''
 );
-
-function switchMode(mode: 'pro' | 'alt') {
-  borderMode.value = mode;
-  activeBorderModifiers.value = [];
-  borderEffect.value = borderEffects.value[0].value;
-  closeAllDropdowns();
-}
 
 function selectBorderEffect(value: string) {
   borderEffect.value = value;
@@ -307,38 +281,29 @@ onUnmounted(() => document.removeEventListener('keydown', onKeydown));
       <div class="controls-group border-controls">
         <span class="group-label">Border</span>
 
-        <!-- Mode -->
-        <div class="mode-tabs">
-          <button
-            :class="{ active: borderMode === 'pro' }"
-            @click="switchMode('pro')"
-          >
-            Pro
-          </button>
-          <button
-            :class="{ active: borderMode === 'alt' }"
-            @click="switchMode('alt')"
-          >
-            Alt
-          </button>
-        </div>
-        <span class="mode-hint">{{
-          borderMode === 'pro' ? 'webkit-mask' : 'no mask'
-        }}</span>
-
         <!-- Effect dropdown -->
         <div class="dropdown" :class="{ open: borderEffectOpen }">
-          <button class="dropdown-trigger" @click.stop="toggleBorderEffect">
+          <button
+            class="dropdown-trigger"
+            aria-haspopup="listbox"
+            :aria-expanded="borderEffectOpen"
+            @click.stop="toggleBorderEffect"
+          >
             {{ borderEffectLabel }}
             <span class="chevron">&#9662;</span>
           </button>
-          <div v-if="borderEffectOpen" class="dropdown-menu">
+          <div v-if="borderEffectOpen" class="dropdown-menu" role="listbox">
             <div
               v-for="e in borderEffects"
               :key="e.value"
               class="dropdown-item"
+              role="option"
+              :aria-selected="e.value === borderEffect"
               :class="{ selected: e.value === borderEffect }"
+              tabindex="0"
               @click.stop="selectBorderEffect(e.value)"
+              @keydown.enter.prevent="selectBorderEffect(e.value)"
+              @keydown.space.prevent="selectBorderEffect(e.value)"
             >
               {{ e.label }}
             </div>
@@ -362,18 +327,24 @@ onUnmounted(() => document.removeEventListener('keydown', onKeydown));
           <div class="dropdown" :class="{ open: borderModOpen }">
             <button
               class="dropdown-trigger add-trigger"
+              aria-haspopup="listbox"
+              :aria-expanded="borderModOpen"
               @click.stop="toggleBorderMod"
               :disabled="!availableBorderMods.length"
             >
               + Modifier
               <span class="chevron">&#9662;</span>
             </button>
-            <div v-if="borderModOpen" class="dropdown-menu">
+            <div v-if="borderModOpen" class="dropdown-menu" role="listbox">
               <div
                 v-for="m in availableBorderMods"
                 :key="m.value"
                 class="dropdown-item"
+                role="option"
+                tabindex="0"
                 @click.stop="toggleBorderModifier(m.value)"
+                @keydown.enter.prevent="toggleBorderModifier(m.value)"
+                @keydown.space.prevent="toggleBorderModifier(m.value)"
               >
                 {{ m.label }}
               </div>
@@ -404,17 +375,27 @@ onUnmounted(() => document.removeEventListener('keydown', onKeydown));
 
         <!-- Effect dropdown -->
         <div class="dropdown" :class="{ open: textEffectOpen }">
-          <button class="dropdown-trigger" @click.stop="toggleTextEffect">
+          <button
+            class="dropdown-trigger"
+            aria-haspopup="listbox"
+            :aria-expanded="textEffectOpen"
+            @click.stop="toggleTextEffect"
+          >
             {{ textEffectLabel }}
             <span class="chevron">&#9662;</span>
           </button>
-          <div v-if="textEffectOpen" class="dropdown-menu">
+          <div v-if="textEffectOpen" class="dropdown-menu" role="listbox">
             <div
               v-for="e in textEffects"
               :key="e.value"
               class="dropdown-item"
+              role="option"
+              :aria-selected="e.value === textEffect"
               :class="{ selected: e.value === textEffect }"
+              tabindex="0"
               @click.stop="selectTextEffect(e.value)"
+              @keydown.enter.prevent="selectTextEffect(e.value)"
+              @keydown.space.prevent="selectTextEffect(e.value)"
             >
               {{ e.label }}
             </div>
@@ -422,7 +403,9 @@ onUnmounted(() => document.removeEventListener('keydown', onKeydown));
         </div>
 
         <!-- Text content input -->
+        <label class="sr-only" for="sandbox-text-input">Text content</label>
         <input
+          id="sandbox-text-input"
           v-model="textContent"
           class="text-input"
           placeholder="Text content..."
@@ -446,6 +429,7 @@ onUnmounted(() => document.removeEventListener('keydown', onKeydown));
                 background: `linear-gradient(135deg, ${p.start}, ${p.end})`,
               }"
               :title="p.label"
+              :aria-label="p.label"
               @click.stop="toggleColorPreset(p.class)"
             />
           </div>
@@ -459,6 +443,7 @@ onUnmounted(() => document.removeEventListener('keydown', onKeydown));
               :class="{ active: activeColorPresets.includes(p.class) }"
               class="color-swatch split-swatch"
               :title="p.label"
+              :aria-label="p.label"
               @click.stop="toggleColorPreset(p.class)"
             >
               <span :style="{ background: p.color1 }" />
@@ -476,6 +461,7 @@ onUnmounted(() => document.removeEventListener('keydown', onKeydown));
               class="color-swatch"
               :style="{ background: p.color }"
               :title="p.label"
+              :aria-label="p.label"
               @click.stop="toggleColorPreset(p.class)"
             />
           </div>
@@ -498,18 +484,24 @@ onUnmounted(() => document.removeEventListener('keydown', onKeydown));
           <div class="dropdown" :class="{ open: textModOpen }">
             <button
               class="dropdown-trigger add-trigger"
+              aria-haspopup="listbox"
+              :aria-expanded="textModOpen"
               @click.stop="toggleTextMod"
               :disabled="!textEffect || !availableTextMods.length"
             >
               + Modifier
               <span class="chevron">&#9662;</span>
             </button>
-            <div v-if="textModOpen" class="dropdown-menu">
+            <div v-if="textModOpen" class="dropdown-menu" role="listbox">
               <div
                 v-for="m in availableTextMods"
                 :key="m.value"
                 class="dropdown-item"
+                role="option"
+                tabindex="0"
                 @click.stop="toggleTextModifier(m.value)"
+                @keydown.enter.prevent="toggleTextModifier(m.value)"
+                @keydown.space.prevent="toggleTextModifier(m.value)"
               >
                 {{ m.label }}
               </div>
@@ -564,6 +556,21 @@ onUnmounted(() => document.removeEventListener('keydown', onKeydown));
 </template>
 
 <style scoped>
+/* ============================================ */
+/* Accessibility */
+/* ============================================ */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 /* ============================================ */
 /* Sandbox Layout */
 /* ============================================ */
@@ -767,7 +774,7 @@ onUnmounted(() => document.removeEventListener('keydown', onKeydown));
   gap: 0.25rem;
   padding: 0.2rem 0.5rem;
   font-size: 0.72rem;
-  background: var(--vp-c-brand-dimm);
+  background: var(--vp-c-brand-soft);
   color: var(--vp-c-brand);
   border-radius: 12px;
   cursor: pointer;
@@ -874,7 +881,7 @@ onUnmounted(() => document.removeEventListener('keydown', onKeydown));
 }
 
 .preview-inner {
-  background: #1a1a2e;
+  background: var(--vp-c-bg-soft);
   border-radius: 8px;
   font-weight: 700;
   font-size: 1.5rem;
@@ -890,7 +897,7 @@ onUnmounted(() => document.removeEventListener('keydown', onKeydown));
 }
 
 .preview-placeholder {
-  color: #666;
+  color: var(--vp-c-text-3);
   font-size: 0.85rem;
 }
 
@@ -936,7 +943,7 @@ onUnmounted(() => document.removeEventListener('keydown', onKeydown));
 }
 
 .classes-box code {
-  font-size: 0.80rem;
+  font-size: 0.8rem;
   color: var(--vp-c-brand);
   word-break: break-all;
 }

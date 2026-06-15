@@ -269,17 +269,21 @@ Override the accent color for theme consistency:
 - Minimal impact on performance when used sparingly
 - Avoid applying to many elements simultaneously
 
+## Shared Modifiers
+
+These modifiers work with any `.border-effect` element:
+
+| Class           | Description                                 |
+| --------------- | ------------------------------------------- |
+| `.border-glow`  | Adds a box-shadow glow                      |
+| `.border-thick` | Sets border thickness to 4px (default: 2px) |
+
 ## Integration
 
-Import the styles in your main CSS file:
-
-```css
-/* All borders (pro + alt + shared + modifiers) */
-@import 'bortx/borders/styles';
-```
-
-Or import via TypeScript for bundler optimization:
-
 ```typescript
+// Import everything — pro effects, pro modifiers, shared modifiers
 import 'bortx/borders';
+
+// Or CSS-only base (variables, keyframes, core classes only)
+@import 'bortx/borders/styles';
 ```

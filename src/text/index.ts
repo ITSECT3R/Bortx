@@ -16,8 +16,11 @@ export type {
 } from './modifiers/color-presets';
 export {
   gradientPresets,
+  gradientPresetClasses,
   glitchPresets,
+  glitchPresetClasses,
   glowPresets,
+  glowPresetClasses,
   allColorPresets,
   getPresetByClass,
 } from './modifiers/color-presets';

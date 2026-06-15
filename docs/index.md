@@ -14,22 +14,22 @@ hero:
 features:
   - icon: 🎨
     title: 11 Border Effects
-    details: Rainbow, pulse, shimmer, neon, dots, ripple, corner highlights, and more. Compose with 6 modifiers for endless combinations.
+    details: Rainbow, pulse, shimmer, neon, ripple, dash-chase, and more. 4 pro modifiers + 2 shared modifiers — compose anything.
   - icon: ✍️
-    title: 3 Text Effects
-    details: Typewriter, glitch, and reveal-up. Combine with glow, gradient, and speed modifiers. Scroll-triggered with IntersectionObserver.
+    title: 8 Text Effect Variants
+    details: Typewriter, glitch (intense + subtle), and 4-direction reveal. 12 modifiers including glow, gradient, speed, delay, and depth.
   - icon: ⚛️
-    title: React Hook Included
-    details: useAnimateOnScroll and useAnimateOnScrollMany for effortless scroll-triggered text animations.
+    title: React + Vanilla JS
+    details: useAnimateOnScroll and useAnimateOnScrollMany for React. initTextAnimations() for vanilla JS. Scroll-triggered via IntersectionObserver.
+  - icon: 🎨
+    title: 24 Color Presets
+    details: 10 gradient, 6 glitch, and 8 glow presets. Drop-in CSS classes — no inline styles needed. TypeScript metadata included.
   - icon: 🧩
     title: Multi-Class Composition
     details: No combinatorial explosion. Effects + modifiers = simple, predictable CSS. A new modifier is one file.
-  - icon: 🎛️
-    title: CSS Custom Properties
-    details: Configure speed, colors, thickness, glow intensity — all via CSS variables. No JS config objects.
   - icon: 📦
     title: Zero Dependencies
-    details: No runtime JS for the CSS core. The React hook is optional and tree-shakeable. Ships as raw CSS.
+    details: No runtime JS for the CSS core. The React hook is optional, tree-shakeable, and a peer dependency. Ships as raw CSS.
 ---
 
 ## Quick Start

@@ -287,6 +287,31 @@ function MyComponent() {
 }
 ```
 
+### React — Multiple Elements (`useAnimateOnScrollMany`)
+
+```tsx
+import { useAnimateOnScrollMany } from 'bortx/react';
+
+function StaggeredReveal() {
+  const words = ['Full', 'Stack', 'Developer'];
+  const { refs, areAnimated } = useAnimateOnScrollMany(words.length, {}, 100);
+
+  return (
+    <h1 className="text-reveal-up-container">
+      {words.map((word, i) => (
+        <span
+          key={word}
+          ref={refs[i]}
+          className={`text-reveal-up-word ${areAnimated[i] ? 'is-animated' : ''}`}
+        >
+          {word}
+        </span>
+      ))}
+    </h1>
+  );
+}
+```
+
 ### Manual Trigger
 
 ```html

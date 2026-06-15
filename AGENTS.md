@@ -7,6 +7,7 @@ Two independent, pure-CSS animation libraries:
 - **`src/borders/`** — 11 animated border effects (rainbow, pulse, shimmer, neon, etc.)
 - **`src/text/`** — 3 text animation effects (typewriter, glitch, reveal-up)
 - **`src/react/hooks/`** — React hooks for scroll-triggered text animations
+- **`src/logo/`** — Internal assets (vortex logo CSS + HTML), used by VitePress theme only
 
 This is a **pre-publish** library — no build step or npm package yet.
 Code is raw `.css` + TypeScript barrel files consumed via bundler imports.
@@ -20,12 +21,8 @@ src/borders/
 ├── base.css             # CSS vars, @property defs, keyframes, .border-effect base
 ├── effects/             # 11 mask-based effects (rainbow, pulse, etc.)
 ├── modifiers/           # Pro modifiers (hover-only, slow, fast, reverse)
-├── alt/                 # Alternative effects without webkit-mask dependency
-│   ├── base.css         # .border-alt base class (minimal, no mask)
-│   ├── effects/         # Alt effects (glow-ring, etc.)
-│   └── modifiers/       # Alt modifiers (alt-hover-only, alt-slow, alt-fast, alt-reverse)
-├── shared/              # Modifiers that work with both .border-effect and .border-alt
-│   └── modifiers.css    # .border-glow, .border-thick
+├── shared/              # Shared modifiers (.border-glow, .border-thick)
+│   └── modifiers.css
 └── index.ts             # Master barrel — imports everything
 
 src/text/
@@ -70,9 +67,8 @@ There is no `build` yet — the library ships source CSS directly.
 ### Import Paths
 
 ```ts
-import 'bortx/borders'; // All border effects + modifiers (pro + alt + shared)
+import 'bortx/borders'; // All border effects + modifiers (pro + shared)
 import 'bortx/borders/styles'; // CSS base only (no TS)
-import 'bortx/borders/alt'; // Alt border effects only (no webkit-mask)
 import 'bortx/text'; // All text CSS + TS exports (effects, modifiers, helpers)
 import 'bortx/text/styles'; // CSS base only (no TS)
 import { useAnimateOnScroll, useAnimateOnScrollMany } from 'bortx/react';
@@ -83,6 +79,7 @@ import {
   gradientPresets,
   glitchPresets,
   glowPresets,
+  allColorPresets,
   getPresetByClass,
 } from 'bortx/text';
 import type {
@@ -111,18 +108,12 @@ import type {
 | `.border-corner-highlight` |                                 |
 | `.border-dash-chase`       |                                 |
 
-**Alt** (base class: `.border-alt`, no webkit-mask dependency, import `bortx/borders/alt`):
-
-| Effects          | Modifiers                                                      |
-| ---------------- | -------------------------------------------------------------- |
-| `.alt-glow-ring` | `.alt-hover-only` / `.alt-slow` / `.alt-fast` / `.alt-reverse` |
-
-**Shared modifiers** (work with both `.border-effect` and `.border-alt`):
+**Shared modifiers** (work with `.border-effect`):
 
 `.border-glow` — adds box-shadow glow  
 `.border-thick` — sets `--border-effect-thickness` to 4px
 
-Border effects animate **by default**. Use `.border-hover-only` (pro) or `.alt-hover-only` (alt) to pause until hover.
+Border effects animate **by default**. Use `.border-hover-only` to pause until hover.
 
 CSS variables: `--border-effect-speed`, `--border-effect-thickness`, `--border-effect-radius`, `--border-effect-color`, `--border-effect-accent`, `--border-effect-accent-secondary`, `--border-effect-intensity`
 
@@ -160,6 +151,7 @@ CSS `@property` is used for animatable custom properties.
 ## Gotchas
 
 - `prefers-reduced-motion` is implemented in both border and text `base.css` files
+- Alt border effects (no webkit-mask dependency) are planned for a future release — see plan.md
 - Framework wrappers (React/Vue/Angular components) are planned but not built — only the React hook exists
 - No build step configured — `src/` is shipped directly
 

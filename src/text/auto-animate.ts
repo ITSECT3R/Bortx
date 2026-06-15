@@ -13,7 +13,7 @@
  * ```
  */
 
-interface AutoAnimateOptions {
+export interface AutoAnimateOptions {
   /** IntersectionObserver threshold (0-1). Default: 0.1 */
   threshold?: number;
   /** Root margin for the observer. Default: '50px' */

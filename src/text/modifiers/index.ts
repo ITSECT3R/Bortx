@@ -7,8 +7,11 @@ import './index.css';
 export type { GradientPreset, GlitchPreset, GlowPreset } from './color-presets';
 export {
   gradientPresets,
+  gradientPresetClasses,
   glitchPresets,
+  glitchPresetClasses,
   glowPresets,
+  glowPresetClasses,
   allColorPresets,
   getPresetByClass,
 } from './color-presets';

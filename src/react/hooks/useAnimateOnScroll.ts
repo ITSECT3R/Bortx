@@ -260,5 +260,3 @@ export function useAnimateOnScrollMany<T extends HTMLElement = HTMLElement>(
     reset,
   };
 }
-
-export default useAnimateOnScroll;

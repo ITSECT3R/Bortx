@@ -1,55 +1,56 @@
 /**
  * Text Animation Library - Base
  * Framework-agnostic CSS text animation library
- * 
+ *
  * USAGE:
  * ======
  * Base class (required): .text-effect
- * 
+ * Trigger class (required): .is-animated
+ *
  * Effects:
- *   - .text-typewriter     → Classic typing effect
- *   - .text-reveal-up      → Text slides up from below
- *   - .text-reveal-down    → Text slides down from above
- *   - .text-reveal-left    → Text slides in from the right
- *   - .text-reveal-right   → Text slides in from the left
- *   - .text-glitch         → Digital glitch effect
- * 
+ *   - .text-typewriter          → Classic typing effect
+ *   - .text-typewriter-loop     → Types → un-types → repeats
+ *   - .text-typewriter-no-cursor → Types without a cursor
+ *   - .text-reveal-up           → Text slides up from below
+ *   - .text-reveal-down         → Text slides down from above
+ *   - .text-reveal-left         → Text slides in from the right
+ *   - .text-reveal-right        → Text slides in from the left
+ *   - .text-glitch              → Digital glitch effect
+ *   - .text-glitch-intense      → Intense glitch (requires data-text attr)
+ *   - .text-glitch-subtle       → Slow, subdued glitch
+ *
  * Modifiers:
- *   - .text-glow          → Customizable text-shadow glow
- *   - .text-gradient      → Linear gradient text fill
- *   - .text-slow          → Slower animation
- *   - .text-fast          → Faster animation
- * 
- * Viewport Trigger:
- *   By default, animations are paused/hidden.
- *   Add .is-animated class to trigger the animation.
- *   Use the provided useAnimateOnScroll hook or your own IntersectionObserver.
- * 
+ *   - .text-glow                → Static text-shadow glow
+ *   - .text-glow-pulse          → Animated pulsing glow
+ *   - .text-glow-intense        → Four-layer static glow
+ *   - .text-gradient            → Static linear gradient text fill
+ *   - .text-gradient-animated   → Shifting gradient
+ *   - .text-gradient-rainbow    → 8-color rainbow gradient
+ *   - .text-slow                → Slower animation
+ *   - .text-fast                → Faster animation
+ *   - .text-delay-1 through -5  → 0.1s to 0.5s delay
+ *   - .text-shadow-depth        → 3-layer 3D stacked shadow
+ *
  * CSS Variable Overrides:
- *   --text-effect-speed          → Animation duration (default: 2s)
- *   --text-effect-delay          → Animation delay (default: 0s)
- *   --text-effect-color          → Primary text color
- *   --text-effect-accent         → Accent/highlight color
- *   --text-effect-glow-color     → Glow color (default: currentColor)
- *   --text-effect-glow-intensity → Glow blur radius (default: 10px)
- *   --text-effect-gradient-start → Gradient start color
- *   --text-effect-gradient-end   → Gradient end color
- *   --text-effect-chars          → Character count for typewriter
- * 
+ *   --text-effect-speed            → Animation duration (default: 2s)
+ *   --text-effect-delay            → Animation delay (default: 0s)
+ *   --text-effect-color            → Primary text color
+ *   --text-effect-accent           → Accent/highlight color
+ *   --text-effect-glow-color       → Glow color (default: currentColor)
+ *   --text-effect-glow-intensity   → Glow blur radius (default: 10px)
+ *   --text-effect-gradient-start   → Gradient start color
+ *   --text-effect-gradient-end     → Gradient end color
+ *   --text-effect-chars            → Character count for typewriter
+ *   --text-effect-cursor-width     → Typewriter cursor width
+ *   --text-effect-cursor-color     → Typewriter cursor color
+ *
  * Example (React):
- *   <h1 
+ *   <h1
  *     className="text-effect text-typewriter text-glow is-animated"
  *     style={{ '--text-effect-chars': 15, '--text-effect-speed': '3s' }}
  *   >
  *     Hello, World!
  *   </h1>
- * 
- * Example (Angular):
- *   <h1 
- *     class="text-effect text-glitch"
- *     [class.is-animated]="isVisible"
- *     [style.--text-effect-accent]="'#ff0000'"
- *   >
  */
 
 /* ============================================

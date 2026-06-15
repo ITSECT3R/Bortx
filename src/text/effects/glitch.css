@@ -1,17 +1,23 @@
 /* ============================================
    EFFECT: Glitch
-   
+
    Digital glitch effect perfect for tech-focused
    titles like "Full Stack Developer".
-   
+
    Uses color separation and position jitter
    to create a digital distortion look.
    
+   NOTE: .text-glitch-intense requires the data-text
+   attribute on the element. The auto-animate helpers
+   (useAnimateOnScroll, initTextAnimations) set this
+   automatically. If triggering manually, add it:
+     data-text="Your Text Here"
+
    USAGE:
    <h2 class="text-effect text-glitch is-animated">
      Full Stack Developer
    </h2>
-   
+
    Customize colors:
    <h2 
      class="text-effect text-glitch is-animated"

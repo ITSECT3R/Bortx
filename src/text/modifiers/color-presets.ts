@@ -138,6 +138,10 @@ export const glowPresets: GlowPreset[] = [
   { class: 'text-glow-white', label: 'White', color: '#ffffff' },
 ];
 
+export const gradientPresetClasses = gradientPresets.map(p => p.class);
+export const glitchPresetClasses = glitchPresets.map(p => p.class);
+export const glowPresetClasses = glowPresets.map(p => p.class);
+
 export const allColorPresets = [
   ...gradientPresets,
   ...glitchPresets,
