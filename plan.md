@@ -70,6 +70,8 @@ src/
 | **Prettier**                                    | Code formatting                |
 | **ESLint** (`@eslint/js` + `typescript-eslint`) | Linting                        |
 | **TypeScript**                                  | Type checking (`tsc --noEmit`) |
+| **Vitest**                                      | Unit testing (planned)         |
+| **Playwright**                                  | Visual regression (planned)    |
 
 Build tooling (tsup or Vite library mode) will be added when we need compiled output for npm publishing.
 
@@ -102,12 +104,22 @@ Inline styles always override class presets (higher specificity), so users can m
 
 This prevents collisions when both libraries are used on the same page.
 
+### Framework Compatibility
+
+| Framework | Status                                                |
+| --------- | ----------------------------------------------------- |
+| **CSS core** | Framework-agnostic — works anywhere with class names |
+| **React**    | First-class support via `useAnimateOnScroll` hooks  |
+| **Vue**      | Use vanilla JS `initTextAnimations()` or manual `.is-animated` toggle; dedicated composable planned (Phase 3) |
+| **Angular**  | Use vanilla JS trigger; directive planned (Phase 3) |
+| **Tailwind** | Fully compatible — CSS classes work alongside Tailwind utilities; dedicated Tailwind plugin planned (Phase 4) |
+| **Svelte / Solid / plain HTML** | Use vanilla JS trigger or manual class toggle |
+
 ## Roadmap
 
 ### Phase 1 — Foundation (current)
 
 - [x] Border effects (11 effects + modifiers)
-- [x] Alt border effects (`.border-alt` — no webkit-mask dependency, removed from production, future release)
 - [x] Shared modifiers (`.border-glow`, `.border-thick`)
 - [x] Text effects (3 effects + modifiers)
 - [x] Color presets (24 CSS classes: 10 gradient, 6 glitch, 8 glow)
@@ -123,29 +135,104 @@ This prevents collisions when both libraries are used on the same page.
 - [x] VitePress docs site (guide + demo pages)
 - [x] Interactive sandbox page
 - [x] First git commit
+- [x] Verified border and text effects functionality
+- [x] `package.json` exports field configured
+- [x] `"files": ["src"]` set — npm/bun install pulls only library code, excludes docs
+- [ ] Create `README.md` (GitHub landing page + npm package page)
+- [ ] Create `CONTRIBUTING.md` (developer guide for PRs, forks, local dev setup)
+- [ ] Finalize and polish documentation site structure (guide pages, demos, sandbox)
+- [ ] Set up Vitest + initial tests (unit tests for JS helpers, auto-animate, hooks)
+- [ ] Set up Playwright for visual regression testing of effects
+- [ ] GitHub Actions CI/CD workflows:
+  - Lint + typecheck + format check on PRs
+  - Run tests on PRs
+  - Build and deploy VitePress docs to GitHub Pages (on push to main)
+- [ ] Add package.json metadata (keywords, repository, homepage, author)
+- [ ] Update `tsconfig.json` as needed for build step compatibility
+- [ ] Deploy documentation site to GitHub Pages via GitHub Actions
+
+> **Gate for Phase 2**: All Phase 1 checkboxes above must be complete before moving to Phase 2. The docs site must be live on GitHub Pages and the library verified installable via local npm/bun link.
+
+---
 
 ### Phase 2 — Package & Publish
 
 - [ ] Build step (tsup or Vite library mode)
 - [ ] Bundle CSS to single `dist/styles.css`
-- [ ] `package.json` exports field for multi-entry
+- [ ] Generate TypeScript declarations (`tsc --declaration`)
+- [ ] `package.json` exports field finalize for multi-entry (already structured, may need `dist/` paths)
 - [ ] npm publish (`bortx`)
 - [ ] Bundle size tracking (bundlephobia)
+- [ ] Semantic versioning strategy (changesets)
 
-### Phase 3 — Framework Wrappers & Alt Effects
+> After Phase 2, users can `bun add bortx` or `npm install bortx` and import effects directly.
+
+---
+
+### Phase 3 — Framework Wrappers
 
 - [ ] React `<BortxBorder effect="pulse" glow />` component
 - [ ] React `<BortxText effect="typewriter" />` component
-- [ ] Vue composables and components
+- [ ] Vue composables (`useBortxText`, `useBortxBorder`)
+- [ ] Vue components (`<BortxBorder>`, `<BortxText>`)
 - [ ] Angular directive (secondary — may be separate package)
-- [ ] Alt border effects (`.border-alt` — no webkit-mask dependency, broader browser support)
 
-### Phase 4 — Docs & Ecosystem
+---
 
-- [x] VitePress documentation site (live at `/docs/`)
-- [x] Interactive sandbox / playground
-- [ ] Tailwind CSS plugin
-- [ ] Changesets for versioning
+### Phase 4 — Ecosystem & Tooling
+
+- [x] VitePress documentation site (Phase 1)
+- [x] Interactive sandbox / playground (Phase 1)
+- [ ] Tailwind CSS plugin (utility-first API for bortx effects)
+- [ ] Changesets for versioning (automated changelog + version bumping)
+- [ ] VSCode extension exploration (class autocomplete + CSS variable hints, similar to Tailwind CSS IntelliSense)
+- [ ] Storybook or equivalent component demo catalog
+
+---
+
+### Future — Alt Effects & Broader Support
+
+- [ ] Alt border effects (`.border-alt` — no `-webkit-mask` dependency, broader browser support for Firefox/Safari)
+- [ ] Firefox/Safari `@property` polyfill or alternative animation approach
+- [ ] Additional effect types (community-driven)
+
+## Testing Strategy
+
+| Layer            | Tool       | Scope                                                |
+| ---------------- | ---------- | ---------------------------------------------------- |
+| **Unit tests**   | Vitest     | JS helpers (`applyTextConfig`, `applyColorPreset`, `getPresetByClass`), React hooks, auto-animate |
+| **Visual tests** | Playwright | Screenshot comparison of each effect + modifier combo across browsers |
+| **Lint**         | ESLint     | All `.ts` files (CI gate)                            |
+| **Type check**   | tsc        | `tsc --noEmit` on all `src/` (CI gate)               |
+| **Format check** | Prettier   | `prettier --check` (CI gate)                         |
+
+## CI/CD Pipelines (GitHub Actions)
+
+| Workflow              | Trigger          | Actions                                           |
+| --------------------- | ---------------- | ------------------------------------------------- |
+| **PR Check**          | Pull request     | Lint, typecheck, format check, unit tests         |
+| **Main CI**           | Push to `main`   | Lint, typecheck, format check, unit + visual tests |
+| **Docs Deploy**       | Push to `main`   | Build VitePress → deploy to GitHub Pages          |
+| **Release**           | Tag push / manual| Run tests, build, publish to npm                  |
+
+## Deployment
+
+### GitHub Pages
+
+Docs site built via `bun run docs:build` (VitePress `build docs`), output in `docs/.vitepress/dist/`. This directory is gitignored — it will be built by CI and deployed via GitHub Actions (recommended VitePress approach: `peaceiris/actions-gh-pages` or `github-pages-deploy-action`).
+
+### npm Package
+
+Controlled by `"files": ["src"]` in `package.json` — only `src/` ships to npm. The `docs/`, `.github/`, and config files stay in the repo but never reach npm. This keeps the installed package lean (~source CSS + TS files only).
+
+## Community & Contribution
+
+- **LICENSE**: MIT — permissive, well-understood, easy for forks and commercial use
+- **README.md** (to create): Project overview, quick start, feature grid, links to docs, contributing, license
+- **CONTRIBUTING.md** (to create): Local dev setup (`bun install`, `bun run dev`), coding conventions, PR process, issue templates, testing expectations
+- **AGENTS.md**: AI/agent development guide (exists)
+- **GitHub Issues**: Templates TBD (bug report, feature request)
+- **Pull Request template**: TBD
 
 ## Questions & Decisions
 
@@ -155,4 +242,8 @@ This prevents collisions when both libraries are used on the same page.
 4. **React version**: React 17+ (peer dependency, optional)
 5. **Package manager**: Bun
 6. **Build tool**: TBD (Vite library mode preferred per prior experience)
-7. **`@property` browser caveat**: Chromium-only. Acceptable for a v0 library; Firefox/Safari degrade gracefully (animations jump instead of interpolate).
+7. **`@property` browser caveat**: Chromium-only. Acceptable for a v0 library; Firefox/Safari degrade gracefully (animations jump instead of interpolate)
+8. **Alt effects**: Deferred to future release — current priority is Chromium-first, cross-browser later
+9. **Testing framework**: Vitest (matches Bun toolchain) + Playwright for visual regression
+10. **CI/CD**: GitHub Actions (runs lint, typecheck, tests, docs deploy)
+11. **GitHub Pages**: Deploy via Actions from `main` branch (docs/.vitepress/dist/ never committed)
