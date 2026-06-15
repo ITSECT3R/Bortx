@@ -4,12 +4,12 @@
 
 ```bash
 # Coming soon — not yet published to npm
-# npm install knocking-borders
-# bun add knocking-borders
+# npm install bortx
+# bun add bortx
 
 # For now, clone and import locally
-import 'knocking-borders/borders';
-import 'knocking-borders/text';
+import 'bortx/borders';
+import 'bortx/text';
 ```
 
 ## Import
@@ -18,26 +18,26 @@ The library ships as raw CSS + TypeScript barrel files. Import what you need:
 
 ```ts
 // Everything — borders, text, React hooks, vanilla JS trigger
-import 'knocking-borders';
+import 'bortx';
 
 // Just borders
-import 'knocking-borders/borders';
+import 'bortx/borders';
 
 // Just text (CSS + vanilla JS trigger + JS helpers)
-import 'knocking-borders/text';
+import 'bortx/text';
 
 // Named JS exports from text module
 import {
   initTextAnimations,
   applyTextConfig,
   applyColorPreset,
-} from 'knocking-borders/text';
+} from 'bortx/text';
 
 // React hooks only (no CSS)
-import { useAnimateOnScroll } from 'knocking-borders/react';
+import { useAnimateOnScroll } from 'bortx/react';
 
 // Vanilla JS auto-animate trigger only (no React)
-import { initTextAnimations } from 'knocking-borders/text';
+import { initTextAnimations } from 'bortx/text';
 ```
 
 ## Usage
@@ -102,7 +102,7 @@ Available presets: `.text-colors-sunset`, `.text-colors-ocean`, `.text-colors-cy
 **3. JS config helper (programmatic, type-safe):**
 
 ```ts
-import { applyTextConfig } from 'knocking-borders/text';
+import { applyTextConfig } from 'bortx/text';
 
 const el = document.querySelector('.hero-title')!;
 applyTextConfig(el, {
@@ -117,7 +117,7 @@ Text animations are **paused by default**. The `.is-animated` class triggers the
 **Method 1: React Hook**
 
 ```tsx
-import { useAnimateOnScroll } from 'knocking-borders/react';
+import { useAnimateOnScroll } from 'bortx/react';
 
 function Heading() {
   const { ref } = useAnimateOnScroll();
@@ -136,7 +136,7 @@ function Heading() {
 **Method 2: Vanilla JS**
 
 ```ts
-import { initTextAnimations } from 'knocking-borders/text';
+import { initTextAnimations } from 'bortx/text';
 
 // Call once — watches all .text-effect elements
 initTextAnimations();

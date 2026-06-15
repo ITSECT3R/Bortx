@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { initTextAnimations } from 'knocking-borders/text';
+import { initTextAnimations } from 'bortx/text';
 import { onMounted, onUnmounted } from 'vue';
 
 let cleanup: (() => void) | null = null;
@@ -47,7 +47,7 @@ onUnmounted(() => {
 .demo-text .label {
   font-size: 0.7rem;
   font-weight: 600;
-  color: #666;
+  color: #ffcc0d;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   margin-bottom: 0.5rem;
@@ -63,7 +63,7 @@ onUnmounted(() => {
 }
 .code-ref {
   font-size: 0.75rem;
-  color: #666;
+  color: white;
   font-family: monospace;
   margin-top: 0.5rem;
 }

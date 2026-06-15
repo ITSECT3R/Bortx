@@ -70,15 +70,12 @@ There is no `build` yet — the library ships source CSS directly.
 ### Import Paths
 
 ```ts
-import 'knocking-borders/borders'; // All border effects + modifiers (pro + alt + shared)
-import 'knocking-borders/borders/styles'; // CSS base only (no TS)
-import 'knocking-borders/borders/alt'; // Alt border effects only (no webkit-mask)
-import 'knocking-borders/text'; // All text CSS + TS exports (effects, modifiers, helpers)
-import 'knocking-borders/text/styles'; // CSS base only (no TS)
-import {
-  useAnimateOnScroll,
-  useAnimateOnScrollMany,
-} from 'knocking-borders/react';
+import 'bortx/borders'; // All border effects + modifiers (pro + alt + shared)
+import 'bortx/borders/styles'; // CSS base only (no TS)
+import 'bortx/borders/alt'; // Alt border effects only (no webkit-mask)
+import 'bortx/text'; // All text CSS + TS exports (effects, modifiers, helpers)
+import 'bortx/text/styles'; // CSS base only (no TS)
+import { useAnimateOnScroll, useAnimateOnScrollMany } from 'bortx/react';
 import {
   applyTextConfig,
   applyColorPreset,
@@ -87,13 +84,13 @@ import {
   glitchPresets,
   glowPresets,
   getPresetByClass,
-} from 'knocking-borders/text';
+} from 'bortx/text';
 import type {
   TextEffectConfig,
   GradientPreset,
   GlitchPreset,
   GlowPreset,
-} from 'knocking-borders/text';
+} from 'bortx/text';
 ```
 
 ### Border Effects
@@ -114,7 +111,7 @@ import type {
 | `.border-corner-highlight` |                                 |
 | `.border-dash-chase`       |                                 |
 
-**Alt** (base class: `.border-alt`, no webkit-mask dependency, import `knocking-borders/borders/alt`):
+**Alt** (base class: `.border-alt`, no webkit-mask dependency, import `bortx/borders/alt`):
 
 | Effects          | Modifiers                                                      |
 | ---------------- | -------------------------------------------------------------- |

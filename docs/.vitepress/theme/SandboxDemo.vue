@@ -1,10 +1,6 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted } from 'vue';
-import {
-  gradientPresets,
-  glitchPresets,
-  glowPresets,
-} from 'knocking-borders/text';
+import { gradientPresets, glitchPresets, glowPresets } from 'bortx/text';
 
 // ========================================
 // Border State
@@ -119,7 +115,7 @@ const textEffect = ref('');
 const activeTextModifiers = ref<string[]>([]);
 const textModOpen = ref(false);
 const textEffectOpen = ref(false);
-const textContent = ref('Knocking Borders');
+const textContent = ref('Bortx ');
 const textKey = ref(0);
 
 const textEffects = [
@@ -880,6 +876,8 @@ onUnmounted(() => document.removeEventListener('keydown', onKeydown));
 .preview-inner {
   background: #1a1a2e;
   border-radius: 8px;
+  font-weight: 700;
+  font-size: 1.5rem;
   min-height: 160px;
   display: flex;
   flex-direction: column;
@@ -908,7 +906,7 @@ onUnmounted(() => document.removeEventListener('keydown', onKeydown));
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: var(--vp-c-text-2);
+  color: var(--vp-c-text-1);
   margin-bottom: 0.5rem;
 }
 
@@ -933,12 +931,12 @@ onUnmounted(() => document.removeEventListener('keydown', onKeydown));
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  color: var(--vp-c-text-3);
+  color: var(--vp-c-text-1);
   margin-bottom: 0.3rem;
 }
 
 .classes-box code {
-  font-size: 0.78rem;
+  font-size: 0.80rem;
   color: var(--vp-c-brand);
   word-break: break-all;
 }

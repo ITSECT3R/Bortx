@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import 'knocking-borders/borders';
+import 'bortx/borders';
 </script>
 
 <style>
@@ -24,15 +24,16 @@ import 'knocking-borders/borders';
   position: relative;
 }
 .demo-card .label {
-  font-size: 0.75rem;
+  font-size: 0.85rem;
   font-weight: 600;
-  color: #888;
+  color: #ffcc0d;
   text-transform: uppercase;
   letter-spacing: 0.1em;
 }
 .demo-card .hint {
   font-size: 0.7rem;
-  color: #666;
+  font-weight: 500;
+  color: white;
   margin-top: 0.25rem;
 }
 </style>

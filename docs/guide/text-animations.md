@@ -186,7 +186,7 @@ Three approaches to configure text effects, from simplest to most flexible:
 ### C: JS Helper (programmatic, type-safe)
 
 ```ts
-import { applyTextConfig, applyColorPreset } from 'knocking-borders/text';
+import { applyTextConfig, applyColorPreset } from 'bortx/text';
 
 const el = document.querySelector('.my-text')!;
 
@@ -255,7 +255,7 @@ All configurable custom properties:
 ### Vanilla JS (`initTextAnimations`)
 
 ```ts
-import { initTextAnimations } from 'knocking-borders/text';
+import { initTextAnimations } from 'bortx/text';
 
 // Auto-adds .is-animated when elements enter viewport
 const cleanup = initTextAnimations({
@@ -271,7 +271,7 @@ cleanup();
 ### React (`useAnimateOnScroll`)
 
 ```tsx
-import { useAnimateOnScroll } from 'knocking-borders/react';
+import { useAnimateOnScroll } from 'bortx/react';
 
 function MyComponent() {
   const { ref } = useAnimateOnScroll({ threshold: 0.5, delay: 200 });
@@ -315,7 +315,7 @@ return (
 ### Cyberpunk Glitch with Glow (JS helper)
 
 ```ts
-import { applyTextConfig, applyColorPreset } from 'knocking-borders/text';
+import { applyTextConfig, applyColorPreset } from 'bortx/text';
 
 const el = document.querySelector('.hero-title')!;
 applyTextConfig(el, {

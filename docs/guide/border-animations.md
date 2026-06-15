@@ -275,11 +275,11 @@ Import the styles in your main CSS file:
 
 ```css
 /* All borders (pro + alt + shared + modifiers) */
-@import 'knocking-borders/borders/styles';
+@import 'bortx/borders/styles';
 ```
 
 Or import via TypeScript for bundler optimization:
 
 ```typescript
-import 'knocking-borders/borders';
+import 'bortx/borders';
 ```

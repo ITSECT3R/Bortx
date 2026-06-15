@@ -1,9 +1,9 @@
 ---
 layout: home
 hero:
-  name: Knocking Borders
-  text: CSS Border & Text Animations
-  tagline: Framework-agnostic, pure CSS animations. One import, compose with classes.
+  name: Bortx
+  text: Border & Text Animations from the Vortex
+  tagline: Pure CSS. Limitless combinations. One import, infinite compositions.
   actions:
     - theme: brand
       text: Get Started
@@ -36,11 +36,11 @@ features:
 
 ```ts
 // Import everything
-import 'knocking-borders';
+import 'bortx';
 
 // Or pick what you need
-import 'knocking-borders/borders';
-import 'knocking-borders/text';
+import 'bortx/borders';
+import 'bortx/text';
 ```
 
 ```html

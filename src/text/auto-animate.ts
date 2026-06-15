@@ -8,7 +8,7 @@
  *
  * @example
  * ```ts
- * import { initTextAnimations } from 'knocking-borders/text';
+ * import { initTextAnimations } from 'bortx/text';
  * initTextAnimations({ threshold: 0.2 });
  * ```
  */

@@ -1,4 +1,4 @@
-# Knocking-Borders — Project Plan
+# Bortx — Project Plan
 
 > Open-source CSS border & text animation library (MIT)
 > Goal: framework-agnostic CSS core with thin framework wrappers
@@ -126,13 +126,13 @@ This prevents collisions when both libraries are used on the same page.
 - [ ] Build step (tsup or Vite library mode)
 - [ ] Bundle CSS to single `dist/styles.css`
 - [ ] `package.json` exports field for multi-entry
-- [ ] npm publish (`knocking-borders`)
+- [ ] npm publish (`bortx`)
 - [ ] Bundle size tracking (bundlephobia)
 
 ### Phase 3 — Framework Wrappers
 
-- [ ] React `<KnockingBorder effect="pulse" glow />` component
-- [ ] React `<KnockingText effect="typewriter" />` component
+- [ ] React `<BortxBorder effect="pulse" glow />` component
+- [ ] React `<BortxText effect="typewriter" />` component
 - [ ] Vue composables and components
 - [ ] Angular directive (secondary — may be separate package)
 

@@ -2,8 +2,8 @@ import { defineConfig } from 'vitepress';
 import { resolve } from 'path';
 
 export default defineConfig({
-  title: 'Knocking Borders',
-  description: 'Open-source CSS border & text animation library',
+  title: 'Bortx',
+  description: 'CSS Border & Text Animation Library — powered by the vortex',
   lang: 'en-US',
 
   themeConfig: {
@@ -37,7 +37,7 @@ export default defineConfig({
     },
 
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/ITSECT3R/Knocking-Borders' },
+      { icon: 'github', link: 'https://github.com/ITSECT3R/bortx' },
     ],
 
     search: {
@@ -46,35 +46,26 @@ export default defineConfig({
 
     footer: {
       message: 'Released under the MIT License.',
-      copyright: 'Copyright © 2026 Knocking Borders',
+      copyright: 'Copyright © 2026 Bortx',
     },
   },
 
   vite: {
     resolve: {
       alias: {
-        'knocking-borders/borders': resolve(
-          __dirname,
-          '../../src/borders/index.ts'
-        ),
-        'knocking-borders/borders/styles': resolve(
+        'bortx/borders': resolve(__dirname, '../../src/borders/index.ts'),
+        'bortx/borders/styles': resolve(
           __dirname,
           '../../src/borders/base.css'
         ),
-        'knocking-borders/borders/alt': resolve(
+        'bortx/borders/alt': resolve(
           __dirname,
           '../../src/borders/alt/index.ts'
         ),
-        'knocking-borders/text': resolve(__dirname, '../../src/text/index.ts'),
-        'knocking-borders/text/styles': resolve(
-          __dirname,
-          '../../src/text/base.css'
-        ),
-        'knocking-borders/react': resolve(
-          __dirname,
-          '../../src/react/hooks/index.ts'
-        ),
-        'knocking-borders': resolve(__dirname, '../../src/index.ts'),
+        'bortx/text': resolve(__dirname, '../../src/text/index.ts'),
+        'bortx/text/styles': resolve(__dirname, '../../src/text/base.css'),
+        'bortx/react': resolve(__dirname, '../../src/react/hooks/index.ts'),
+        bortx: resolve(__dirname, '../../src/index.ts'),
       },
     },
     css: {

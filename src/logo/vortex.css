@@ -1,0 +1,141 @@
+/* ═══════════════════════════════════════════════════════
+   Bortx Logo — Static Cartoon Vortex
+   Responsive, pure CSS. Border effects by Bortx library.
+   ═══════════════════════════════════════════════════════ */
+
+:root {
+  --vortex-size: min(240px, 36vw);
+  --vortex-bg: #0f0f1a;
+  --vortex-outer: #ff5722;
+  --vortex-mid: #ff7b42;
+  --vortex-inner: #ffb347;
+  --vortex-center: #ffd166;
+  --vortex-purple-outer: #8b52fd;
+  --vortex-purple-inner: #b380ff;
+}
+
+/* ── Base — circular canvas ── */
+.vortex {
+  position: relative;
+  width: var(--vortex-size);
+  height: var(--vortex-size);
+  border-radius: 50%;
+  background: var(--vortex-bg);
+  box-shadow: 0 0 0 calc(var(--vortex-size) / 45) rgba(255, 140, 0, 0.12);
+  overflow: visible;
+}
+
+/* ── Spiral Arms — all use calc() to scale with size ── */
+.vortex .arm {
+  position: absolute;
+  border-radius: 50%;
+}
+
+/* Arm 1 — outer, sunset */
+.vortex .arm-1 {
+  inset: 4%;
+  border: calc(var(--vortex-size) / 26) solid transparent;
+  border-top-color: var(--vortex-outer);
+  border-right-color: var(--vortex-outer);
+  transform: rotate(-5deg);
+  animation: glow-pulse-sunset 2s ease-in-out infinite;
+}
+
+/* Arm 2 — mid-outer, sunset */
+.vortex .arm-2 {
+  inset: 17%;
+  border: calc(var(--vortex-size) / 30) solid transparent;
+  border-top-color: var(--vortex-mid);
+  border-right-color: var(--vortex-mid);
+  transform: rotate(80deg);
+  animation: glow-pulse-sunset 2s ease-in-out 0.3s infinite;
+}
+
+/* Arm 3 — middle, sunset */
+.vortex .arm-3 {
+  inset: 30%;
+  border: calc(var(--vortex-size) / 36) solid transparent;
+  border-top-color: var(--vortex-inner);
+  border-right-color: var(--vortex-inner);
+  transform: rotate(170deg);
+  animation: glow-pulse-sunset 2s ease-in-out 0.6s infinite;
+}
+
+/* Arm 4 — inner, purple */
+.vortex .arm-4 {
+  inset: 42%;
+  border: calc(var(--vortex-size) / 45) solid transparent;
+  border-top-color: var(--vortex-purple-outer);
+  border-right-color: var(--vortex-purple-outer);
+  transform: rotate(260deg);
+  animation: glow-pulse-purple 2s ease-in-out 0.9s infinite;
+}
+
+/* Arm 5 — innermost, purple */
+.vortex .arm-5 {
+  inset: 51%;
+  border: calc(var(--vortex-size) / 60) solid transparent;
+  border-top-color: var(--vortex-purple-inner);
+  border-right-color: var(--vortex-purple-inner);
+  transform: rotate(345deg);
+  animation: glow-pulse-purple 2s ease-in-out 1.2s infinite;
+}
+
+/* Center dot */
+.vortex .center {
+  position: absolute;
+  inset: 44%;
+  border-radius: 50%;
+  background: var(--vortex-center);
+  box-shadow: 0 0 calc(var(--vortex-size) / 22.5) rgba(255, 209, 102, 0.4);
+  z-index: 1;
+}
+
+/* ── Glow-pulse Keyframes ── */
+@keyframes glow-pulse-sunset {
+  0%,
+  100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes glow-pulse-purple {
+  0%,
+  100% {
+    opacity: 0.45;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* ── Size Variants — only override --vortex-size ── */
+.vortex-sm {
+  --vortex-size: max(48px, 12vw);
+}
+
+.vortex-lg {
+  --vortex-size: min(280px, 50vw);
+}
+
+.vortex-xl {
+  --vortex-size: min(400px, 70vw);
+}
+
+/* ── Color Variant: Cosmic (purple/cyan alt) ── */
+.vortex-cosmic {
+  --vortex-outer: #8b52fd;
+  --vortex-mid: #6c3ce0;
+  --vortex-inner: #00cfff;
+  --vortex-center: #00e5ff;
+  --vortex-purple-outer: #4a1dc4;
+  --vortex-purple-inner: #7c4dff;
+  box-shadow: 0 0 0 calc(var(--vortex-size) / 45) rgba(108, 60, 224, 0.12);
+}
+
+.vortex-cosmic .center {
+  box-shadow: 0 0 calc(var(--vortex-size) / 22.5) rgba(0, 229, 255, 0.4);
+}
