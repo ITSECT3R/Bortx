@@ -71,3 +71,5 @@ export default defineConfig({
     },
   },
 });
+
+// comment to trigger CI/CD pipelines and deploy updated pipelines to verify if GH pages deploy correctly.
