@@ -5,7 +5,8 @@ export default defineConfig({
   title: 'Bortx',
   description: 'CSS Border & Text Animation Library — powered by the vortex',
   lang: 'en-US',
-  appearance: false,
+  appearance: 'force-dark',
+  base: '/Bortx/',
 
   themeConfig: {
     nav: [

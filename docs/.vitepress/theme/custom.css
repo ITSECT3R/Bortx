@@ -14,6 +14,7 @@
   --vp-c-brand-lighter: #b380ff;
   --vp-c-brand-dark: #6c3ce0;
   --vp-c-brand-darker: #4a1dc4;
+  --vp-c-brand-soft: rgba(139, 82, 253, 0.14);
 
   --vp-c-text-1: #e0dff0;
   --vp-c-text-2: #a09fb8;
@@ -156,8 +157,32 @@ body {
 
 /* ── Code blocks ── */
 :root {
-  --vp-code-block-bg: #0e0e1c;
-  --vp-code-block-border: rgba(139, 82, 253, 0.1);
+  --vp-code-block-bg: #0d0d1a;
+  --vp-code-block-border: rgba(139, 82, 253, 0.15);
+  --vp-code-tab-text-color: #a09fb8;
+  --vp-code-tab-hover-text-color: #e0dff0;
+  --vp-code-tab-active-text-color: #e0dff0;
+  --vp-code-tab-active-bar-color: #8b52fd;
+}
+
+/* Inline code */
+:root {
+  --vp-c-text-code: #b380ff;
+  --vp-c-bg-mute: #1a1a30;
+}
+
+/* ── Tables ── */
+.vp-doc tr:nth-child(2n) {
+  background-color: rgba(139, 82, 253, 0.04);
+}
+
+.vp-doc th {
+  color: var(--vp-c-text-1);
+  background-color: rgba(139, 82, 253, 0.08);
+}
+
+.vp-doc td {
+  color: var(--vp-c-text-2);
 }
 
 /* ── Home page quick start section ── */
