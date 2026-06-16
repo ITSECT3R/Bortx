@@ -6,9 +6,9 @@
   "author": "Bortx Contributors",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ITSECT3R/bortx.git"
+    "url": "git+https://github.com/ITSECT3R/Bortx.git"
   },
-  "homepage": "https://github.com/ITSECT3R/bortx#readme",
+  "homepage": "https://github.com/ITSECT3R/Bortx#readme",
   "keywords": [
     "css",
     "animation",
@@ -52,7 +52,10 @@
     "LICENSE",
     "README.md"
   ],
-  "sideEffects": ["*.css", "src/**/index.ts"],
+  "sideEffects": [
+    "*.css",
+    "src/**/index.ts"
+  ],
   "scripts": {
     "lint": "eslint src/",
     "lint:fix": "eslint src/ --fix",

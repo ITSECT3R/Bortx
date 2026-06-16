@@ -4,4 +4,4 @@
 <!-- Do not edit manually — changes will be overwritten -->
 
 | Contributor | GitHub | Contributions |
-|-------------|--------|---------------|
+| ----------- | ------ | ------------- |
