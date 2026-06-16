@@ -8,6 +8,8 @@ Open-source CSS border & text animation library — pure CSS, framework-agnostic
 npm install bortx
 # or
 bun add bortx
+# or
+pnpm add bortx
 ```
 
 ```ts

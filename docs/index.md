@@ -2,7 +2,7 @@
 layout: home
 hero:
   name: Bortx
-  text: Border & Text Animations from the Vortex
+  text: Professional Border & Text Animations.
   tagline: Pure CSS. Limitless combinations. One import, infinite compositions.
   actions:
     - theme: brand

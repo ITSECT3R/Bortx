@@ -15,3 +15,5 @@ import './shared';
 // effects exists (glow-ring). Do NOT re-wire alt effects
 // until explicitly requested by maintainers. See plan.md "Future".
 // import './alt';
+
+export {};

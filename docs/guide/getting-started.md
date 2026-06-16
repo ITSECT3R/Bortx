@@ -3,13 +3,11 @@
 ## Installation
 
 ```bash
-# Coming soon — not yet published to npm
-# npm install bortx
-# bun add bortx
-
-# For now, clone and import locally
-import 'bortx/borders';
-import 'bortx/text';
+npm install bortx
+# or
+bun add bortx
+# or
+pnpm add bortx
 ```
 
 ## Import

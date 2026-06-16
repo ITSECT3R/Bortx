@@ -1,6 +1,6 @@
 {
   "name": "bortx",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Open-source CSS border and text animation library",
   "license": "MIT",
   "author": "Bortx Contributors",
@@ -30,19 +30,16 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.js",
-      "default": "./dist/index.css"
+      "import": "./dist/index.js"
     },
     "./borders": {
       "types": "./dist/borders/index.d.ts",
-      "import": "./dist/borders/index.js",
-      "default": "./dist/borders/index.css"
+      "import": "./dist/borders/index.js"
     },
     "./borders/styles": "./dist/borders/base.css",
     "./text": {
       "types": "./dist/text/index.d.ts",
-      "import": "./dist/text/index.js",
-      "default": "./dist/text/index.css"
+      "import": "./dist/text/index.js"
     },
     "./text/styles": "./dist/text/base.css",
     "./react": {
@@ -51,9 +48,11 @@
     }
   },
   "files": [
-    "dist"
+    "dist",
+    "LICENSE",
+    "README.md"
   ],
-  "sideEffects": true,
+  "sideEffects": ["*.css", "src/**/index.ts"],
   "scripts": {
     "lint": "eslint src/",
     "lint:fix": "eslint src/ --fix",

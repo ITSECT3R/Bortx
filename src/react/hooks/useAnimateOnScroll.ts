@@ -200,11 +200,13 @@ export function useAnimateOnScrollMany<T extends HTMLElement = HTMLElement>(
       }
     }
 
-    const observer = new IntersectionObserver(
-      entries => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            elements.forEach((el, index) => {
+    const observers: IntersectionObserver[] = [];
+
+    elements.forEach((el, index) => {
+      const observer = new IntersectionObserver(
+        entries => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
               const id = setTimeout(() => {
                 el.classList.add('is-animated');
                 setAreAnimated(prev => {
@@ -214,36 +216,33 @@ export function useAnimateOnScrollMany<T extends HTMLElement = HTMLElement>(
                 });
               }, index * staggerDelay);
               timeoutsRef.current.push(id);
-            });
 
-            if (triggerOnce) {
-              observer.disconnect();
-            }
-          } else if (!triggerOnce) {
-            timeoutsRef.current.forEach(clearTimeout);
-            timeoutsRef.current = [];
-            elements.forEach((el, index) => {
+              if (triggerOnce) {
+                observer.unobserve(el);
+              }
+            } else if (!triggerOnce) {
+              timeoutsRef.current.forEach(clearTimeout);
+              timeoutsRef.current = [];
               el.classList.remove('is-animated');
               setAreAnimated(prev => {
                 const next = [...prev];
                 next[index] = false;
                 return next;
               });
-            });
-          }
-        });
-      },
-      { threshold, rootMargin }
-    );
+            }
+          });
+        },
+        { threshold, rootMargin }
+      );
 
-    if (elements[0]) {
-      observer.observe(elements[0]);
-    }
+      observer.observe(el);
+      observers.push(observer);
+    });
 
     return () => {
       timeoutsRef.current.forEach(clearTimeout);
       timeoutsRef.current = [];
-      observer.disconnect();
+      observers.forEach(o => o.disconnect());
     };
   }, [count, threshold, rootMargin, triggerOnce, staggerDelay]);
 

@@ -223,7 +223,7 @@ Docs site built via `bun run docs:build` (VitePress `build docs`), output in `do
 
 ### npm Package
 
-Controlled by `"files": ["src"]` in `package.json` — only `src/` ships to npm. The `docs/`, `.github/`, and config files stay in the repo but never reach npm. This keeps the installed package lean (~source CSS + TS files only).
+Controlled by `"files": ["dist", "LICENSE", "README.md"]` in `package.json` — only the built `dist/` output, license, and readme ship to npm. The `src/`, `docs/`, `.github/`, and config files stay in the repo. Published via `bun publish` (or `npm publish`).
 
 ## Community & Contribution
 
@@ -241,7 +241,7 @@ Controlled by `"files": ["src"]` in `package.json` — only `src/` ships to npm.
 3. **Theming**: CSS custom properties for all configurable values
 4. **React version**: React 17+ (peer dependency, optional)
 5. **Package manager**: Bun
-6. **Build tool**: TBD (Vite library mode preferred per prior experience)
+6. **Build tool**: tsup (ESM + CSS bundling + DTS generation)
 7. **`@property` browser caveat**: Chromium-only. Acceptable for a v0 library; Firefox/Safari degrade gracefully (animations jump instead of interpolate)
 8. **Alt effects**: Deferred to future release — current priority is Chromium-first, cross-browser later
 9. **Testing framework**: Vitest (matches Bun toolchain) + Playwright for visual regression

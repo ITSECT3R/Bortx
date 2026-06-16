@@ -1,5 +1,5 @@
 import { defineConfig } from 'tsup';
-import { cp } from 'node:fs/promises';
+import { cp, readFile, writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 
 export default defineConfig({
@@ -28,5 +28,16 @@ export default defineConfig({
   async onSuccess() {
     await cp(resolve('src/borders/base.css'), resolve('dist/borders/base.css'));
     await cp(resolve('src/text/base.css'), resolve('dist/text/base.css'));
+
+    const cssImport = `import './index.css';\n`;
+    const entries = [
+      resolve('dist/index.js'),
+      resolve('dist/borders/index.js'),
+      resolve('dist/text/index.js'),
+    ];
+    for (const entry of entries) {
+      const content = await readFile(entry, 'utf-8');
+      await writeFile(entry, cssImport + content);
+    }
   },
 });
