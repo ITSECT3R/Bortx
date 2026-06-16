@@ -106,14 +106,14 @@ This prevents collisions when both libraries are used on the same page.
 
 ### Framework Compatibility
 
-| Framework | Status                                                |
-| --------- | ----------------------------------------------------- |
-| **CSS core** | Framework-agnostic — works anywhere with class names |
-| **React**    | First-class support via `useAnimateOnScroll` hooks  |
-| **Vue**      | Use vanilla JS `initTextAnimations()` or manual `.is-animated` toggle; dedicated composable planned (Phase 3) |
-| **Angular**  | Use vanilla JS trigger; directive planned (Phase 3) |
-| **Tailwind** | Fully compatible — CSS classes work alongside Tailwind utilities; dedicated Tailwind plugin planned (Phase 4) |
-| **Svelte / Solid / plain HTML** | Use vanilla JS trigger or manual class toggle |
+| Framework                       | Status                                                                                                        |
+| ------------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| **CSS core**                    | Framework-agnostic — works anywhere with class names                                                          |
+| **React**                       | First-class support via `useAnimateOnScroll` hooks                                                            |
+| **Vue**                         | Use vanilla JS `initTextAnimations()` or manual `.is-animated` toggle; dedicated composable planned (Phase 3) |
+| **Angular**                     | Use vanilla JS trigger; directive planned (Phase 3)                                                           |
+| **Tailwind**                    | Fully compatible — CSS classes work alongside Tailwind utilities; dedicated Tailwind plugin planned (Phase 4) |
+| **Svelte / Solid / plain HTML** | Use vanilla JS trigger or manual class toggle                                                                 |
 
 ## Roadmap
 
@@ -198,22 +198,22 @@ This prevents collisions when both libraries are used on the same page.
 
 ## Testing Strategy
 
-| Layer            | Tool       | Scope                                                |
-| ---------------- | ---------- | ---------------------------------------------------- |
+| Layer            | Tool       | Scope                                                                                             |
+| ---------------- | ---------- | ------------------------------------------------------------------------------------------------- |
 | **Unit tests**   | Vitest     | JS helpers (`applyTextConfig`, `applyColorPreset`, `getPresetByClass`), React hooks, auto-animate |
-| **Visual tests** | Playwright | Screenshot comparison of each effect + modifier combo across browsers |
-| **Lint**         | ESLint     | All `.ts` files (CI gate)                            |
-| **Type check**   | tsc        | `tsc --noEmit` on all `src/` (CI gate)               |
-| **Format check** | Prettier   | `prettier --check` (CI gate)                         |
+| **Visual tests** | Playwright | Screenshot comparison of each effect + modifier combo across browsers                             |
+| **Lint**         | ESLint     | All `.ts` files (CI gate)                                                                         |
+| **Type check**   | tsc        | `tsc --noEmit` on all `src/` (CI gate)                                                            |
+| **Format check** | Prettier   | `prettier --check` (CI gate)                                                                      |
 
 ## CI/CD Pipelines (GitHub Actions)
 
-| Workflow              | Trigger          | Actions                                           |
-| --------------------- | ---------------- | ------------------------------------------------- |
-| **PR Check**          | Pull request     | Lint, typecheck, format check, unit tests         |
-| **Main CI**           | Push to `main`   | Lint, typecheck, format check, unit + visual tests |
-| **Docs Deploy**       | Push to `main`   | Build VitePress → deploy to GitHub Pages          |
-| **Release**           | Tag push / manual| Run tests, build, publish to npm                  |
+| Workflow        | Trigger           | Actions                                            |
+| --------------- | ----------------- | -------------------------------------------------- |
+| **PR Check**    | Pull request      | Lint, typecheck, format check, unit tests          |
+| **Main CI**     | Push to `main`    | Lint, typecheck, format check, unit + visual tests |
+| **Docs Deploy** | Push to `main`    | Build VitePress → deploy to GitHub Pages           |
+| **Release**     | Tag push / manual | Run tests, build, publish to npm                   |
 
 ## Deployment
 

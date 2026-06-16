@@ -9,5 +9,9 @@ import './base.css';
 import './effects';
 import './modifiers';
 import './shared';
-// Alt effects — future release (see plan.md Phase 3)
+// Alt border effects intentionally excluded from v1.
+// They use alternative rendering (no -webkit-mask dependency)
+// for broader Firefox/Safari support. Only 1 of 11 planned
+// effects exists (glow-ring). Do NOT re-wire alt effects
+// until explicitly requested by maintainers. See plan.md "Future".
 // import './alt';

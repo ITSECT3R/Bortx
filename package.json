@@ -3,6 +3,26 @@
   "version": "0.0.1",
   "description": "Open-source CSS border and text animation library",
   "license": "MIT",
+  "author": "Bortx Contributors",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ITSECT3R/bortx.git"
+  },
+  "homepage": "https://github.com/ITSECT3R/bortx#readme",
+  "keywords": [
+    "css",
+    "animation",
+    "border",
+    "text",
+    "css-animations",
+    "border-effects",
+    "text-effects",
+    "react",
+    "typescript",
+    "css-library",
+    "frontend",
+    "ui-effects"
+  ],
   "type": "module",
   "exports": {
     ".": "./src/index.ts",
