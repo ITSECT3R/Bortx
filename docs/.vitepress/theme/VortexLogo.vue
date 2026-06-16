@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import 'bortx/logo';
-import 'bortx/borders';
+import '@itsect3r/bortx/logo';
+import '@itsect3r/bortx/borders';
 
 defineProps<{
   size?: 'sm' | 'lg' | 'xl';

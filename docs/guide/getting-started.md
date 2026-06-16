@@ -3,11 +3,11 @@
 ## Installation
 
 ```bash
-npm install bortx
+npm install @itsect3r/bortx
 # or
-bun add bortx
+bun add @itsect3r/bortx
 # or
-pnpm add bortx
+pnpm add @itsect3r/bortx
 ```
 
 ## Import
@@ -16,26 +16,29 @@ The library ships as raw CSS + TypeScript barrel files. Import what you need:
 
 ```ts
 // Everything — borders, text, React hooks, vanilla JS trigger
-import 'bortx';
+import '@itsect3r/bortx';
 
 // Just borders
-import 'bortx/borders';
+import '@itsect3r/bortx/borders';
 
 // Just text (CSS + vanilla JS trigger + JS helpers)
-import 'bortx/text';
+import '@itsect3r/bortx/text';
 
 // Named JS exports from text module
 import {
   initTextAnimations,
   applyTextConfig,
   applyColorPreset,
-} from 'bortx/text';
+} from '@itsect3r/bortx/text';
 
 // React hooks only (no CSS)
-import { useAnimateOnScroll, useAnimateOnScrollMany } from 'bortx/react';
+import {
+  useAnimateOnScroll,
+  useAnimateOnScrollMany,
+} from '@itsect3r/bortx/react';
 
 // Vanilla JS auto-animate trigger only (no React)
-import { initTextAnimations } from 'bortx/text';
+import { initTextAnimations } from '@itsect3r/bortx/text';
 ```
 
 ## Usage
@@ -100,7 +103,7 @@ Available presets: `.text-colors-sunset`, `.text-colors-ocean`, `.text-colors-cy
 **3. JS config helper (programmatic, type-safe):**
 
 ```ts
-import { applyTextConfig } from 'bortx/text';
+import { applyTextConfig } from '@itsect3r/bortx/text';
 
 const el = document.querySelector('.hero-title')!;
 applyTextConfig(el, {
@@ -115,7 +118,7 @@ Text animations are **paused by default**. The `.is-animated` class triggers the
 **Method 1: React Hook**
 
 ```tsx
-import { useAnimateOnScroll } from 'bortx/react';
+import { useAnimateOnScroll } from '@itsect3r/bortx/react';
 
 function Heading() {
   const { ref } = useAnimateOnScroll();
@@ -134,7 +137,7 @@ function Heading() {
 **Method 2: Vanilla JS**
 
 ```ts
-import { initTextAnimations } from 'bortx/text';
+import { initTextAnimations } from '@itsect3r/bortx/text';
 
 // Call once — watches all .text-effect elements
 initTextAnimations();

@@ -67,11 +67,14 @@ There is no `build` yet — the library ships source CSS directly.
 ### Import Paths
 
 ```ts
-import 'bortx/borders'; // All border effects + modifiers (pro + shared)
-import 'bortx/borders/styles'; // CSS base only (no TS)
-import 'bortx/text'; // All text CSS + TS exports (effects, modifiers, helpers)
-import 'bortx/text/styles'; // CSS base only (no TS)
-import { useAnimateOnScroll, useAnimateOnScrollMany } from 'bortx/react';
+import '@itsect3r/bortx/borders'; // All border effects + modifiers (pro + shared)
+import '@itsect3r/bortx/borders/styles'; // CSS base only (no TS)
+import '@itsect3r/bortx/text'; // All text CSS + TS exports (effects, modifiers, helpers)
+import '@itsect3r/bortx/text/styles'; // CSS base only (no TS)
+import {
+  useAnimateOnScroll,
+  useAnimateOnScrollMany,
+} from '@itsect3r/bortx/react';
 import {
   applyTextConfig,
   applyColorPreset,
@@ -81,13 +84,13 @@ import {
   glowPresets,
   allColorPresets,
   getPresetByClass,
-} from 'bortx/text';
+} from '@itsect3r/bortx/text';
 import type {
   TextEffectConfig,
   GradientPreset,
   GlitchPreset,
   GlowPreset,
-} from 'bortx/text';
+} from '@itsect3r/bortx/text';
 ```
 
 ### Border Effects

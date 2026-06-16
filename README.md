@@ -5,20 +5,20 @@ Open-source CSS border & text animation library — pure CSS, framework-agnostic
 ## Quick Start
 
 ```bash
-npm install bortx
+npm install @itsect3r/bortx
 # or
-bun add bortx
+bun add @itsect3r/bortx
 # or
-pnpm add bortx
+pnpm add @itsect3r/bortx
 ```
 
 ```ts
 // Import all effects (borders + text + helpers)
-import 'bortx';
+import '@itsect3r/bortx';
 
 // Or pick what you need
-import 'bortx/borders';
-import 'bortx/text';
+import '@itsect3r/bortx/borders';
+import '@itsect3r/bortx/text';
 ```
 
 ```html
@@ -52,7 +52,7 @@ import 'bortx/text';
 ### React Hooks
 
 ```tsx
-import { useAnimateOnScroll } from 'bortx/react';
+import { useAnimateOnScroll } from '@itsect3r/bortx/react';
 
 function Heading() {
   const { ref } = useAnimateOnScroll({ threshold: 0.2 });
@@ -67,14 +67,14 @@ function Heading() {
 ### Vanilla JS
 
 ```ts
-import { initTextAnimations } from 'bortx/text';
+import { initTextAnimations } from '@itsect3r/bortx/text';
 initTextAnimations({ threshold: 0.2 }); // auto-triggers on scroll
 ```
 
 ### JS Config Helpers
 
 ```ts
-import { applyTextConfig, applyColorPreset } from 'bortx/text';
+import { applyTextConfig, applyColorPreset } from '@itsect3r/bortx/text';
 
 const el = document.querySelector('.text-effect')!;
 applyTextConfig(el, { chars: 12, speed: '3s', gradient: ['#ff0', '#f0f'] });
@@ -83,14 +83,14 @@ applyColorPreset(el, 'text-colors-cyberpunk');
 
 ## Import Map
 
-| Path                   | What you get                                      |
-| ---------------------- | ------------------------------------------------- |
-| `bortx`                | All CSS (borders + text) + JS exports             |
-| `bortx/borders`        | Border effects + modifiers CSS                    |
-| `bortx/borders/styles` | Border base CSS only                              |
-| `bortx/text`           | Text effects + modifiers CSS + JS helpers + types |
-| `bortx/text/styles`    | Text base CSS only                                |
-| `bortx/react`          | React hooks                                       |
+| Path                             | What you get                                      |
+| -------------------------------- | ------------------------------------------------- |
+| `@itsect3r/bortx`                | All CSS (borders + text) + JS exports             |
+| `@itsect3r/bortx/borders`        | Border effects + modifiers CSS                    |
+| `@itsect3r/bortx/borders/styles` | Border base CSS only                              |
+| `@itsect3r/bortx/text`           | Text effects + modifiers CSS + JS helpers + types |
+| `@itsect3r/bortx/text/styles`    | Text base CSS only                                |
+| `@itsect3r/bortx/react`          | React hooks                                       |
 
 ## Framework Support
 

@@ -1,5 +1,5 @@
 {
-  "name": "bortx",
+  "name": "@itsect3r/bortx",
   "version": "0.1.0",
   "description": "Open-source CSS border and text animation library",
   "license": "MIT",
@@ -9,6 +9,9 @@
     "url": "git+https://github.com/ITSECT3R/Bortx.git"
   },
   "homepage": "https://github.com/ITSECT3R/Bortx#readme",
+  "publishConfig": {
+    "access": "public"
+  },
   "keywords": [
     "css",
     "animation",

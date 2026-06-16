@@ -282,8 +282,8 @@ These modifiers work with any `.border-effect` element:
 
 ```typescript
 // Import everything — pro effects, pro modifiers, shared modifiers
-import 'bortx/borders';
+import '@itsect3r/bortx/borders';
 
 // Or CSS-only base (variables, keyframes, core classes only)
-@import 'bortx/borders/styles';
+@import '@itsect3r/bortx/borders/styles';
 ```

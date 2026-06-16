@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { initTextAnimations } from 'bortx/text';
+import { initTextAnimations } from '@itsect3r/bortx/text';
 import { onMounted, onUnmounted } from 'vue';
 
 let cleanup: (() => void) | null = null;

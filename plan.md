@@ -161,11 +161,11 @@ This prevents collisions when both libraries are used on the same page.
 - [x] Bundle CSS to `dist/` (CSS bundled alongside JS per entry point)
 - [x] Generate TypeScript declarations (`tsc --declaration` via tsup)
 - [x] `package.json` exports field finalize for multi-entry (dist/ paths)
-- [ ] npm publish (`bortx`)
+- [ ] npm publish (`@itsect3r/bortx`)
 - [ ] Bundle size tracking (bundlephobia)
 - [ ] Semantic versioning strategy (changesets)
 
-> After Phase 2, users can `bun add bortx` or `npm install bortx` and import effects directly.
+> After Phase 2, users can `bun add @itsect3r/bortx` or `npm install @itsect3r/bortx` and import effects directly.
 
 ---
 
@@ -183,7 +183,7 @@ This prevents collisions when both libraries are used on the same page.
 
 - [x] VitePress documentation site (Phase 1)
 - [x] Interactive sandbox / playground (Phase 1)
-- [ ] Tailwind CSS plugin (utility-first API for bortx effects)
+- [ ] Tailwind CSS plugin (utility-first API for @itsect3r/bortx effects)
 - [ ] Changesets for versioning (automated changelog + version bumping)
 - [ ] VSCode extension exploration (class autocomplete + CSS variable hints, similar to Tailwind CSS IntelliSense)
 - [ ] Storybook or equivalent component demo catalog

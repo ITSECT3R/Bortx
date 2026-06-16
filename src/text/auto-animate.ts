@@ -8,7 +8,7 @@
  *
  * @example
  * ```ts
- * import { initTextAnimations } from 'bortx/text';
+ * import { initTextAnimations } from '@itsect3r/bortx/text';
  * initTextAnimations({ threshold: 0.2 });
  * ```
  */

@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted } from 'vue';
-import { gradientPresets, glitchPresets, glowPresets } from 'bortx/text';
+import {
+  gradientPresets,
+  glitchPresets,
+  glowPresets,
+} from '@itsect3r/bortx/text';
 
 // ========================================
 // Border State

@@ -36,11 +36,11 @@ features:
 
 ```ts
 // Import everything
-import 'bortx';
+import '@itsect3r/bortx';
 
 // Or pick what you need
-import 'bortx/borders';
-import 'bortx/text';
+import '@itsect3r/bortx/borders';
+import '@itsect3r/bortx/text';
 ```
 
 ```html

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import 'bortx/borders';
+import '@itsect3r/bortx/borders';
 </script>
 
 <style>

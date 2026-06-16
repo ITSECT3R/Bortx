@@ -38,7 +38,7 @@ export default defineConfig({
     },
 
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/ITSECT3R/bortx' },
+      { icon: 'github', link: 'https://github.com/ITSECT3R/Bortx' },
     ],
 
     search: {
@@ -54,16 +54,25 @@ export default defineConfig({
   vite: {
     resolve: {
       alias: {
-        'bortx/borders': resolve(__dirname, '../../src/borders/index.ts'),
-        'bortx/borders/styles': resolve(
+        '@itsect3r/bortx/borders': resolve(
+          __dirname,
+          '../../src/borders/index.ts'
+        ),
+        '@itsect3r/bortx/borders/styles': resolve(
           __dirname,
           '../../src/borders/base.css'
         ),
-        'bortx/text': resolve(__dirname, '../../src/text/index.ts'),
-        'bortx/text/styles': resolve(__dirname, '../../src/text/base.css'),
-        'bortx/react': resolve(__dirname, '../../src/react/hooks/index.ts'),
-        'bortx/logo': resolve(__dirname, '../../src/logo/vortex.css'),
-        bortx: resolve(__dirname, '../../src/index.ts'),
+        '@itsect3r/bortx/text': resolve(__dirname, '../../src/text/index.ts'),
+        '@itsect3r/bortx/text/styles': resolve(
+          __dirname,
+          '../../src/text/base.css'
+        ),
+        '@itsect3r/bortx/react': resolve(
+          __dirname,
+          '../../src/react/hooks/index.ts'
+        ),
+        '@itsect3r/bortx/logo': resolve(__dirname, '../../src/logo/vortex.css'),
+        '@itsect3r/bortx': resolve(__dirname, '../../src/index.ts'),
       },
     },
     css: {

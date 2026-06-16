@@ -186,7 +186,7 @@ Three approaches to configure text effects, from simplest to most flexible:
 ### C: JS Helper (programmatic, type-safe)
 
 ```ts
-import { applyTextConfig, applyColorPreset } from 'bortx/text';
+import { applyTextConfig, applyColorPreset } from '@itsect3r/bortx/text';
 
 const el = document.querySelector('.my-text')!;
 
@@ -255,7 +255,7 @@ All configurable custom properties:
 ### Vanilla JS (`initTextAnimations`)
 
 ```ts
-import { initTextAnimations } from 'bortx/text';
+import { initTextAnimations } from '@itsect3r/bortx/text';
 
 // Auto-adds .is-animated when elements enter viewport
 const cleanup = initTextAnimations({
@@ -271,7 +271,7 @@ cleanup();
 ### React (`useAnimateOnScroll`)
 
 ```tsx
-import { useAnimateOnScroll } from 'bortx/react';
+import { useAnimateOnScroll } from '@itsect3r/bortx/react';
 
 function MyComponent() {
   const { ref } = useAnimateOnScroll({ threshold: 0.5, delay: 200 });
@@ -290,7 +290,7 @@ function MyComponent() {
 ### React — Multiple Elements (`useAnimateOnScrollMany`)
 
 ```tsx
-import { useAnimateOnScrollMany } from 'bortx/react';
+import { useAnimateOnScrollMany } from '@itsect3r/bortx/react';
 
 function StaggeredReveal() {
   const words = ['Full', 'Stack', 'Developer'];
@@ -340,7 +340,7 @@ return (
 ### Cyberpunk Glitch with Glow (JS helper)
 
 ```ts
-import { applyTextConfig, applyColorPreset } from 'bortx/text';
+import { applyTextConfig, applyColorPreset } from '@itsect3r/bortx/text';
 
 const el = document.querySelector('.hero-title')!;
 applyTextConfig(el, {

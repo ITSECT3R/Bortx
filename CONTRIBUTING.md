@@ -6,8 +6,8 @@ Thanks for your interest in contributing! Bortx is a pure-CSS animation library 
 
 ```bash
 # Clone
-git clone git@github.com:ITSECT3R/bortx.git
-cd bortx
+git clone git@github.com:ITSECT3R/Bortx.git
+cd Bortx
 
 # Install dependencies (Bun is the package manager)
 bun install
@@ -115,4 +115,4 @@ PRs are checked automatically by GitHub Actions (lint, typecheck, format check, 
 
 ## Questions?
 
-Open a [GitHub Discussion](https://github.com/ITSECT3R/bortx/discussions) or issue.
+Open a [GitHub Discussion](https://github.com/ITSECT3R/Bortx/discussions) or issue.

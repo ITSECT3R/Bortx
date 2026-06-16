@@ -1,7 +1,7 @@
 import { h } from 'vue';
 import DefaultTheme from 'vitepress/theme';
-import 'bortx/borders';
-import 'bortx/text';
+import '@itsect3r/bortx/borders';
+import '@itsect3r/bortx/text';
 import './custom.css';
 import FeatureBorders from './FeatureBorders.vue';
 import VortexLogo from './VortexLogo.vue';
