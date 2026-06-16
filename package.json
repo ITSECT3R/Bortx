@@ -24,16 +24,34 @@
     "ui-effects"
   ],
   "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "exports": {
-    ".": "./src/index.ts",
-    "./borders": "./src/borders/index.ts",
-    "./borders/styles": "./src/borders/base.css",
-    "./text": "./src/text/index.ts",
-    "./text/styles": "./src/text/base.css",
-    "./react": "./src/react/hooks/index.ts"
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.css"
+    },
+    "./borders": {
+      "types": "./dist/borders/index.d.ts",
+      "import": "./dist/borders/index.js",
+      "default": "./dist/borders/index.css"
+    },
+    "./borders/styles": "./dist/borders/base.css",
+    "./text": {
+      "types": "./dist/text/index.d.ts",
+      "import": "./dist/text/index.js",
+      "default": "./dist/text/index.css"
+    },
+    "./text/styles": "./dist/text/base.css",
+    "./react": {
+      "types": "./dist/react/hooks/index.d.ts",
+      "import": "./dist/react/hooks/index.js"
+    }
   },
   "files": [
-    "src"
+    "dist"
   ],
   "sideEffects": true,
   "scripts": {
@@ -42,10 +60,13 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
     "dev": "vitepress dev docs",
     "docs:build": "vitepress build docs",
     "docs:preview": "vitepress preview docs",
-    "build": "echo 'Build step not configured yet — see plan.md'"
+    "build": "tsup"
   },
   "peerDependencies": {
     "react": ">=17.0.0"
@@ -57,11 +78,20 @@
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
-    "@types/react": "^19.2.16",
+    "@testing-library/react": "^16.3.2",
+    "@types/react": "19.2.7",
+    "@types/react-dom": "^19.2.3",
+    "@vitest/coverage-v8": "^4.1.8",
+    "@vitest/ui": "^4.1.8",
     "eslint": "^10.4.1",
+    "jsdom": "^29.1.1",
     "prettier": "^3.8.3",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "tsup": "^8.5.1",
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.60.1",
-    "vitepress": "^1.6.4"
+    "vitepress": "^1.6.4",
+    "vitest": "^4.1.8"
   }
 }

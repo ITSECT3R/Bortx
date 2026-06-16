@@ -138,18 +138,18 @@ This prevents collisions when both libraries are used on the same page.
 - [x] Verified border and text effects functionality
 - [x] `package.json` exports field configured
 - [x] `"files": ["src"]` set — npm/bun install pulls only library code, excludes docs
-- [ ] Create `README.md` (GitHub landing page + npm package page)
-- [ ] Create `CONTRIBUTING.md` (developer guide for PRs, forks, local dev setup)
-- [ ] Finalize and polish documentation site structure (guide pages, demos, sandbox)
-- [ ] Set up Vitest + initial tests (unit tests for JS helpers, auto-animate, hooks)
+- [x] Create `README.md` (GitHub landing page + npm package page)
+- [x] Create `CONTRIBUTING.md` (developer guide for PRs, forks, local dev setup)
+- [x] Finalize and polish documentation site structure (guide pages, demos, sandbox)
+- [x] Set up Vitest + initial tests (unit tests for JS helpers, auto-animate, hooks)
 - [ ] Set up Playwright for visual regression testing of effects
-- [ ] GitHub Actions CI/CD workflows:
+- [x] GitHub Actions CI/CD workflows:
   - Lint + typecheck + format check on PRs
   - Run tests on PRs
   - Build and deploy VitePress docs to GitHub Pages (on push to main)
-- [ ] Add package.json metadata (keywords, repository, homepage, author)
-- [ ] Update `tsconfig.json` as needed for build step compatibility
-- [ ] Deploy documentation site to GitHub Pages via GitHub Actions
+- [x] Add package.json metadata (keywords, repository, homepage, author)
+- [x] Update `tsconfig.json` as needed for build step compatibility
+- [x] Deploy documentation site to GitHub Pages via GitHub Actions (workflow configured)
 
 > **Gate for Phase 2**: All Phase 1 checkboxes above must be complete before moving to Phase 2. The docs site must be live on GitHub Pages and the library verified installable via local npm/bun link.
 
@@ -157,10 +157,10 @@ This prevents collisions when both libraries are used on the same page.
 
 ### Phase 2 — Package & Publish
 
-- [ ] Build step (tsup or Vite library mode)
-- [ ] Bundle CSS to single `dist/styles.css`
-- [ ] Generate TypeScript declarations (`tsc --declaration`)
-- [ ] `package.json` exports field finalize for multi-entry (already structured, may need `dist/` paths)
+- [x] Build step (tsup)
+- [x] Bundle CSS to `dist/` (CSS bundled alongside JS per entry point)
+- [x] Generate TypeScript declarations (`tsc --declaration` via tsup)
+- [x] `package.json` exports field finalize for multi-entry (dist/ paths)
 - [ ] npm publish (`bortx`)
 - [ ] Bundle size tracking (bundlephobia)
 - [ ] Semantic versioning strategy (changesets)
