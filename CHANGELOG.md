@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.1.1] - 2026-06-16
+
+### Fixed
+
+- Missing `dist/` directory in published v0.1.0 tarball — added `prepublishOnly` script to guarantee `tsup` build runs before every publish
+- Scoped package `ENOVERSIONS` install error (caused by missing dist/ files referenced in `exports` map)
+
+### Changed
+
+- Package renamed from `bortx` to `@itsect3r/bortx` (scoped, as required by npm registry)
+
 ## [0.1.0] - 2026-06-16
 
 ### Added

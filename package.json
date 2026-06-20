@@ -1,6 +1,6 @@
 {
   "name": "@itsect3r/bortx",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Open-source CSS border and text animation library",
   "license": "MIT",
   "author": "Bortx Contributors",
@@ -60,6 +60,7 @@
     "src/**/index.ts"
   ],
   "scripts": {
+    "prepublishOnly": "bun run build",
     "lint": "eslint src/",
     "lint:fix": "eslint src/ --fix",
     "format": "prettier --write .",
