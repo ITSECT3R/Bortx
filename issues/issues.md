@@ -1,9 +1,4 @@
-## Issues Found
-
-### #4 Barrel import `@itsect3r/bortx` requires React
-
-- **Severity:** Medium — breaks vanilla JS / non-React projects.
-- `import '@itsect3r/bortx'` loads `dist/index.js`, which inline-imports React hooks:
+## Issues Found 0
 
 ```
 
