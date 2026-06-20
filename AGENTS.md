@@ -9,8 +9,8 @@ Two independent, pure-CSS animation libraries:
 - **`src/react/hooks/`** — React hooks for scroll-triggered text animations
 - **`src/logo/`** — Internal assets (vortex logo CSS + HTML), used by VitePress theme only
 
-This is a **pre-publish** library — no build step or npm package yet.
-Code is raw `.css` + TypeScript barrel files consumed via bundler imports.
+This is a **published** library (`@itsect3r/bortx` on npm) — built via tsup to `dist/`.
+Source is raw `.css` + TypeScript. Compiled output is shipped to npm via the `dist/` directory.
 
 ## Architecture
 
@@ -58,9 +58,13 @@ bun run lint:fix      # ESLint auto-fix
 bun run format        # Prettier write
 bun run format:check  # Prettier check (CI mode)
 bun run typecheck     # tsc --noEmit
+bun run test          # vitest (57 tests)
+bun run build         # tsup bundle to dist/
+bun run docs:build    # vitepress build docs
+bun run dev           # vitepress dev docs
 ```
 
-There is no `build` yet — the library ships source CSS directly.
+Build: `bun run build` (tsup) outputs to `dist/`. `prepublishOnly` guarantees build before publish.
 
 ## API Reference
 
@@ -156,7 +160,7 @@ CSS `@property` is used for animatable custom properties.
 - `prefers-reduced-motion` is implemented in both border and text `base.css` files
 - Alt border effects (no webkit-mask dependency) are planned for a future release — see plan.md
 - Framework wrappers (React/Vue/Angular components) are planned but not built — only the React hook exists
-- No build step configured — `src/` is shipped directly
+- Built via tsup to `dist/`; `prepublishOnly` guarantees build before publish
 
 ## Docs
 

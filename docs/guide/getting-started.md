@@ -12,10 +12,10 @@ pnpm add @itsect3r/bortx
 
 ## Import
 
-The library ships as raw CSS + TypeScript barrel files. Import what you need:
+The library ships compiled CSS and TypeScript declarations. Import what you need:
 
 ```ts
-// Everything — borders, text, React hooks, vanilla JS trigger
+// Everything — borders CSS, text CSS, vanilla JS helpers, color presets
 import '@itsect3r/bortx';
 
 // Just borders

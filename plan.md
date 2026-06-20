@@ -59,7 +59,7 @@ src/
 │   └── hooks/
 │       ├── useAnimateOnScroll.ts       # Scroll-triggered hooks (single + many)
 │       └── index.ts                    # Barrel export
-└── index.ts                  # Root entry — imports borders + text, exports React hooks
+└── index.ts                  # Root entry — imports borders + text CSS, exports vanilla JS helpers + color preset types
 ```
 
 ## Tooling
@@ -73,7 +73,7 @@ src/
 | **Vitest**                                      | Unit testing (planned)         |
 | **Playwright**                                  | Visual regression (planned)    |
 
-Build tooling (tsup or Vite library mode) will be added when we need compiled output for npm publishing.
+Build tooling: tsup (ESM + CSS bundling + DTS generation). Outputs to `dist/`. `prepublishOnly` script guarantees build before publish.
 
 ## Design Decisions
 
@@ -228,8 +228,8 @@ Controlled by `"files": ["dist", "LICENSE", "README.md"]` in `package.json` — 
 ## Community & Contribution
 
 - **LICENSE**: MIT — permissive, well-understood, easy for forks and commercial use
-- **README.md** (to create): Project overview, quick start, feature grid, links to docs, contributing, license
-- **CONTRIBUTING.md** (to create): Local dev setup (`bun install`, `bun run dev`), coding conventions, PR process, issue templates, testing expectations
+- **README.md**: Project overview, quick start, feature grid, links to docs, contributing, license
+- **CONTRIBUTING.md**: Local dev setup, coding conventions, PR process, testing expectations
 - **AGENTS.md**: AI/agent development guide (exists)
 - **GitHub Issues**: Templates TBD (bug report, feature request)
 - **Pull Request template**: TBD

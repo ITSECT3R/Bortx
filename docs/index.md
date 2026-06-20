@@ -29,7 +29,7 @@ features:
     details: No combinatorial explosion. Effects + modifiers = simple, predictable CSS. A new modifier is one file.
   - icon: 📦
     title: Zero Dependencies
-    details: No runtime JS for the CSS core. The React hook is optional, tree-shakeable, and a peer dependency. Ships as raw CSS.
+    details: No runtime JS for the CSS core. The React hook is optional, tree-shakeable, and a peer dependency. Pure CSS — no preprocessors, no runtime.
 ---
 
 ## Quick Start
