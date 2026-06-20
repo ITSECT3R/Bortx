@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.1.2] - 2026-06-20
+
+### Changed
+
+- **Breaking:** Root barrel `@itsect3r/bortx` no longer exports React hooks — it now loads CSS + vanilla JS helpers + types only. React hooks must be imported from `@itsect3r/bortx/react`. This keeps the root import framework-agnostic and avoids requiring `react` as a hard dependency for vanilla JS projects.
+
 ## [0.1.1] - 2026-06-16
 
 ### Fixed

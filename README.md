@@ -85,7 +85,7 @@ applyColorPreset(el, 'text-colors-cyberpunk');
 
 | Path                             | What you get                                      |
 | -------------------------------- | ------------------------------------------------- |
-| `@itsect3r/bortx`                | All CSS (borders + text) + JS exports             |
+| `@itsect3r/bortx`                | CSS (borders + text) + vanilla JS helpers + types |
 | `@itsect3r/bortx/borders`        | Border effects + modifiers CSS                    |
 | `@itsect3r/bortx/borders/styles` | Border base CSS only                              |
 | `@itsect3r/bortx/text`           | Text effects + modifiers CSS + JS helpers + types |
